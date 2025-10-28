@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=1280" /><script type="text/javascript">window.noAdaptive=true;</script> 
+    <title>Магазин - CHECHEVATA</title>
+    
+    <meta http-equiv="x-dns-prefetch-control" content="on"> 
+    <link rel="dns-prefetch" href="https://ws.tildacdn.com"> 
+    <link rel="dns-prefetch" href="https://static.tildacdn.info">
+    <script src="https://neo.tildacdn.com/js/tilda-fallback-1.0.min.js" async charset="utf-8"></script>
+
+    <link rel="apple-touch-icon" sizes="60x60" href="../favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../favicon/apple-icon-76x76.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon/favicon.ico">
+    <link rel="manifest" href="../favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="../favicon/ms-icon-144x144.png">
+
+    <style>
+    /* Сброс стилей и базовая сетка */
+    *,*:before,*:after{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}div,span,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,code,img,b,u,i,center,table,tr,th,td,video{margin:0;padding:0;border:0}.t-container{margin-left:auto;margin-right:auto;width:100%;max-width:1200px;padding:0}.t-col{display:inline;float:left;margin-left:20px;margin-right:20px;width:100%}.t-col_4{max-width:360px}.t-align_center{text-align:center}.t-margin_auto{margin-left:auto;margin-right:auto}
+    @media screen and (max-width:960px){.t-col{display:block;float:none;padding-left:20px;padding-right:20px;margin:0;width:100%;max-width:100%;box-sizing:border-box}.t-col_4{width:100%;max-width:100%}}
+
+    /* Основные стили страницы: Фон, Шрифт, Акцентный цвет */
+    .t-body{margin:0px; background-color:#131312;}
+    .t-records{-webkit-font_smoothing:antialiased;background-color:none}
+    /* Общий оранжевый цвет ссылок в t-records (для футера) */
+    .t-records a{color:#ff8562;text-decoration:none} 
+    .t-name, .t-title, .t-descr, .tn-atom {font-family:'TildaSans',Arial,sans-serif; color:#ffffff;} 
+    .t-name_xs{font-size:16px;line-height:1.35; font-weight:600;}
+    .t-title_xxs{font-size:36px;line-height:1.23; font-weight:600;}
+    .t-descr_md{font-size:20px;line-height:1.55; font-weight:300;}
+    .t-rec_pt_45{padding-top:45px}.t-rec_pb_45{padding-bottom:45px}.t-rec_pt_90{padding-top:90px}.t-rec_pb_90{padding-bottom:90px}
+
+    /* Стили кнопки: БЕЛЫЙ ФОН, ЧЕРНЫЙ ТЕКСТ */
+    .t-submit{
+        background-color:#ffffff; 
+        color:#000000 !important; 
+        border:none; 
+        padding:10px 20px; 
+        font-family:'TildaSans',Arial,sans-serif; 
+        font-weight:600; 
+        cursor:pointer; 
+        min-width: 150px; 
+        border-radius: 3px;
+        display: inline-block; 
+        text-decoration: none; 
+        line-height: 1.5; 
+        text-align: center;
+    }
+    
+    /* Zero Block (t396) для Шапки */
+    .t396{-webkit-text-size-adjust:100%}.t396__artboard{position:relative;width:100%;height:100vh;overflow:hidden}.t396 .tn-atom{display:table-cell;vertical-align:middle;width:100%}
+
+    /* Галерея (t214) для Товаров */
+    .t214__col:nth-child(1n+4){margin-top:40px}.t214__blockimg{max-width:360px;height:360px; background-size: cover; background-position: center;}.t214__blockimg+.t214__textwrapper{margin-top:20px}.t214__descr{font-size:14px;line-height:24px; color:#aaaaaa!important;}.t214__title+.t214__descr{margin-top:14px}
+    
+    /* Анимации */
+    .t-animate[data-animate-style=fadeinup]{opacity:0;-webkit-transform:translateY(100px);transform:translateY(100px)}.t-animate_started[data-animate-style=fadeinup]{opacity:1;-webkit-transform:none;transform:none}
+    
+    /* ====================================== */
+    /* МОБИЛЬНАЯ АДАПТИВНОСТЬ (до 640px) */
+    /* ====================================== */
+    @media screen and (max-width: 960px) {
+        /* Типографика на мобильных */
+        .t-title_xxs{font-size:28px;}
+        .t-descr_md{font-size:16px;}
+        .t-name_xs{font-size:18px;}
+    }
+    
+    @media screen and (max-width: 640px) {
+        /* Адаптация Шапки (Zero Block) */
+        .t396__artboard {height: 120px!important;}
+        .tn-elem__logo {
+            font-size: 30px!important; 
+            top: 25px!important; 
+            left: calc(50% - 300px + 20px)!important; 
+            width: 180px!important;
+        }
+        .tn-elem__nav {
+            top: 70px!important; 
+            right: calc(50% - 300px + 20px)!important; 
+            text-align: center!important;
+            width: 100%!important;
+            left: 0!important;
+        }
+        .tn-elem__nav .tn-atom a {
+            font-size: 14px!important;
+            margin-right: 15px!important;
+            margin-left: 15px!important;
+        }
+        
+        /* Адаптация товаров (t214) */
+        .t214__col:nth-child(1n+2){margin-top:40px!important}
+        .t214__blockimg{height:280px!important; max-width: 100%!important;}
+    }
+    </style>
+    <style>@font-face { font-family: 'TildaSans'; font-style: normal; font-weight: 250 1000; src: url('https://static.tildacdn.com/fonts/tildasans/TildaSans-VF.woff2') format('woff2-variations'); }</style>
+</head>
+
+<body class="t-body">
+<div id="allrecords" class="t-records">
+
+    <div id="rec_shop_header" class="r t-rec t-rec_pt_45 t-rec_pb_45" style="background-color:#131312;" data-record-type="396">
+        <div class="t396">
+            <div class="t396__artboard" data-artboard-recid="rec_shop_header" data-artboard-height="150" style="height: 150px;">
+                
+                <a href="../index.html" class="tn-elem tn-elem__logo t-animate" data-elem-type="text" style="color:#ffffff; font-size:45px; font-weight:600; top:40px; left:calc(50% - 600px + 20px); width:200px; position:absolute;">
+                    <div class="tn-atom" style="font-family:'TildaSans',Arial,sans-serif;">CHECHEVATA</div>
+                </a>
+
+                <div class="tn-elem tn-elem__nav t-animate" data-elem-type="text" style="top:55px; right:calc(50% - 600px + 20px); width:400px; text-align:right; position:absolute;">
+                    <div class="tn-atom" style="font-family:'TildaSans',Arial,sans-serif; color:#ffffff; font-size:18px;">
+                        <a href="https://chechevata.ru/" style="color:#ffffff; text-decoration:none; margin-right:30px;">Главная</a>
+                        <a href="index.html" style="color:#ffffff; text-decoration:none; margin-right:30px; font-weight:700;">Магазин</a>
+                        <a href="https://chechevata.ru/socials/" style="color:#ffffff; text-decoration:none;">Контакты</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <script>t_onReady(function() {t_onFuncLoad('t396_init',function() {t396_init('rec_shop_header');});});</script>
+    </div>
+
+    <div id="rec_divider" class="r t-rec t-rec_pt_0 t-rec_pb_0" style="background-color:#131312;" data-record-type="363">
+        <div class="t029">
+            <div class="t029__container t-container">
+                <div class="t029__col t-col t-col_8 t-margin_auto">
+                    <div class="t029__linewrapper" style="opacity:0.2;">
+                        <div class="t029__opacity t029__opacity_left" style="background-image: -webkit-linear-gradient(right, #ffffff, rgba(255,255,255, 0));"></div>
+                        <div class="t-divider t029__line" style="background: #ffffff;"></div>
+                        <div class="t029__opacity t029__opacity_right" style="background-image: -webkit-linear-gradient(left, #ffffff, rgba(255,255,255, 0));"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rec_shop_content" class="r t-rec t-rec_pt_90 t-rec_pb_0" style="background-color:#131312; color:#ffffff;" data-record-type="214">
+        <div class="t-section__container t-container">
+            <div class="t-col t-col_12 t-align_center">
+                <h2 class="t-title t-title_xxs t-animate" data-animate-style="fadeinup">МОИ УСЛУГИ</h2>
+                <div class="t-descr t-descr_md t-animate t-margin_auto" data-animate-style="fadeinup" data-animate-delay="0.1" style="color:#aaaaaa; max-width: 600px; margin-top: 20px;">
+                    Здесь вы можете ознакомиться с прайс-листом.
+                </div>
+            </div>
+        </div>
+        
+        <div class="t214 t-container t-rec_pt_45">
+            <div class="t214__container t-container t-container_100">
+                <div class="t-row t-align_center">
+                    
+                    <div class="t214__col t-col t-col_4 t-item t-animate" data-animate-style="fadeinup">
+                        <div class="t214__blockimg" style="background-image: url('../media/studia/4.jpg');">
+                            </div>
+                        <div class="t214__textwrapper">
+                            <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Фотосессия</div>
+                            <div class="t214__descr" style="margin-top: 10px;">Любой формат, любая идея. Ваш каприз - моя реализация.</div>
+                            <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;">от 3 000 ₽</div>
+                            <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Связаться</a>
+                        </div>
+                    </div>
+
+                    <div class="t214__col t-col t-col_4 t-item t-animate" data-animate-style="fadeinup" data-animate-delay="0.2">
+                        <div class="t214__blockimg" style="background-image: url('../media/shop/video.jpg');">
+                            </div>
+                        <div class="t214__textwrapper">
+                            <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Видеосъёмка</div>
+                            <div class="t214__descr" style="margin-top: 10px;">Съёмка в 1080p 60fps с качественным звуком</div>
+                            <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;">от 3 000 ₽</div>
+                            <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Связаться</a>
+                        </div>
+                    </div>
+
+                    <div class="t214__col t-col t-col_4 t-item t-animate" data-animate-style="fadeinup" data-animate-delay="0.4">
+                        <div class="t214__blockimg" style="background-image: url('https://static.tildacdn.info/tild6437-6339-4635-b562-313830323533/__2024-11-08_164029.png');">
+                            </div>
+                        <div class="t214__textwrapper">
+                            <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Ретушь</div>
+                            <div class="t214__descr" style="margin-top: 10px;">Ретушь и цветокоррекция ваших исходников</div>
+                            <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;">500 ₽</div>
+                            <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Связаться</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rec_spacer" 
+         class="r t-rec t-rec_pt_0 t-rec_pb_0" 
+         style="background-color:#131312; padding-top: 850px; padding-bottom: 0;" 
+         data-record-type="blank"
+         data-top-padding-mobile="100">
+        </div>
+
+    <div id="rec_footer" 
+        class="r t-rec t-rec_pt_45 t-rec_pb_45" 
+        style="background-color:#131312;" 
+        data-record-type="107"> 
+        <div class="t107">
+            <div class="t-align_center">
+                <div class="t107__title t-name t-name_xs t-margin_auto" style="color:#ffffff; font-size:14px; font-weight:300; max-width:860px;">© 2025 CHECHEVATA. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="https://static.tildacdn.info/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="https://neo.tildacdn.com/js/tilda-scripts-3.0.min.js"></script>
+<script type="text/javascript" src="https://static.tildacdn.info/js/tilda-animation-1.0.min.js"></script>
+<script type="text/javascript">
+    t_onReady(function(){t_animate.init();});
+</script>
+</body>
+</html>
