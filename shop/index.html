@@ -24,109 +24,160 @@
     <meta name="msapplication-TileImage" content="../favicon/ms-icon-144x144.png">
 
     <style>
-    /* Сброс стилей и базовая сетка */
-    *,*:before,*:after{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}div,span,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,code,img,b,u,i,center,table,tr,th,td,video{margin:0;padding:0;border:0}.t-container{margin-left:auto;margin-right:auto;width:100%;max-width:1200px;padding:0}.t-col{display:inline;float:left;margin-left:20px;margin-right:20px;width:100%}.t-col_4{max-width:360px}.t-align_center{text-align:center}.t-margin_auto{margin-left:auto;margin-right:auto}
-    @media screen and (max-width:960px){.t-col{display:block;float:none;padding-left:20px;padding-right:20px;margin:0;width:100%;max-width:100%;box-sizing:border-box}.t-col_4{width:100%;max-width:100%}}
+    /* 1. ПОДКЛЮЧЕНИЕ ШРИФТА */
+    @font-face {
+        font-family: 'Acidic';
+        src: url('../media/Acidic.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
 
-    /* Основные стили страницы: Фон, Шрифт, Акцентный цвет */
-    .t-body{margin:0px; background-color:#131312;}
-    .t-records{-webkit-font_smoothing:antialiased;background-color:none}
-    /* Общий оранжевый цвет ссылок в t-records (для футера) */
-    .t-records a{color:#ff8562;text-decoration:none} 
-    .t-name, .t-title, .t-descr, .tn-atom {font-family:'TildaSans',Arial,sans-serif; color:#ffffff;} 
-    .t-name_xs{font-size:16px;line-height:1.35; font-weight:600;}
-    .t-title_xxs{font-size:36px;line-height:1.23; font-weight:600;}
-    .t-descr_md{font-size:20px;line-height:1.55; font-weight:300;}
-    .t-rec_pt_45{padding-top:45px}.t-rec_pb_45{padding-bottom:45px}.t-rec_pt_90{padding-top:90px}.t-rec_pb_90{padding-bottom:90px}
+    /* 2. БАЗОВЫЕ НАСТРОЙКИ (Центровка всего сайта) */
+    *, *:before, *:after { -webkit-box-sizing: border-box; box-sizing: border-box; }
+    
+    .t-body { margin: 0; background-color: #131312; color: #ffffff; text-align: center; }
+    .t-container { margin: 0 auto; width: 100%; max-width: 1200px; padding: 0; }
+    
+    /* Исправляем сетку товаров для центровки */
+    .t-row { 
+        display: flex; 
+        flex-wrap: wrap; 
+        justify-content: center; /* Центрирует товары в ряду */
+        margin: 0 auto;
+    }
 
-    /* Стили кнопки: БЕЛЫЙ ФОН, ЧЕРНЫЙ ТЕКСТ */
-    .t-submit{
-        background-color:#ffffff; 
-        color:#000000 !important; 
-        border:none; 
-        padding:10px 20px; 
-        font-family:'TildaSans',Arial,sans-serif; 
-        font-weight:600; 
-        cursor:pointer; 
-        min-width: 150px; 
-        border-radius: 3px;
-        display: inline-block; 
+    .t-col { 
+        display: block;
+        width: 100%;
+        max-width: 380px; /* Ширина одного товара */
+        margin: 20px 10px 40px 10px;
+        text-align: center; 
+    }
+
+    /* 3. ШАПКА (Как в галерее, но с центровкой) */
+    .t396__artboard {
+        position: relative;
+        width: 100%;
+        height: auto !important;
+        min-height: 150px;
+        background-color: #131312;
+        padding: 40px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Центрирует лого и меню */
+    }
+
+    .tn-elem__logo { 
         text-decoration: none; 
-        line-height: 1.5; 
-        text-align: center;
+        margin-bottom: 20px;
+        display: block;
     }
-    
-    /* Zero Block (t396) для Шапки */
-    .t396{-webkit-text-size-adjust:100%}.t396__artboard{position:relative;width:100%;height:100vh;overflow:hidden}.t396 .tn-atom{display:table-cell;vertical-align:middle;width:100%}
 
-    /* Галерея (t214) для Товаров */
-    .t214__col:nth-child(1n+4){margin-top:40px}.t214__blockimg{max-width:360px;height:360px; background-size: cover; background-position: center;}.t214__blockimg+.t214__textwrapper{margin-top:20px}.t214__descr{font-size:14px;line-height:24px; color:#aaaaaa!important;}.t214__title+.t214__descr{margin-top:14px}
-    
-    /* Анимации */
-    .t-animate[data-animate-style=fadeinup]{opacity:0;-webkit-transform:translateY(100px);transform:translateY(100px)}.t-animate_started[data-animate-style=fadeinup]{opacity:1;-webkit-transform:none;transform:none}
-    
-    /* ====================================== */
-    /* МОБИЛЬНАЯ АДАПТИВНОСТЬ (до 640px) */
-    /* ====================================== */
-    @media screen and (max-width: 960px) {
-        /* Типографика на мобильных */
-        .t-title_xxs{font-size:28px;}
-        .t-descr_md{font-size:16px;}
-        .t-name_xs{font-size:18px;}
+    .tn-elem__logo .tn-atom {
+        font-family: 'Acidic', sans-serif !important;
+        font-size: 52px !important;
+        color: #ffffff !important;
+        letter-spacing: 0.05em;
     }
+
+    .tn-elem__nav a {
+        font-family: 'TildaSans', Arial, sans-serif;
+        color: #ffffff;
+        font-size: 16px;
+        text-decoration: none;
+        margin: 0 15px;
+    }
+
+    /* 4. КАРТИНКИ ТОВАРОВ (Возвращаем их видимость) */
+    .t214__blockimg { 
+        display: block;
+        width: 100%; 
+        aspect-ratio: 1 / 1; /* Делает их квадратными */
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat;
+        margin: 0 auto 20px auto;
+        border-radius: 2px;
+    }
+
+    /* 5. ТЕКСТ И КНОПКИ */
+    .t-title, .t-name, .t-descr { font-family: 'TildaSans', Arial, sans-serif; display: block; margin: 0 auto; }
+    .t-title_xxs { font-size: 36px; margin-bottom: 20px; width: 100%; }
     
+    .t-submit {
+        background-color: #ffffff;
+        color: #000000 !important;
+        padding: 12px 30px;
+        border-radius: 3px;
+        font-weight: 600;
+        display: inline-block;
+        text-decoration: none;
+        margin-top: 15px;
+        min-width: 180px;
+    }
+
+    /* Адаптивность для мобилок */
     @media screen and (max-width: 640px) {
-        /* Адаптация Шапки (Zero Block) */
-        .t396__artboard {height: 120px!important;}
-        .tn-elem__logo {
-            font-size: 30px!important; 
-            top: 25px!important; 
-            left: calc(50% - 300px + 20px)!important; 
-            width: 180px!important;
-        }
-        .tn-elem__nav {
-            top: 70px!important; 
-            right: calc(50% - 300px + 20px)!important; 
-            text-align: center!important;
-            width: 100%!important;
-            left: 0!important;
-        }
-        .tn-elem__nav .tn-atom a {
-            font-size: 14px!important;
-            margin-right: 15px!important;
-            margin-left: 15px!important;
-        }
-        
-        /* Адаптация товаров (t214) */
-        .t214__col:nth-child(1n+2){margin-top:40px!important}
-        .t214__blockimg{height:280px!important; max-width: 100%!important;}
+        .tn-elem__logo .tn-atom { font-size: 36px !important; }
+        .t-col { max-width: 100%; padding: 0 20px; }
     }
-    </style>
-    <style>@font-face { font-family: 'TildaSans'; font-style: normal; font-weight: 250 1000; src: url('https://static.tildacdn.com/fonts/tildasans/TildaSans-VF.woff2') format('woff2-variations'); }</style>
+
+    .t-section__title, 
+.t-section__descr, 
+.t-title, 
+.t-descr {
+    text-align: center !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    width: 100% !important;
+}
+
+/* Центрируем сами контейнеры разделов */
+.t-section__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Убираем стандартные отступы Tilda, которые тянут текст влево */
+.t-col_8, .t-col_10, .t-col_12 {
+    float: none !important;
+    margin: 0 auto !important;
+}
+
+/* Если названия разделов — это t-title_xxs */
+.t-title_xxs {
+    text-align: center !important;
+}
+</style>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
 </head>
 
 <body class="t-body">
 <div id="allrecords" class="t-records">
 
-    <div id="rec_shop_header" class="r t-rec t-rec_pt_45 t-rec_pb_45" style="background-color:#131312;" data-record-type="396">
-        <div class="t396">
-            <div class="t396__artboard" data-artboard-recid="rec_shop_header" data-artboard-height="150" style="height: 150px;">
-                
-                <a href="../index.html" class="tn-elem tn-elem__logo t-animate" data-elem-type="text" style="color:#ffffff; font-size:45px; font-weight:600; top:40px; left:calc(50% - 600px + 20px); width:200px; position:absolute;">
-                    <div class="tn-atom" style="font-family:'TildaSans',Arial,sans-serif;">CHECHEVATA</div>
-                </a>
+    <div id="rec_shop_header" class="r t-rec" style="background-color:#131312;">
+    <div class="t396">
+        <div class="t396__artboard">
+            
+            <a href="../index.html" class="tn-elem tn-elem__logo">
+                <div class="tn-atom">CHECHEVATA</div>
+            </a>
 
-                <div class="tn-elem tn-elem__nav t-animate" data-elem-type="text" style="top:55px; right:calc(50% - 600px + 20px); width:400px; text-align:right; position:absolute;">
-                    <div class="tn-atom" style="font-family:'TildaSans',Arial,sans-serif; color:#ffffff; font-size:18px;">
-                        <a href="https://chechevata.ru/" style="color:#ffffff; text-decoration:none; margin-right:30px;">Главная</a>
-                        <a href="index.html" style="color:#ffffff; text-decoration:none; margin-right:30px; font-weight:700;">Магазин</a>
-                        <a href="https://chechevata.ru/socials/" style="color:#ffffff; text-decoration:none;">Контакты</a>
-                    </div>
+            <nav class="tn-elem tn-elem__nav">
+                <div class="tn-atom">
+                    <a href="https://chechevata.ru/">Главная</a>
+                    <a href="index.html" style="font-weight: 700;">Магазин</a>
+                    <a href="https://chechevata.ru/socials/">Контакты</a>
                 </div>
-                </div>
-            </div>
+            </nav>
+
         </div>
+    </div>
+</div>
         <script>t_onReady(function() {t_onFuncLoad('t396_init',function() {t396_init('rec_shop_header');});});</script>
     </div>
 
@@ -198,7 +249,7 @@
 
     <div id="rec_spacer1" 
          class="r t-rec t-rec_pt_0 t-rec_pb_0" 
-         style="background-color:#131312; padding-top: 650px; padding-bottom: 0;" 
+         style="background-color:#131312; padding-top: 150px; padding-bottom: 0;" 
          data-record-type="blank"
          data-top-padding-mobile="100">
     </div>
@@ -337,7 +388,7 @@
 
 <div id="rec_spacer2" 
          class="r t-rec t-rec_pt_0 t-rec_pb_0" 
-         style="background-color:#131312; padding-top: 1150px; padding-bottom: 0;" 
+         style="background-color:#131312; padding-top: 150px; padding-bottom: 0;" 
          data-record-type="blank"
          data-top-padding-mobile="100">
         </div>
@@ -454,7 +505,7 @@
 
     <div id="rec_spacer" 
          class="r t-rec t-rec_pt_0 t-rec_pb_0" 
-         style="background-color:#131312; padding-top: 1150px; padding-bottom: 0;" 
+         style="background-color:#131312; padding-top: 50px; padding-bottom: 0;" 
          data-record-type="blank"
          data-top-padding-mobile="100">
         </div>
@@ -465,7 +516,7 @@
         data-record-type="107"> 
         <div class="t107">
             <div class="t-align_center">
-                <div class="t107__title t-name t-name_xs t-margin_auto" style="color:#ffffff; font-size:14px; font-weight:300; max-width:860px;">© 2025 CHECHEVATA. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</div>
+                <div class="t107__title t-name t-name_xs t-margin_auto" style="color:#ffffff; font-size:14px; font-weight:300; max-width:860px;">© 2026 CHECHEVATA. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</div>
             </div>
         </div>
     </div>
