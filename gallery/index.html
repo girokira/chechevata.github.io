@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=1280" />
-    <title>Галерея - CHECHEVATA</title>
+    <title>Работы - CHECHEVATA</title>
 
     <link rel="apple-touch-icon" sizes="60x60" href="../favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="../favicon/apple-icon-72x72.png">
@@ -29,14 +29,14 @@
         body, html { margin: 0; padding: 0; background-color: #131312; }
         .t-body { font-family: 'TildaSans', Arial, sans-serif; color: #ffffff; overflow-x: hidden; }
         
-        /* 2. ШАПКА (СТРОГО КАК В МАГАЗИНЕ) */
+        /* 2. ШАПКА */
         .t396__artboard {
             width: 100%;
             background-color: #131312;
             padding: 45px 0;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Центрирует всё содержимое */
+            align-items: center;
             text-align: center;
         }
 
@@ -72,7 +72,67 @@
         .t-container { margin: 0 auto; width: 1200px; }
         .t-divider { height: 1px; background-color: #ffffff; opacity: 0.1; width: 100%; }
 
-        /* 4. ГАЛЕРЕЯ (СТИЛЬ: БОЛЬШИЕ ФОТО) */
+        /* 4. ПЕРЕКЛЮЧАТЕЛЬ В СТИЛЕ IOS (APPLE SEGMENT CONTROL) */
+        .toggle-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .ios-segment-control {
+            position: relative;
+            display: flex;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 4px;
+            border-radius: 99px;
+            width: 320px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .segment-btn {
+            position: relative;
+            flex: 1;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            padding: 12px 0;
+            cursor: pointer;
+            text-align: center;
+            z-index: 2;
+            text-transform: uppercase;
+            transition: color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .segment-btn.active {
+            color: #000000;
+        }
+
+        /* Пузырек заднего фона */
+        .segment-bubble {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: #ffffff;
+            border-radius: 99px;
+            z-index: 1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Состояние переключения на видео */
+        .ios-segment-control.video-active .segment-bubble {
+            transform: translateX(100%);
+        }
+
+        /* 5. ГАЛЕРЕЯ И СЕТКА КАРТОЧЕК */
         .t-row { 
             display: flex; 
             flex-wrap: wrap; 
@@ -81,16 +141,16 @@
         }
 
         .t-col { 
-            width: 540px; /* Большие карточки */
+            width: 540px; 
             margin: 0 20px 80px 20px; 
         }
 
         .t214__blockimg {
             width: 100%;
-            height: 600px; /* Высокое портретное фото */
+            height: 600px; 
             background-size: cover;
             background-position: center;
-            border-radius: 20px; /* Закругленные углы */
+            border-radius: 20px; 
             cursor: pointer;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
@@ -100,17 +160,44 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
 
-        /* ТЕКСТ ПОД ФОТО */
+        /* КАРТОЧКА С ВИДЕО RUTUBE */
+        .video-block-wrapper {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #1a1a19;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .video-block-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ТЕКСТ ПОД КАРТОЧКАМИ */
         .t-name_xs { color: #fff; font-size: 22px; font-weight: 600; margin-top: 25px; text-transform: uppercase; text-align: center; }
         .t214__descr { color: #888; font-size: 14px; margin-top: 10px; text-align: center; letter-spacing: 1px; }
 
-        /* СКРЫВАЕМ КНОПКУ "СМОТРЕТЬ СЕРИЮ" */
-        .t-submit { display: none !important; }
-
         /* ЗАГОЛОВОК СТРАНИЦЫ */
-        .t-title_xxs { font-size: 36px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; text-align: center; margin-top: 90px; }
-        .t-descr_md { font-size: 18px; color: #666; text-align: center; margin-top: 15px; margin-bottom: 60px; }
+        .t-title_xxs { font-size: 36px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; text-align: center; margin-top: 60px; }
+        .t-descr_md { font-size: 18px; color: #666; text-align: center; margin-top: 15px; margin-bottom: 50px; }
 
+        /* ВКЛАДКИ ДЛЯ КОНТЕНТА */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* БЛОК "БОЛЬШЕ РАБОТ" */
         .more-works-container {
@@ -121,8 +208,8 @@
         .btn-more {
             display: inline-block;
             padding: 20px 50px;
-            border: 1px solid rgba(255, 255, 255, 0.2); /* Тонкая рамка */
-            border-radius: 50px; /* Овальная форма */
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            border-radius: 50px; 
             color: #ffffff;
             text-decoration: none;
             font-size: 18px;
@@ -136,7 +223,7 @@
             background-color: #ffffff;
             color: #000000;
             border-color: #ffffff;
-            transform: translateY(-3px); /* Легкий подъем */
+            transform: translateY(-3px); 
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
     </style>
@@ -147,6 +234,7 @@
 <body class="t-body">
     <div class="t-records">
 
+        <!-- ШАПКА -->
         <div class="t396__artboard">
             <a href="../index.html" class="tn-elem tn-elem__logo">
                 <div class="tn-atom">CHECHEVATA</div>
@@ -154,7 +242,7 @@
             <nav class="tn-elem tn-elem__nav">
                 <div class="tn-atom">
                     <a href="../index.html">Главная</a>
-                    <a href="index.html" class="active-link">Галерея</a>
+                    <a href="index.html" class="active-link">Работы</a>
                     <a href="../shop/index.html">Прайс-лист</a>
                     <a href="../socials/index.html">Контакты</a>
                 </div>
@@ -163,150 +251,266 @@
 
         <div class="t-container"><div class="t-divider"></div></div>
 
-        <div class="t-container">
-            <h1 class="t-title_xxs">ГАЛЕРЕЯ СЕРИЙ</h1>
-            <p class="t-descr_md">Нажмите на фото, чтобы открыть серию целиком</p>
-        </div>
-
-        <div class="t-container">
-            <div class="t-row">
-                
-                <div class="t-col">
-                    <div class="magnific-gallery-1">
-                        <a href="../media/gallery2/series1_1.jpg" class="gallery-link" title="Зимняя фотосессия"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery2/series1_1.jpg');"></div>
-                        </a>
-                        <a href="../media/gallery2/series1_2.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series1_3.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series1_4.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series1_5.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series1_6.jpg" class="gallery-link" style="display:none"></a>
-                    </div>
-                    <div class="t-name_xs">Зимняя фотосессия</div>
-                    <div class="t214__descr">Индивидуальная съёмка</div>
-                </div>
-
-                <div class="t-col">
-                    <div class="magnific-gallery-2">
-                        <a href="../media/gallery2/series2_1.jpg" class="gallery-link" title="Portraits"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery2/series2_1.jpg');"></div>
-                        </a>
-                        <a href="../media/gallery2/series2_2.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series2_3.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series2_4.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series2_5.jpg" class="gallery-link" style="display:none"></a>
-                    </div>
-                    <div class="t-name_xs">Фотосессия в стиле Y2K</div>
-                    <div class="t214__descr">Студийная съемка</div>
-                </div>
-
-                <div class="t-col">
-                    <div class="magnific-gallery-3">
-                        <a href="../media/gallery2/series3_1.jpg" class="gallery-link" title="Парная съёмка"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery2/series3_1.jpg');"></div>
-                        </a>
-                        <a href="../media/gallery2/series3_2.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series3_3.jpg" class="gallery-link" style="display:none"></a>
-                    </div>
-                    <div class="t-name_xs">Лавстори</div>
-                    <div class="t214__descr">Парная фотосессия</div>
-                </div>
-
-                <div class="t-col">
-                    <div class="magnific-gallery-4">
-                        <a href="../media/gallery2/series4_1.jpg" class="gallery-link" title="Фотосессия для музыкальной группы"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery2/series4_1.jpg');"></div>
-                        </a>
-                        <a href="../media/gallery2/series4_2.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series4_3.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series4_4.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series4_5.jpg" class="gallery-link" style="display:none"></a>
-                    </div>
-                    <div class="t-name_xs">Фотосессия для музыкальной группы</div>
-                    <div class="t214__descr">Медиа сопровождение</div>
-                </div>
-
-                <div class="t-col">
-                    <div class="magnific-gallery-5">
-                        <a href="../media/gallery2/series5_1.jpg" class="gallery-link" title="Репортажная съёмка"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery2/series5_1.jpg');"></div>
-                        </a>
-                        <a href="../media/gallery2/series5_2.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series5_3.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series5_4.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series5_5.jpg" class="gallery-link" style="display:none"></a>
-                    </div>
-                    <div class="t-name_xs">Репортажная съёмка</div>
-                    <div class="t214__descr">Премиальная недвижимость "Резиденция Рощино"</div>
-                </div>
-
-                <div class="t-col">
-                    <div class="magnific-gallery-6">
-                        <a href="../media/gallery2/series6_1.jpg" class="gallery-link" title="Студийная фотосессия"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery2/series6_1.jpg');"></div>
-                        </a>
-                        <a href="../media/gallery2/series6_2.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series6_3.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series6_4.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series6_5.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series6_6.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series6_7.jpg" class="gallery-link" style="display:none"></a>
-                    </div>
-                    <div class="t-name_xs">Студийная фотосессия</div>
-                    <div class="t214__descr">Съёмка для модельного портфолио</div>
-                </div>
-
-                <div class="t-col">
-                    <div class="magnific-gallery-7">
-                        <a href="../media/gallery2/series7_1.jpg" class="gallery-link" title="Свадебная съёмка"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery2/series7_1.jpg');"></div>
-                        </a>
-                        <a href="../media/gallery2/series7_2.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series7_3.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series7_4.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series7_5.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series7_6.jpg" class="gallery-link" style="display:none"></a>
-                    </div>
-                    <div class="t-name_xs">Свадебная съёмка</div>
-                    <div class="t214__descr">Банкет</div>
-                </div>
-
-                <div class="t-col">
-                    <div class="magnific-gallery-9">
-                        <a href="../media/gallery2/series9_1.jpg" class="gallery-link" title="Концертная съёмка"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery2/series9_1.jpg');"></div>
-                        </a>
-                        <a href="../media/gallery2/series9_2.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series9_3.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series9_4.jpg" class="gallery-link" style="display:none"></a>
-                    </div>
-                    <div class="t-name_xs">Концертная съёмка</div>
-                    <div class="t214__descr">(дайте уже проходку на сцену)</div>
-                </div>
-
-                <div class="t-col">
-                    <div class="magnific-gallery-8">
-                        <a href="../media/gallery2/series8_1.jpg" class="gallery-link" title="Примеры обработки"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery2/series8_1.jpg');"></div>
-                        </a>
-                        <a href="../media/gallery2/series8_2.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series8_3.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series8_4.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series8_5.jpg" class="gallery-link" style="display:none"></a>
-                        <a href="../media/gallery2/series8_6.jpg" class="gallery-link" style="display:none"></a>
-                    </div>
-                    <div class="t-name_xs">Примеры обработки</div>
-                    <div class="t214__descr">Обработка ваших исходников на заказ</div>
-                </div>
-
+        <!-- ТАБЫ IOS -->
+        <div class="toggle-wrapper">
+            <div class="ios-segment-control" id="portfolioTabs">
+                <div class="segment-bubble"></div>
+                <button class="segment-btn active" data-tab="photo">Фото</button>
+                <button class="segment-btn" data-tab="video">Видео</button>
             </div>
         </div>
 
+        <!-- ДИНАМИЧЕСКИЙ ТЕКСТОВЫЙ БЛОК -->
         <div class="t-container">
-            <div class="more-works-container">
-                <a href="https://disk.yandex.ru/d/CbTEkxahevZ0Jg" target="_blank" class="btn-more">
-                    Больше работ
-                </a>
+            <h1 class="t-title_xxs" id="pageTitle">ГАЛЕРЕЯ СЕРИЙ</h1>
+            <p class="t-descr_md" id="pageDescription">Нажмите на фото, чтобы открыть серию целиком</p>
+        </div>
+
+        <!-- ВКЛАДКА: ФОТО -->
+        <div id="photo-tab" class="tab-content active">
+            <div class="t-container">
+                <div class="t-row">
+                    
+                    <div class="t-col">
+                        <div class="magnific-gallery-1">
+                            <a href="../media/gallery2/series1_1.jpg" class="gallery-link" title="Зимняя фотосессия"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series1_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series1_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series1_3.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series1_4.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series1_5.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series1_6.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Зимняя фотосессия</div>
+                        <div class="t214__descr">Индивидуальная съёмка</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="magnific-gallery-2">
+                            <a href="../media/gallery2/series2_1.jpg" class="gallery-link" title="Portraits"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series2_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series2_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series2_3.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series2_4.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series2_5.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Фотосессия в стиле Y2K</div>
+                        <div class="t214__descr">Студийная съемка</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="magnific-gallery-3">
+                            <a href="../media/gallery2/series3_1.jpg" class="gallery-link" title="Парная съёмка"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series3_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series3_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series3_3.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Лавстори</div>
+                        <div class="t214__descr">Парная фотосессия</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="magnific-gallery-4">
+                            <a href="../media/gallery2/series4_1.jpg" class="gallery-link" title="Фотосессия для музыкальной группы"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series4_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series4_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series4_3.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series4_4.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series4_5.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Фотосессия для музыкальной группы</div>
+                        <div class="t214__descr">Медиа сопровождение группы "Натура"</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="magnific-gallery-5">
+                            <a href="../media/gallery2/series5_1.jpg" class="gallery-link" title="Репортажная съёмка"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series5_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series5_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series5_3.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series5_4.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series5_5.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Репортажная съёмка</div>
+                        <div class="t214__descr">Премиальная недвижимость "Резиденция Рощино"</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="magnific-gallery-6">
+                            <a href="../media/gallery2/series10_1.jpg" class="gallery-link" title="Промо-съёмка"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series10_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series10_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series10_3.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series10_4.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Промо-съёмка</div>
+                        <div class="t214__descr">Карточка музыканта для крутого Арсалана</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="magnific-gallery-7">
+                            <a href="../media/gallery2/series6_1.jpg" class="gallery-link" title="Студийная фотосессия"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series6_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series6_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series6_3.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series6_4.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series6_5.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series6_6.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series6_7.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Студийная фотосессия</div>
+                        <div class="t214__descr">Съёмка для модельного портфолио</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="magnific-gallery-8">
+                            <a href="../media/gallery2/series7_1.jpg" class="gallery-link" title="Свадебная съёмка"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series7_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series7_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series7_3.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series7_4.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series7_5.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series7_6.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Свадебная съёмка</div>
+                        <div class="t214__descr">Банкет</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="magnific-gallery-9">
+                            <a href="../media/gallery2/series9_1.jpg" class="gallery-link" title="Концертная съёмка"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series9_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series9_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series9_3.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series9_4.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Концертная съёмка</div>
+                        <div class="t214__descr">(дайте уже проходку на сцену)</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="magnific-gallery-10">
+                            <a href="../media/gallery2/series11_1.jpg" class="gallery-link" title="Прогулочная фотосессия"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series11_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series11_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series11_3.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series11_4.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series11_5.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Прогулочная фотосессия</div>
+                        <div class="t214__descr">Выборг</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="magnific-gallery-11">
+                            <a href="../media/gallery2/series12_1.jpg" class="gallery-link" title="Уличная фотосессия"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series12_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series12_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series12_3.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series12_4.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Уличная фотосессия</div>
+                        <div class="t214__descr">Анастасия Яцына</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="magnific-gallery-12">
+                            <a href="../media/gallery2/series8_1.jpg" class="gallery-link" title="Примеры обработки"> 
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series8_1.jpg');"></div>
+                            </a>
+                            <a href="../media/gallery2/series8_2.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series8_3.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series8_4.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series8_5.jpg" class="gallery-link" style="display:none"></a>
+                            <a href="../media/gallery2/series8_6.jpg" class="gallery-link" style="display:none"></a>
+                        </div>
+                        <div class="t-name_xs">Примеры обработки</div>
+                        <div class="t214__descr">Обработка ваших исходников на заказ</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- КНОПКА "БОЛЬШЕ РАБОТ" (ТОЛЬКО ДЛЯ ФОТО) -->
+            <div class="t-container">
+                <div class="more-works-container">
+                    <a href="https://disk.yandex.ru/d/CbTEkxahevZ0Jg" target="_blank" class="btn-more">
+                        Больше работ
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    <div id="video-tab" class="tab-content">
+            <div class="t-container">
+                <div class="t-row">
+                    
+                    <div class="t-col">
+                        <div class="video-block-wrapper js-rutube-lazy" data-video-id="video-1" style="background-image: url('https://rutube.ru/api/video/c251bef202788ae64476e4a695da616a/thumbnail/?redirect=1');">
+                            <div class="video-play-overlay"><span>▶</span></div>
+                            <iframe id="video-1" src="" frameBorder="0" allow="clipboard-write" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                        </div>
+                        <div class="t-name_xs">Натура - Выходи гулять</div>
+                        <div class="t214__descr">Музыкальный клип</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="video-block-wrapper js-rutube-lazy" data-video-id="video-2" style="background-image: url('https://rutube.ru/api/video/30fd86e02ee2b36a7e372485ec2cf0bf/thumbnail/?redirect=1');">
+                            <div class="video-play-overlay"><span>▶</span></div>
+                            <iframe id="video-2" src="" frameBorder="0" allow="clipboard-write" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                        </div>
+                        <div class="t-name_xs">Sofia Lorens - Пенициллиновые спицы</div>
+                        <div class="t214__descr">Музыкальный клип</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="video-block-wrapper js-rutube-lazy" data-video-id="video-3" style="background-image: url('https://rutube.ru/api/video/eb624da8ad6e5dc8a0917f437f7f7383/thumbnail/?redirect=1');">
+                            <div class="video-play-overlay"><span>▶</span></div>
+                            <iframe id="video-3" src="" frameBorder="0" allow="clipboard-write" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                        </div>
+                        <div class="t-name_xs">Sofia Lorens - Чайный вальс</div>
+                        <div class="t214__descr">Музыкальный клип</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="video-block-wrapper js-rutube-lazy" data-video-id="video-4" style="background-image: url('https://rutube.ru/api/video/8503c73cbaaf457bfa11e8aa46204d44/thumbnail/?redirect=1');">
+                            <div class="video-play-overlay"><span>▶</span></div>
+                            <iframe id="video-4" src="" frameBorder="0" allow="clipboard-write" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                        </div>
+                        <div class="t-name_xs">Арсалан - Мир с тобой</div>
+                        <div class="t214__descr">Reels / Shorts (промо ролик)</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="video-block-wrapper js-rutube-lazy" data-video-id="video-5" style="background-image: url('https://rutube.ru/api/video/9832395c69a2f4c56a34d18f3f1db69a/thumbnail/?redirect=1');">
+                            <div class="video-play-overlay"><span>▶</span></div>
+                            <iframe id="video-5" src="" frameBorder="0" allow="clipboard-write" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                        </div>
+                        <div class="t-name_xs">break the silence</div>
+                        <div class="t214__descr">Личный проект / атмосферное видео</div>
+                    </div>
+
+                    <div class="t-col">
+                        <div class="video-block-wrapper js-rutube-lazy" data-video-id="video-6" style="background-image: url('https://rutube.ru/api/video/194bba4bbc0024d31de5a30fd7783bad/thumbnail/?redirect=1');">
+                            <div class="video-play-overlay"><span>▶</span></div>
+                            <iframe id="video-6" src="" frameBorder="0" allow="clipboard-write" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                        </div>
+                        <div class="t-name_xs">OCEANARIUM</div>
+                        <div class="t214__descr">Личный проект / атмосферное видео</div>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -319,19 +523,90 @@
 
     </div>
 
+    <style>
+        .video-block-wrapper { 
+            position: relative; 
+            cursor: pointer; 
+            background-color: #141414; 
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .video-play-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center;
+            z-index: 10; transition: background 0.3s ease;
+        }
+        .video-play-overlay span {
+            font-size: 50px; color: #fff; opacity: 0.8; transition: transform 0.3s ease, opacity 0.3s ease;
+            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Чтобы кнопку было видно на светлых обложках */
+        }
+        .video-block-wrapper:hover .video-play-overlay { background: rgba(0, 0, 0, 0.1); }
+        .video-block-wrapper:hover .video-play-overlay span { transform: scale(1.1); opacity: 1; }
+        .video-block-wrapper.playing .video-play-overlay { display: none; }
+    </style>
+
     <script type="text/javascript" src="https://static.tildacdn.info/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
     <script>
     $(document).ready(function() {
-        for (let i = 1; i <= 10; i++) {
+        const videoSources = {
+            'video-1': 'https://rutube.ru/play/embed/c251bef202788ae64476e4a695da616a/',
+            'video-2': 'https://rutube.ru/play/embed/30fd86e02ee2b36a7e372485ec2cf0bf/',
+            'video-3': 'https://rutube.ru/play/embed/eb624da8ad6e5dc8a0917f437f7f7383/',
+            'video-4': 'https://rutube.ru/play/embed/8503c73cbaaf457bfa11e8aa46204d44/',
+            'video-5': 'https://rutube.ru/play/embed/9832395c69a2f4c56a34d18f3f1db69a/',
+            'video-6': 'https://rutube.ru/play/embed/194bba4bbc0024d31de5a30fd7783bad/'
+        };
+
+        // Инициализация галереи Magnific Popup для Фото
+        for (let i = 1; i <= 12; i++) {
             $(`.magnific-gallery-${i}`).magnificPopup({
                 delegate: 'a.gallery-link',
                 type: 'image',
                 gallery: { enabled: true }
             });
         }
+
+        // Клик по карточке видео — запускаем плеер
+        $('.js-rutube-lazy').on('click', function() {
+            const container = $(this);
+            const videoId = container.data('video-id');
+            const iframe = container.find('iframe');
+
+            if (!container.hasClass('playing')) {
+                iframe.attr('src', videoSources[videoId]);
+                container.addClass('playing');
+            }
+        });
+
+        // Логика работы iOS Переключателя
+        $('.segment-btn').on('click', function() {
+            const targetTab = $(this).data('tab');
+            
+            $('.segment-btn').removeClass('active');
+            $(this).addClass('active');
+
+            if (targetTab === 'video') {
+                $('.ios-segment-control').addClass('video-active');
+                $('#pageTitle').text('ВИДЕОПОРТФОЛИО');
+                $('#pageDescription').text('Нажмите на карточку, чтобы запустить видеоролик');
+                
+                $('#photo-tab').removeClass('active');
+                $('#video-tab').addClass('active');
+            } else {
+                $('.ios-segment-control').removeClass('video-active');
+                $('#pageTitle').text('ГАЛЕРЕЯ СЕРИЙ');
+                $('#pageDescription').text('Нажмите на фото, чтобы открыть серию целиком');
+                
+                // При уходе на вкладку ФОТО сбрасываем плееры
+                $('.js-rutube-lazy').removeClass('playing');
+                $('#video-tab iframe').attr('src', '');
+
+                $('#video-tab').removeClass('active');
+                $('#photo-tab').addClass('active');
+            }
+        });
     });
     </script>
-</body>
-</html>
