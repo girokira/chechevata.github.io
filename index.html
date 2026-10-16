@@ -1176,6 +1176,14 @@
                 width: 100%;
             }
 
+            .main-nav a::after {
+                display: none;
+            }
+
+            .main-nav a.active {
+                color: var(--accent-warm);
+            }
+
             /* Компактная адаптивная сцена в Hero на телефонах */
             .hero {
                 min-height: auto;
@@ -1669,7 +1677,7 @@
                     <div class="team-info">
                         <h3 class="team-name">Evochka</h3>
                         <div class="team-handle">SMM-specialist</div>
-                        <div class="team-role"><a href="" target="_blank" rel="noopener noreferrer">meow</a></div>
+                        <div class="team-role">meow</div>
                     </div>
                 </article>
             </div>

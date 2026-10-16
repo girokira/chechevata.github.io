@@ -1,611 +1,870 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=1280" /><script type="text/javascript">window.noAdaptive=true;</script> 
-    <title>Магазин - CHECHEVATA</title>
-    
-    <meta http-equiv="x-dns-prefetch-control" content="on"> 
-    <link rel="dns-prefetch" href="https://ws.tildacdn.com"> 
-    <link rel="dns-prefetch" href="https://static.tildacdn.info">
-    <script src="https://neo.tildacdn.com/js/tilda-fallback-1.0.min.js" async charset="utf-8"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Прайс-лист и постеры — CHECHEVATA</title>
+    <meta name="description" content="Прайс-лист на фотосессии, видеосъёмку и ретушь в Санкт-Петербурге, а также авторские постеры от CHECHEVATA." />
+    <link rel="apple-touch-icon" sizes="57x57" href="../favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="../favicon/apple-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="76x76" href="../favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-icon-180x180.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../favicon/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
     <link rel="shortcut icon" type="image/x-icon" href="../favicon/favicon.ico">
     <link rel="manifest" href="../favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#131312">
     <meta name="msapplication-TileImage" content="../favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#131312">
 
     <style>
-    /* 1. ПОДКЛЮЧЕНИЕ ШРИФТА */
-    @font-face {
-        font-family: 'Acidic';
-        src: url('../media/Acidic.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-    }
+        /* 1. ШРИФТЫ */
+        @font-face {
+            font-family: 'Acidic';
+            src: url('../media/Acidic.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
 
-    /* 2. БАЗОВЫЕ НАСТРОЙКИ (Центровка всего сайта) */
-    *, *:before, *:after { -webkit-box-sizing: border-box; box-sizing: border-box; }
-    
-    .t-body { margin: 0; background-color: #131312; color: #ffffff; text-align: center; }
-    .t-container { margin: 0 auto; width: 100%; max-width: 1200px; padding: 0; }
-    
-    /* Исправляем сетку товаров для центровки */
-    .t-row { 
-        display: flex; 
-        flex-wrap: wrap; 
-        justify-content: center; /* Центрирует товары в ряду */
-        margin: 0 auto;
-    }
+        @font-face {
+            font-family: 'TildaSans';
+            font-style: normal;
+            font-weight: 300;
+            src: url('https://static.tildacdn.com/fonts/tildasans/TildaSans-Light.woff2') format('woff2'),
+                 url('https://static.tildacdn.com/fonts/tildasans/TildaSans-Light.woff') format('woff');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'TildaSans';
+            font-style: normal;
+            font-weight: 400;
+            src: url('https://static.tildacdn.com/fonts/tildasans/TildaSans-Regular.woff2') format('woff2'),
+                 url('https://static.tildacdn.com/fonts/tildasans/TildaSans-Regular.woff') format('woff');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'TildaSans';
+            font-style: normal;
+            font-weight: 500;
+            src: url('https://static.tildacdn.com/fonts/tildasans/TildaSans-Medium.woff2') format('woff2'),
+                 url('https://static.tildacdn.com/fonts/tildasans/TildaSans-Medium.woff') format('woff');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'TildaSans';
+            font-style: normal;
+            font-weight: 600;
+            src: url('https://static.tildacdn.com/fonts/tildasans/TildaSans-Semibold.woff2') format('woff2'),
+                 url('https://static.tildacdn.com/fonts/tildasans/TildaSans-Semibold.woff') format('woff');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'TildaSans';
+            font-style: normal;
+            font-weight: 700;
+            src: url('https://static.tildacdn.com/fonts/tildasans/TildaSans-Bold.woff2') format('woff2'),
+                 url('https://static.tildacdn.com/fonts/tildasans/TildaSans-Bold.woff') format('woff');
+            font-display: swap;
+        }
 
-    .t-col { 
-        display: block;
-        width: 100%;
-        max-width: 380px; /* Ширина одного товара */
-        margin: 20px 10px 40px 10px;
-        text-align: center; 
-    }
+        /* 2. ПЕРЕМЕННЫЕ И БАЗОВЫЙ СБРОС */
+        :root {
+            --bg-main: #131312;
+            --bg-elevated: #1b1b19;
+            --bg-card: rgba(255, 255, 255, 0.035);
+            --border-subtle: rgba(255, 255, 255, 0.1);
+            --border-strong: rgba(255, 255, 255, 0.24);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.68);
+            --text-soft: rgba(255, 255, 255, 0.45);
+            --accent-warm: #e8dcc8;
+            --accent-link: #9ec6fb;
+            --container-width: 1200px;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-pill: 999px;
+            --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
 
-    /* 3. ШАПКА (Как в галерее, но с центровкой) */
-    .t396__artboard {
-        position: relative;
-        width: 100%;
-        height: auto !important;
-        min-height: 150px;
-        background-color: #131312;
-        padding: 40px 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Центрирует лого и меню */
-    }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .tn-elem__logo { 
-        text-decoration: none; 
-        margin-bottom: 20px;
-        display: block;
-    }
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 110px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            -webkit-text-size-adjust: 100%;
+        }
 
-    .tn-elem__logo .tn-atom {
-        font-family: 'Acidic', sans-serif !important;
-        font-size: 52px !important;
-        color: #ffffff !important;
-        letter-spacing: 0.05em;
-    }
+        body {
+            font-family: 'TildaSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.55;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    .tn-elem__nav a {
-        font-family: 'TildaSans', Arial, sans-serif;
-        color: #ffffff;
-        font-size: 16px;
-        text-decoration: none;
-        margin: 0 15px;
-    }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
 
-    /* 4. КАРТИНКИ ТОВАРОВ (Возвращаем их видимость) */
-    .t214__blockimg { 
-        display: block;
-        width: 100%; 
-        aspect-ratio: 1 / 1; /* Делает их квадратными */
-        background-size: cover; 
-        background-position: center; 
-        background-repeat: no-repeat;
-        margin: 0 auto 20px auto;
-        border-radius: 2px;
-    }
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
 
-    /* 5. ТЕКСТ И КНОПКИ */
-    .t-title, .t-name, .t-descr { font-family: 'TildaSans', Arial, sans-serif; display: block; margin: 0 auto; }
-    .t-title_xxs { font-size: 36px; margin-bottom: 20px; width: 100%; }
-    
-    .t-submit {
-        background-color: #ffffff;
-        color: #000000 !important;
-        padding: 12px 30px;
-        border-radius: 3px;
-        font-weight: 600;
-        display: inline-block;
-        text-decoration: none;
-        margin-top: 15px;
-        min-width: 180px;
-    }
+        .container {
+            width: 100%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
-    /* Адаптивность для мобилок */
-    @media screen and (max-width: 640px) {
-        .tn-elem__logo .tn-atom { font-size: 36px !important; }
-        .t-col { max-width: 100%; padding: 0 20px; }
-    }
+        .section-divider {
+            width: 100%;
+            max-width: 800px;
+            height: 1px;
+            margin: 0 auto;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0) 100%);
+        }
 
-    .t-section__title, 
-.t-section__descr, 
-.t-title, 
-.t-descr {
-    text-align: center !important;
-    margin-right: auto !important;
-    margin-left: auto !important;
-    width: 100% !important;
-}
+        /* 3. ЕДИНАЯ ШАПКА САЙТА + ВЫПАДАЮЩЕЕ МОБИЛЬНОЕ МЕНЮ */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(19, 19, 18, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: var(--transition);
+        }
 
-/* Центрируем сами контейнеры разделов */
-.t-section__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
+        .header-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 20px 16px;
+            position: relative;
+        }
 
-/* Убираем стандартные отступы Tilda, которые тянут текст влево */
-.t-col_8, .t-col_10, .t-col_12 {
-    float: none !important;
-    margin: 0 auto !important;
-}
+        .brand-logo {
+            font-family: 'Acidic', sans-serif;
+            font-size: 46px;
+            line-height: 1;
+            color: var(--text-main);
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            text-align: center;
+            user-select: none;
+        }
 
-/* Если названия разделов — это t-title_xxs */
-.t-title_xxs {
-    text-align: center !important;
-}
-</style>
+        .brand-logo:hover {
+            opacity: 0.88;
+            transform: scale(1.01);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px 28px;
+        }
+
+        .main-nav a {
+            font-size: 16px;
+            font-weight: 300;
+            color: var(--text-main);
+            opacity: 0.65;
+            padding: 4px 4px;
+            position: relative;
+            letter-spacing: 0.02em;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1.5px;
+            background-color: var(--text-main);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            opacity: 1;
+            font-weight: 600;
+        }
+
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
+            transform: scaleX(1);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .menu-toggle svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 34px;
+            border-radius: var(--radius-pill);
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: #ffffff;
+            color: #000000;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-warm);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-outline {
+            background-color: rgba(255, 255, 255, 0.04);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-outline:hover {
+            background-color: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        .site-footer {
+            padding: 48px 0 60px;
+            text-align: center;
+            color: var(--text-soft);
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        @media screen and (max-width: 768px) {
+            html {
+                scroll-padding-top: 80px;
+            }
+
+            .header-inner {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 14px 20px;
+                flex-wrap: wrap;
+            }
+
+            .brand-logo {
+                font-size: 32px;
+                margin-bottom: 0;
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+                position: static;
+                transform: none;
+            }
+
+            .main-nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+                padding-top: 16px;
+                margin-top: 14px;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .main-nav.open {
+                display: flex;
+            }
+
+            .main-nav a {
+                font-size: 18px;
+                padding: 8px 0;
+                width: 100%;
+            }
+
+            .main-nav a::after {
+                display: none;
+            }
+
+            .main-nav a.active {
+                color: var(--accent-warm);
+            }
+        }
+
+        @media screen and (max-width: 420px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .brand-logo {
+                font-size: 28px;
+            }
+        }
+
+        /* СТИЛИ СТРАНИЦЫ «ПРАЙС-ЛИСТ И МАГАЗИН» */
+        .shop-section {
+            padding: 72px 0;
+        }
+
+        .shop-section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .shop-eyebrow {
+            display: block;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-soft);
+            margin-bottom: 10px;
+        }
+
+        .shop-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            line-height: 1.1;
+        }
+
+        .shop-subtitle {
+            font-size: clamp(16px, 2vw, 19px);
+            color: var(--text-muted);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 14px auto 0;
+        }
+
+        /* Сетка карточек услуг и постеров (3 в ряд на ПК) */
+        .cards-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            align-items: stretch;
+        }
+
+        .shop-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .shop-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-strong);
+            box-shadow: 0 20px 44px rgba(0, 0, 0, 0.45);
+        }
+
+        .shop-card-media {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 18px;
+            overflow: hidden;
+            background-color: var(--bg-elevated);
+            margin-bottom: 22px;
+        }
+
+        .t214__blockimg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .shop-card:hover .t214__blockimg {
+            transform: scale(1.04);
+        }
+
+        .gallery-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: zoom-in;
+        }
+
+        .poster-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(19, 19, 18, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: var(--radius-pill);
+            pointer-events: none;
+        }
+
+        .shop-card-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .shop-card-descr {
+            font-size: 15px;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.5;
+            min-height: 44px;
+        }
+
+        .shop-card-footer {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .shop-card-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-warm);
+        }
+
+        .shop-card .btn {
+            width: 100%;
+            padding: 13px 24px;
+            font-size: 14px;
+        }
+
+        /* Секция «Нашли свой дом» */
+        .home-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .home-gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            aspect-ratio: 1 / 1;
+            background: var(--bg-elevated);
+        }
+
+        .home-gallery-item a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: zoom-in;
+        }
+
+        .home-gallery-item:hover .t214__blockimg {
+            transform: scale(1.04);
+        }
+
+        @media screen and (max-width: 960px) {
+            .cards-grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+            .home-gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 18px;
+            }
+        }
+
+        @media screen and (max-width: 680px) {
+            .shop-section {
+                padding: 52px 0;
+            }
+            .cards-grid-3 {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .shop-card {
+                padding: 20px;
+            }
+            .home-gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+        }
+    </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
 </head>
+<body>
 
-<body class="t-body">
-<div id="allrecords" class="t-records">
+    <!-- ШАПКА САЙТА -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="../index.html" class="brand-logo">CHECHEVATA</a>
 
-    <div id="rec_shop_header" class="r t-rec" style="background-color:#131312;">
-    <div class="t396">
-        <div class="t396__artboard">
-            
-            <a href="../index.html" class="tn-elem tn-elem__logo">
-                <div class="tn-atom">CHECHEVATA</div>
-            </a>
+            <button class="menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
 
-            <nav class="tn-elem tn-elem__nav">
-                <div class="tn-atom">
-                            <a href="../index.html">Главная</a>
-                            <a href="index.html" style="font-weight: 700;">Прайс-лист</a>
-                            <a href="../gallery/index.html">Работы</a>
-                            <a href="../socials/index.html">Контакты</a>
-                </div>
+            <nav class="main-nav" id="mainNav">
+                <a href="../index.html">Главная</a>
+                <a href="../index.html#about">Обо мне</a>
+                <a href="../gallery/index.html">Работы</a>
+                <a href="../shop/index.html" class="active">Прайс-лист</a>
+                <a href="../socials/index.html">Контакты</a>
             </nav>
-
         </div>
-    </div>
-</div>
-        <script>t_onReady(function() {t_onFuncLoad('t396_init',function() {t396_init('rec_shop_header');});});</script>
-    </div>
+    </header>
 
-    <div id="rec_divider" class="r t-rec t-rec_pt_0 t-rec_pb_0" style="background-color:#131312;" data-record-type="363">
-        <div class="t029">
-            <div class="t029__container t-container">
-                <div class="t029__col t-col t-col_8 t-margin_auto">
-                    <div class="t029__linewrapper" style="opacity:0.2;">
-                        <div class="t029__opacity t029__opacity_left" style="background-image: -webkit-linear-gradient(right, #ffffff, rgba(255,255,255, 0));"></div>
-                        <div class="t-divider t029__line" style="background: #ffffff;"></div>
-                        <div class="t029__opacity t029__opacity_right" style="background-image: -webkit-linear-gradient(left, #ffffff, rgba(255,255,255, 0));"></div>
-                    </div>
+    <main>
+        <!-- СЕКЦИЯ 1: МОИ УСЛУГИ -->
+        <section class="shop-section">
+            <div class="container">
+                <div class="shop-section-header">
+                    <span class="shop-eyebrow">Прайс-лист</span>
+                    <h1 class="shop-title">МОИ УСЛУГИ</h1>
+                    <p class="shop-subtitle">Здесь вы можете ознакомиться с актуальным прайс-листом на съёмку и ретушь.</p>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <div id="rec_shop_content" class="r t-rec t-rec_pt_90 t-rec_pb_0" style="background-color:#131312; color:#ffffff;" data-record-type="214">
-        <div class="t-section__container t-container">
-            <div class="t-col t-col_12 t-align_center">
-                <h2 class="t-title t-title_xxs">МОИ УСЛУГИ</h2>
-                <div class="t-descr t-descr_md t-margin_auto" style="color:#aaaaaa; max-width: 600px; margin-top: 20px; margin-bottom: 40px;">
-                    Здесь вы можете ознакомиться с прайс-листом.
-                </div>
-            </div>
-        </div>
-        
-        <div class="t214 t-container t-rec_pt_45">
-            <div class="t214__container t-container t-container_100">
-                <div class="t-row t-align_center">
-                    
-                    <div class="t214__col t-col t-col_4 t-item">
-                        <div class="t214__blockimg" style="background-image: url('../media/gallery2/series0.jpg');">
+                <div class="cards-grid-3">
+                    <article class="shop-card">
+                        <div>
+                            <div class="shop-card-media">
+                                <div class="t214__blockimg" style="background-image: url('../media/gallery2/series0.jpg');"></div>
                             </div>
-                        <div class="t214__textwrapper">
-                            <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Фотосессия</div>
-                            <div class="t214__descr" style="margin-top: 10px;">Любой формат, любая идея. Ваш каприз - моя реализация.</div>
-                            <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;">от 4 500 ₽</div>
-                            <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Связаться</a>
+                            <h2 class="shop-card-title">Фотосессия</h2>
+                            <p class="shop-card-descr">Любой формат, любая идея. Ваш каприз — моя реализация.</p>
                         </div>
-                    </div>
-
-                    <div class="t214__col t-col t-col_4 t-item">
-                        <div class="t214__blockimg" style="background-image: url('../media/shop/video.jpg');">
-                            </div>
-                        <div class="t214__textwrapper">
-                            <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Видеосъёмка</div>
-                            <div class="t214__descr" style="margin-top: 10px;">Съёмка в 4k / 30 fps с качественным звуком</div>
-                            <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;">от 4 500 ₽</div>
-                            <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Связаться</a>
+                        <div class="shop-card-footer">
+                            <div class="shop-card-price">от 4 500 ₽</div>
+                            <a href="https://t.me/gykasuan" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Связаться</a>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="t214__col t-col t-col_4 t-item">
-                        <div class="t214__blockimg" style="background-image: url('https://static.tildacdn.info/tild6437-6339-4635-b562-313830323533/__2024-11-08_164029.png');">
+                    <article class="shop-card">
+                        <div>
+                            <div class="shop-card-media">
+                                <div class="t214__blockimg" style="background-image: url('../media/shop/video.jpg');"></div>
                             </div>
-                        <div class="t214__textwrapper">
-                            <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Ретушь</div>
-                            <div class="t214__descr" style="margin-top: 10px;">Ретушь и цветокоррекция ваших исходников</div>
-                            <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;">500 ₽</div>
-                            <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Связаться</a>
+                            <h2 class="shop-card-title">Видеосъёмка</h2>
+                            <p class="shop-card-descr">Съёмка в 4K / 30 fps с качественным звуком и стабилизацией.</p>
                         </div>
-                    </div>
+                        <div class="shop-card-footer">
+                            <div class="shop-card-price">от 4 500 ₽</div>
+                            <a href="https://t.me/gykasuan" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Связаться</a>
+                        </div>
+                    </article>
+
+                    <article class="shop-card">
+                        <div>
+                            <div class="shop-card-media">
+                                <div class="t214__blockimg" style="background-image: url('https://static.tildacdn.info/tild6437-6339-4635-b562-313830323533/__2024-11-08_164029.png'), url('../media/ss.jpg');"></div>
+                            </div>
+                            <h2 class="shop-card-title">Ретушь</h2>
+                            <p class="shop-card-descr">Авторская ретушь и цветокоррекция ваших исходников.</p>
+                        </div>
+                        <div class="shop-card-footer">
+                            <div class="shop-card-price">500 ₽</div>
+                            <a href="https://t.me/gykasuan" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Связаться</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- СЕКЦИЯ 2: ЗАБРАТЬ С СОБОЙ (ПОСТЕРЫ) -->
+        <section class="shop-section">
+            <div class="container">
+                <div class="shop-section-header">
+                    <span class="shop-eyebrow">Принты и постеры</span>
+                    <h2 class="shop-title">ЗАБРАТЬ С СОБОЙ</h2>
+                    <p class="shop-subtitle">Забери кусочек моего видения к себе домой</p>
+                </div>
+
+                <div class="cards-grid-3">
+
+                    <article class="shop-card">
+                        <div>
+                            <div class="shop-card-media magnific-gallery-1">
+                                <a href="../media/shop/poster1.jpg" class="gallery-link" title="Постер «Elizabeth» — Вид 1">
+                                    <div class="t214__blockimg" style="background-image: url('../media/shop/poster1.jpg');"></div>
+                                    <span class="poster-badge">3 фото</span>
+                                </a>
+                                <a href="../media/shop/poster1_2.jpg" class="gallery-link" style="display: none" title="Постер «Elizabeth» — Вид 2"></a>
+                                <a href="../media/shop/poster1_3.jpg" class="gallery-link" style="display: none" title="Постер «Elizabeth» — Вид 3"></a>
+                            </div>
+                            <h3 class="shop-card-title">Постер «Elizabeth»</h3>
+                            <p class="shop-card-descr">Постер А3 | Матовая бумага 300 г/м²</p>
+                        </div>
+                        <div class="shop-card-footer">
+                            <a href="https://t.me/gykasuan" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Ознакомиться</a>
+                        </div>
+                    </article>
+
+                    <article class="shop-card">
+                        <div>
+                            <div class="shop-card-media magnific-gallery-2">
+                                <a href="../media/shop/poster2.jpg" class="gallery-link" title="Постер «Elizabeth 2» — Вид 1">
+                                    <div class="t214__blockimg" style="background-image: url('../media/shop/poster2.jpg');"></div>
+                                    <span class="poster-badge">3 фото</span>
+                                </a>
+                                <a href="../media/shop/poster2_2.jpg" class="gallery-link" style="display: none" title="Постер «Elizabeth 2» — Вид 2"></a>
+                                <a href="../media/shop/poster2_3.jpg" class="gallery-link" style="display: none" title="Постер «Elizabeth 2» — Вид 3"></a>
+                            </div>
+                            <h3 class="shop-card-title">Постер «Elizabeth 2»</h3>
+                            <p class="shop-card-descr">Постер А3 | Матовая бумага 300 г/м²</p>
+                        </div>
+                        <div class="shop-card-footer">
+                            <a href="https://t.me/gykasuan" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Ознакомиться</a>
+                        </div>
+                    </article>
+
+                    <article class="shop-card">
+                        <div>
+                            <div class="shop-card-media magnific-gallery-3">
+                                <a href="../media/shop/poster3.jpg" class="gallery-link" title="Постер «ANTIQUE» — Вид 1">
+                                    <div class="t214__blockimg" style="background-image: url('../media/shop/poster3.jpg');"></div>
+                                    <span class="poster-badge">3 фото</span>
+                                </a>
+                                <a href="../media/shop/poster3_2.jpg" class="gallery-link" style="display: none" title="Постер «ANTIQUE» — Вид 2"></a>
+                                <a href="../media/shop/poster3_3.jpg" class="gallery-link" style="display: none" title="Постер «ANTIQUE» — Вид 3"></a>
+                            </div>
+                            <h3 class="shop-card-title">Постер «ANTIQUE»</h3>
+                            <p class="shop-card-descr">Постер А3 | Матовая бумага 300 г/м²</p>
+                        </div>
+                        <div class="shop-card-footer">
+                            <a href="https://t.me/gykasuan" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Ознакомиться</a>
+                        </div>
+                    </article>
+
+                    <article class="shop-card">
+                        <div>
+                            <div class="shop-card-media magnific-gallery-4">
+                                <a href="../media/shop/poster4.jpg" class="gallery-link" title="Постер «Пруд» — Вид 1">
+                                    <div class="t214__blockimg" style="background-image: url('../media/shop/poster4.jpg');"></div>
+                                    <span class="poster-badge">3 фото</span>
+                                </a>
+                                <a href="../media/shop/poster4_2.jpg" class="gallery-link" style="display: none" title="Постер «Пруд» — Вид 2"></a>
+                                <a href="../media/shop/poster4_3.jpg" class="gallery-link" style="display: none" title="Постер «Пруд» — Вид 3"></a>
+                            </div>
+                            <h3 class="shop-card-title">Постер «Пруд»</h3>
+                            <p class="shop-card-descr">Плакат А3 | Матовая бумага 300 г/м²</p>
+                        </div>
+                        <div class="shop-card-footer">
+                            <a href="https://t.me/gykasuan" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Ознакомиться</a>
+                        </div>
+                    </article>
+
+                    <article class="shop-card">
+                        <div>
+                            <div class="shop-card-media magnific-gallery-5">
+                                <a href="../media/shop/poster5.jpg" class="gallery-link" title="Плакат «XXX» — Вид 1">
+                                    <div class="t214__blockimg" style="background-image: url('../media/shop/poster5.jpg');"></div>
+                                </a>
+                                <a href="../media/shop/poster5_2.jpg" class="gallery-link" style="display: none" title="Плакат «XXX» — Вид 2"></a>
+                                <a href="../media/shop/poster5_3.jpg" class="gallery-link" style="display: none" title="Плакат «XXX» — Вид 3"></a>
+                            </div>
+                            <h3 class="shop-card-title">Плакат «XXX»</h3>
+                            <p class="shop-card-descr">В процессе...</p>
+                        </div>
+                        <div class="shop-card-footer">
+                            <div class="shop-card-price">1 000 000 ₽</div>
+                            <a href="https://t.me/gykasuan" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Мяу</a>
+                        </div>
+                    </article>
+
+                    <article class="shop-card">
+                        <div>
+                            <div class="shop-card-media magnific-gallery-6">
+                                <a href="../media/shop/poster6.jpg" class="gallery-link" title="Плакат «XXX» — Вид 1">
+                                    <div class="t214__blockimg" style="background-image: url('../media/shop/poster6.jpg');"></div>
+                                </a>
+                                <a href="../media/shop/poster6_2.jpg" class="gallery-link" style="display: none" title="Плакат «XXX» — Вид 2"></a>
+                                <a href="../media/shop/poster6_3.jpg" class="gallery-link" style="display: none" title="Плакат «XXX» — Вид 3"></a>
+                            </div>
+                            <h3 class="shop-card-title">Плакат «XXX»</h3>
+                            <p class="shop-card-descr">В процессе...</p>
+                        </div>
+                        <div class="shop-card-footer">
+                            <div class="shop-card-price">1 000 000 ₽</div>
+                            <a href="https://t.me/gykasuan" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Мяу</a>
+                        </div>
+                    </article>
 
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div id="rec_spacer1" 
-         class="r t-rec t-rec_pt_0 t-rec_pb_0" 
-         style="background-color:#131312; padding-top: 150px; padding-bottom: 0;" 
-         data-record-type="blank"
-         data-top-padding-mobile="100">
-    </div>
+        <div class="section-divider"></div>
 
-    <div id="rec_shop_products" class="r t-rec t-rec_pt_90 t-rec_pb_90" style="background-color:#131312; color:#ffffff;" data-record-type="214">
-    <div class="t-section__container t-container">
-        <div class="t-col t-col_12 t-align_center">
-            <h2 class="t-title t-title_xxs">ЗАБРАТЬ С СОБОЙ</h2>
-            
-            <div class="t-descr t-descr_md t-margin_auto" style="color:#aaaaaa; max-width: 600px; margin-top: 20px; margin-bottom: 40px;">
-                Забери кусочек моего видения к себе домой
+        <!-- СЕКЦИЯ 3: НАШЛИ СВОЙ ДОМ -->
+        <section class="shop-section">
+            <div class="container">
+                <div class="shop-section-header">
+                    <span class="shop-eyebrow">Отзывы в интерьере</span>
+                    <h2 class="shop-title">НАШЛИ СВОЙ ДОМ</h2>
+                    <p class="shop-subtitle">и пристроены в добрые руки</p>
+                </div>
+
+                <div class="home-gallery-grid magnific-gallery-home">
+                    <div class="home-gallery-item">
+                        <a href="../media/gallery/p1.jpg" class="gallery-link-home" title="Нашли свой дом — Фото 1">
+                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p1.jpg');"></div>
+                        </a>
+                    </div>
+                    <div class="home-gallery-item">
+                        <a href="../media/gallery/p2.jpg" class="gallery-link-home" title="Нашли свой дом — Фото 2">
+                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p2.jpg');"></div>
+                        </a>
+                    </div>
+                    <div class="home-gallery-item">
+                        <a href="../media/gallery/p3.jpg" class="gallery-link-home" title="Нашли свой дом — Фото 3">
+                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p3.jpg');"></div>
+                        </a>
+                    </div>
+                    <div class="home-gallery-item">
+                        <a href="../media/gallery/p4.jpg" class="gallery-link-home" title="Нашли свой дом — Фото 4">
+                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p4.jpg');"></div>
+                        </a>
+                    </div>
+                    <div class="home-gallery-item">
+                        <a href="../media/gallery/p5.jpg" class="gallery-link-home" title="Нашли свой дом — Фото 5">
+                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p5.jpg');"></div>
+                        </a>
+                    </div>
+                    <div class="home-gallery-item">
+                        <a href="../media/gallery/p6.jpg" class="gallery-link-home" title="Нашли свой дом — Фото 6">
+                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p6.jpg');"></div>
+                        </a>
+                    </div>
+                </div>
             </div>
+        </section>
+    </main>
+
+    <div class="section-divider"></div>
+
+    <footer class="site-footer">
+        <div class="container">
+            © 2026 CHECHEVATA. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
         </div>
-    </div>                                                          
-    
-    <div class="t214 t-container t-rec_pt_45">
-        <div class="t214__container t-container t-container_100">
-            <div class="t-row t-align_center">
-                
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-1">
-                        <a href="../media/shop/poster1.jpg" class="gallery-link" title="Постер «Elizabeth» - Вид 1"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/shop/poster1.jpg');">
-                            </div>
-                        </a>
-                        <a href="../media/shop/poster1_2.jpg" class="gallery-link" style="display: none" title="Постер «Elizabeth» - Вид 2"></a>
-                        <a href="../media/shop/poster1_3.jpg" class="gallery-link" style="display: none" title="Постер «Elizabeth» - Вид 3"></a>
-                    </div>
-                    
-                    <div class="t214__textwrapper">
-                        <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Постер «Elizabeth»</div>
-                        <div class="t214__descr" style="margin-top: 10px;">Постер А3 | Матовая бумага 300 г/м²</div>
-                        <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;"></div>
-                        <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Ознакомиться</a>
-                    </div>
-                </div>
+    </footer>
 
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-2">
-                        <a href="../media/shop/poster2.jpg" class="gallery-link" title="Постер «Elizabeth 2» - Вид 1">
-                            <div class="t214__blockimg" style="background-image: url('../media/shop/poster2.jpg');">
-                            </div>
-                        </a>
-                        
-                        <a href="../media/shop/poster2_2.jpg" class="gallery-link" style="display: none" title="Постер «Elizabeth 2» - Вид 2"></a>
-                        <a href="../media/shop/poster2_3.jpg" class="gallery-link" style="display: none" title="Постер «Elizabeth 2» - Вид 3"></a>
-                    </div>
+    <script type="text/javascript" src="https://static.tildacdn.info/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script>
+        // Мобильное выпадающее меню
+        (function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const mainNav = document.getElementById('mainNav');
 
-                    <div class="t214__textwrapper">
-                        <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Постер «Elizabeth 2»</div>
-                        <div class="t214__descr" style="margin-top: 10px;">Постер А3 | Матовая бумага 300 г/м²</div>
-                        <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;"></div>
-                        <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Ознакомиться</a>
-                    </div>
-                </div>
+            if (menuToggle && mainNav) {
+                menuToggle.addEventListener('click', function() {
+                    const isOpen = mainNav.classList.toggle('open');
+                    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
 
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-3">
-                        <a href="../media/shop/poster3.jpg" class="gallery-link" title="Постер «ANTIQUE» - Вид 1">
-                            <div class="t214__blockimg" style="background-image: url('../media/shop/poster3.jpg');">
-                            </div>
-                        </a>
-                        
-                        <a href="../media/shop/poster3_2.jpg" class="gallery-link" style="display: none" title="Постер «ANTIQUE» - Вид 2"></a>
-                        <a href="../media/shop/poster3_3.jpg" class="gallery-link" style="display: none" title="Постер «ANTIQUE» - Вид 3"></a>
-                    </div>
-                    
-                    <div class="t214__textwrapper">
-                        <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Постер «ANTIQUE»</div>
-                        <div class="t214__descr" style="margin-top: 10px;">Постер А3 | Матовая бумага 300 г/м²</div>
-                        <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;"></div>
-                        <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Ознакомиться</a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-4">
-                        <a href="../media/shop/poster4.jpg" class="gallery-link" title="Постер «Пруд» - Вид 1"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/shop/poster4.jpg');">
-                            </div>
-                        </a>
-                        <a href="../media/shop/poster4_2.jpg" class="gallery-link" style="display: none" title="Постер «Пруд» - Вид 2"></a>
-                        <a href="../media/shop/poster4_3.jpg" class="gallery-link" style="display: none" title="Постер «Пруд» - Вид 3"></a>
-                    </div>
-                    
-                    <div class="t214__textwrapper">
-                        <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Постер «Пруд»</div>
-                        <div class="t214__descr" style="margin-top: 10px;">Плакат А3 | Матовая бумага 300 г/м²</div>
-                        <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;"></div>
-                        <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Ознакомиться</a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-5">
-                        <a href="../media/shop/poster5.jpg" class="gallery-link" title="Плакат «New Poster 5» - Вид 1">
-                            <div class="t214__blockimg" style="background-image: url('../media/shop/poster5.jpg');">
-                            </div>
-                        </a>
-                        
-                        <a href="../media/shop/poster5_2.jpg" class="gallery-link" style="display: none" title="Плакат «New Poster 5» - Вид 2"></a>
-                        <a href="../media/shop/poster5_3.jpg" class="gallery-link" style="display: none" title="Плакат «New Poster 5» - Вид 3"></a>
-                    </div>
-
-                    <div class="t214__textwrapper">
-                        <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Плакат «XXX»</div>
-                        <div class="t214__descr" style="margin-top: 10px;">В процессе...</div>
-                        <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;">1 000 000 ₽</div>
-                        <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Мяу</a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-6">
-                        <a href="../media/shop/poster6.jpg" class="gallery-link" title="Плакат «New Poster 6» - Вид 1">
-                            <div class="t214__blockimg" style="background-image: url('../media/shop/poster6.jpg');">
-                            </div>
-                        </a>
-                        
-                        <a href="../media/shop/poster6_2.jpg" class="gallery-link" style="display: none" title="Плакат «New Poster 6» - Вид 2"></a>
-                        <a href="../media/shop/poster6_3.jpg" class="gallery-link" style="display: none" title="Плакат «New Poster 6» - Вид 3"></a>
-                    </div>
-                    
-                    <div class="t214__textwrapper">
-                        <div class="t-name t-name_xs" style="color:#ffffff; margin-top: 20px; font-size: 20px;">Плакат «XXX»</div>
-                        <div class="t214__descr" style="margin-top: 10px;">В процессе...</div>
-                        <div class="t214__price t-name t-name_xs" style="color:#ffffff; margin-top: 15px; font-size: 24px; font-weight: 700;">1 000 000 ₽</div>
-                        <a href="https://t.me/gykasuan" target="_blank" class="t-submit" style="margin-top: 20px;">Мяу</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="rec_spacer2" 
-         class="r t-rec t-rec_pt_0 t-rec_pb_0" 
-         style="background-color:#131312; padding-top: 150px; padding-bottom: 0;" 
-         data-record-type="blank"
-         data-top-padding-mobile="100">
-        </div>
-
-<div id="rec_gallery_home" class="r t-rec t-rec_pt_90 t-rec_pb_90" style="background-color:#131312; color:#ffffff;" data-record-type="214">
-    <div class="t-section__container t-container">
-        <div class="t-col t-col_12 t-align_center">
-            <h2 class="t-title t-title_xxs">НАШЛИ СВОЙ ДОМ</h2>
-            
-            <div class="t-descr t-descr_md t-margin_auto" style="color:#aaaaaa; max-width: 600px; margin-top: 20px; margin-bottom: 50px;">
-                и пристроены в добрые руки
-            </div>
-        </div>
-    </div>
-    
-    <div class="t214 t-container"> 
-        <div class="t214__container t-container t-container_100">
-            <div class="t-row t-align_center">
-                
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-home">
-                        <a href="../media/gallery/p1.jpg" class="gallery-link-home" title="Нашли свой дом - Фото 1"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p1.jpg');">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-home">
-                        <a href="../media/gallery/p2.jpg" class="gallery-link-home" title="Нашли свой дом - Фото 2"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p2.jpg');">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-home">
-                        <a href="../media/gallery/p3.jpg" class="gallery-link-home" title="Нашли свой дом - Фото 3"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p3.jpg');">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-home">
-                        <a href="../media/gallery/p4.jpg" class="gallery-link-home" title="Нашли свой дом - Фото 4"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p4.jpg');">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-home">
-                        <a href="../media/gallery/p5.jpg" class="gallery-link-home" title="Нашли свой дом - Фото 5"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p5.jpg');">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-home">
-                        <a href="../media/gallery/p6.jpg" class="gallery-link-home" title="Нашли свой дом - Фото 6"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p6.jpg');">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-home">
-                        <a href="../media/gallery/p7.jpg" class="gallery-link-home" title="Нашли свой дом - Фото 7"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p7.jpg');">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-home">
-                        <a href="../media/gallery/p8.jpg" class="gallery-link-home" title="Нашли свой дом - Фото 8"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p8.jpg');">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-home">
-                        <a href="../media/gallery/p9.jpg" class="gallery-link-home" title="Нашли свой дом - Фото 9"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p9.jpg');">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="t214__col t-col t-col_4 t-item">
-                    <div class="magnific-gallery-home">
-                        <a href="../media/gallery/p10.jpg" class="gallery-link-home" title="Нашли свой дом - Фото 10"> 
-                            <div class="t214__blockimg" style="background-image: url('../media/gallery/p10.jpg');">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-    <div id="rec_spacer" 
-         class="r t-rec t-rec_pt_0 t-rec_pb_0" 
-         style="background-color:#131312; padding-top: 50px; padding-bottom: 0;" 
-         data-record-type="blank"
-         data-top-padding-mobile="100">
-        </div>
-
-    <div id="rec_footer" 
-        class="r t-rec t-rec_pt_45 t-rec_pb_45" 
-        style="background-color:#131312;" 
-        data-record-type="107"> 
-        <div class="t107">
-            <div class="t-align_center">
-                <div class="t107__title t-name t-name_xs t-margin_auto" style="color:#ffffff; font-size:14px; font-weight:300; max-width:860px;">© 2026 CHECHEVATA. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<script type="text/javascript" src="https://static.tildacdn.info/js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="https://neo.tildacdn.com/js/tilda-scripts-3.0.min.js"></script>
-<script type="text/javascript" src="https://static.tildacdn.info/js/tilda-animation-1.0.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-<script>
-$(document).ready(function() {
-    
-    // Инициализация Галереи 1
-    $('.magnific-gallery-1').each(function() {
-        $(this).magnificPopup({
-            delegate: 'a.gallery-link', // Селектор для ссылок внутри контейнера
-            type: 'image',
-            gallery: {
-                enabled: true // Включаем режим галереи
+                mainNav.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        mainNav.classList.remove('open');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    });
+                });
             }
-        });
-    });
+        })();
 
-    // Инициализация Галереи 2
-    $('.magnific-gallery-2').each(function() {
-        $(this).magnificPopup({
-            delegate: 'a.gallery-link',
-            type: 'image',
-            gallery: {
-                enabled: true
+        $(document).ready(function() {
+            for (let i = 1; i <= 6; i++) {
+                $(`.magnific-gallery-${i}`).each(function() {
+                    $(this).magnificPopup({
+                        delegate: 'a.gallery-link',
+                        type: 'image',
+                        gallery: { enabled: true }
+                    });
+                });
             }
-        });
-    });
 
-    // Инициализация Галереи 3
-    $('.magnific-gallery-3').each(function() {
-        $(this).magnificPopup({
-            delegate: 'a.gallery-link',
-            type: 'image',
-            gallery: {
-                enabled: true
-            }
+            $('.magnific-gallery-home').magnificPopup({
+                delegate: 'a.gallery-link-home',
+                type: 'image',
+                gallery: { enabled: true }
+            });
         });
-    });
-
-    $('.magnific-gallery-4').each(function() {
-        $(this).magnificPopup({
-            delegate: 'a.gallery-link', 
-            type: 'image',
-            gallery: {
-                enabled: true 
-            }
-        });
-    });
-
-    // Инициализация Галереи 5 
-    $('.magnific-gallery-5').each(function() {
-        $(this).magnificPopup({
-            delegate: 'a.gallery-link',
-            type: 'image',
-            gallery: {
-                enabled: true
-            }
-        });
-    });
-
-    // Инициализация Галереи 6 
-    $('.magnific-gallery-6').each(function() {
-        $(this).magnificPopup({
-            delegate: 'a.gallery-link',
-            type: 'image',
-            gallery: {
-                enabled: true
-            }
-        });
-    });
-
-    $('.magnific-gallery-home').each(function() {
-        $(this).magnificPopup({
-            delegate: 'a.gallery-link-home', // Селектор для ссылок внутри этого контейнера
-            type: 'image',
-            gallery: {
-                enabled: true // Включаем режим галереи для навигации
-            }
-        });
-    });
-});
-</script>
+    </script>
 </body>
 </html>
