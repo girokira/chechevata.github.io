@@ -393,29 +393,6 @@
             z-index: -1;
         }
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 7px 18px;
-            border-radius: var(--radius-pill);
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            font-size: 13px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--accent-warm);
-            margin-bottom: 14px;
-        }
-
-        .hero-badge-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #4ade80;
-            box-shadow: 0 0 10px #4ade80;
-        }
-
         .hero-greeting {
             font-size: clamp(18px, 2.2vw, 22px);
             font-weight: 300;
@@ -1176,14 +1153,6 @@
                 width: 100%;
             }
 
-            .main-nav a::after {
-                display: none;
-            }
-
-            .main-nav a.active {
-                color: var(--accent-warm);
-            }
-
             /* Компактная адаптивная сцена в Hero на телефонах */
             .hero {
                 min-height: auto;
@@ -1416,18 +1385,13 @@
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="container hero-content">
-            <div class="hero-badge">
-                <span class="hero-badge-dot"></span>
-                <span>Санкт-Петербург · Фото и Видео</span>
-            </div>
-
             <div class="hero-stage">
                 <div class="hero-side-card left">
                     <img src="media/1000007695_Glitch2.jpg.webp" alt="CHECHEVATA арт-портрет слева" />
                 </div>
 
                 <div class="hero-main-card">
-                    <img src="media/1.gif" alt="Даниил Гукасьян - фотограф CHECHEVATA" />
+                    <img src="media/_.gif" alt="Даниил Гукасьян - фотограф CHECHEVATA" />
                 </div>
 
                 <div class="hero-side-card right">
@@ -1555,7 +1519,7 @@
                             <p>Оборудование: камера <strong>Sony A6300</strong>, стабилизатор <strong>Zhiyun</strong> для плавности картинки, микрофон-пушка <strong>Comica VM10-pro</strong>.</p>
                         </div>
                     </div>
-                    <p class="service-note">Клипы, бэкстейджи, промо-ролики, Reels / Shorts и репортажи.</p>
+                    <p class="service-note">Клипы, бэкстейджи, промо-ролики, вертикальные видео и репортажи.</p>
                 </article>
             </div>
 
@@ -1677,7 +1641,7 @@
                     <div class="team-info">
                         <h3 class="team-name">Evochka</h3>
                         <div class="team-handle">SMM-specialist</div>
-                        <div class="team-role">meow</div>
+                        <div class="team-role"><a href="" target="_blank" rel="noopener noreferrer">meow</a></div>
                     </div>
                 </article>
             </div>
@@ -1771,7 +1735,11 @@
 
     <footer class="site-footer">
         <div class="container">
-            © 2026 CHECHEVATA. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
+            <div>© 2026 CHECHEVATA. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</div>
+            <div style="max-width: 720px; margin: 12px auto 0; font-size: 12px; color: rgba(255, 255, 255, 0.32); line-height: 1.45;">
+                Информация на сайте носит ознакомительный характер и не является публичной офертой (ст. 437 ГК РФ).<br>
+                *Meta Platforms Inc. (владелец соцсети Instagram) признана экстремистской организацией, её деятельность запрещена на территории РФ.
+            </div>
         </div>
     </footer>
 
