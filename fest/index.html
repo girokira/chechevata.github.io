@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Карта Фестиваля стран мира — КМД РГПУ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- jsDelivr CDN works reliably without VPN in Russia -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=PT+Sans:wght@400;700&family=Noto+Sans+SC:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Bebas Neue Cyrillic';
+      src: local('Bebas Neue Cyrillic'), local('Bebas Neue'), url('https://fonts.gstatic.com/s/bebasneue/v14/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'PT Root UI VF';
+      src: local('PT Root UI VF'), local('PT Root UI');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Pioner Sans';
+      src: local('Pioner Sans Regular'), local('Pioner Sans');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    body {
+      background-color: #FAFAFA;
+      color: #1D006D;
+      font-family: 'PT Root UI VF', 'PT Sans', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+
+    .font-bebas {
+      font-family: 'Bebas Neue Cyrillic', 'Bebas Neue', sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    .font-pioner {
+      font-family: 'Pioner Sans', 'PT Root UI VF', 'PT Sans', sans-serif;
+    }
+
+    /* Crisp flag sizing & rounded border */
+    .fi {
+      border-radius: 3px;
+      box-shadow: 0 0 0 1px rgba(29, 0, 109, 0.14);
+      display: inline-block;
+      line-height: 1em;
+    }
+
+    /* Pulse animation for unvisited pins */
+    @keyframes pulseRing {
+      0% {
+        transform: scale(0.85);
+        opacity: 0.85;
+      }
+      70% {
+        transform: scale(1.85);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.85);
+        opacity: 0;
+      }
+    }
+
+    .pin-pulse {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: pulseRing 2.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    /* Toast slide down animation */
+    @keyframes toastDrop {
+      0% {
+        transform: translate(-50%, -120%);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+      }
+    }
+
+    .toast-enter {
+      animation: toastDrop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between bg-[#FAFAFA] text-[#1D006D] selection:bg-[#4C4CC1] selection:text-white">
+
+  <!-- Celebratory Toast Notification -->
+  <div id="toastBanner" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden max-w-[92vw] w-max">
+    <div class="bg-[#1D006D] text-[#FAFAFA] px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl shadow-2xl border-2 border-[#4C4CC1] flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-[#0707A0] border border-[#FAFAFA]/40 flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4 text-[#FAFAFA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <div>
+        <p id="toastTitle" class="font-bebas text-base sm:text-lg leading-none tracking-wide text-[#FAFAFA]">СТАНЦИЯ ОТМЕЧЕНА!</p>
+        <p id="toastSubtitle" class="text-xs text-[#FAFAFA]/85 mt-0.5">Станция добавлена на карту</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Brand Header (Mobile-first responsive layout) -->
+  <header class="bg-[#1D006D] text-[#FAFAFA] sticky top-0 z-30 shadow-lg border-b-2 border-[#4C4CC1]/50">
+    <div class="max-w-3xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+      
+      <!-- Top Row on Mobile: KMD Logo Slot + Main Title -->
+      <div class="flex items-center gap-3 min-w-0">
+        <!-- Dedicated KMD PNG Logo Slot (./kmd-logo.png) -->
+        <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#FAFAFA] border-2 border-[#4C4CC1] flex items-center justify-center overflow-hidden shrink-0 shadow-md p-1">
+          <img
+            id="kmdHeaderLogo"
+            src="./kmd-logo.png"
+            alt="КМД"
+            class="w-full h-full object-contain"
+            onerror="this.style.display='none'; document.getElementById('kmdLogoFallback').classList.remove('hidden');"
+          />
+          <div id="kmdLogoFallback" class="hidden w-full h-full rounded-lg bg-[#0707A0] flex items-center justify-center">
+            <span class="font-pioner text-sm sm:text-base tracking-wider text-[#FAFAFA] font-bold">КМД</span>
+          </div>
+        </div>
+
+        <div class="min-w-0 flex-1">
+          <h1 id="uiMainTitle" class="font-bebas text-xl sm:text-2xl leading-none tracking-wide text-[#FAFAFA] truncate">
+            ФЕСТИВАЛЬ СТРАН МИРА В ГЕРЦЕНА
+          </h1>
+          <p id="uiSubTitle" class="text-[11px] sm:text-xs text-[#FAFAFA]/80 truncate mt-1">
+            Клуб межнациональной дружбы • Карта путешественника
+          </p>
+        </div>
+      </div>
+
+      <!-- Prominent Multilingual Switcher Bar -->
+      <div class="flex items-center justify-between sm:justify-end gap-2 pt-1.5 sm:pt-0 border-t border-[#4C4CC1]/30 sm:border-t-0">
+        <span id="uiLangLabel" class="text-[11px] text-[#FAFAFA]/80 flex items-center gap-1.5 sm:hidden">
+          <svg class="w-3.5 h-3.5 text-[#FAFAFA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span>Язык / Language:</span>
+        </span>
+        <div class="flex items-center bg-[#0707A0] p-1 rounded-xl border border-[#4C4CC1] shadow-inner w-full sm:w-auto justify-around sm:justify-start" role="group" aria-label="Language switcher">
+          <button onclick="setLanguage('ru')" id="langBtn-ru" class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-[#FAFAFA] text-[#1D006D] shadow flex items-center justify-center gap-1.5">
+            <span class="fi fi-ru"></span>
+            <span>RU</span>
+          </button>
+          <button onclick="setLanguage('en')" id="langBtn-en" class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-[#FAFAFA] hover:bg-[#4C4CC1]/50 flex items-center justify-center gap-1.5">
+            <span class="fi fi-gb"></span>
+            <span>EN</span>
+          </button>
+          <button onclick="setLanguage('zh')" id="langBtn-zh" class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-[#FAFAFA] hover:bg-[#4C4CC1]/50 flex items-center justify-center gap-1.5">
+            <span class="fi fi-cn"></span>
+            <span>中文</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-3xl w-full mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-5">
+
+    <!-- Progress & Prize Banner Card -->
+    <section class="bg-white rounded-2xl p-4 sm:p-5 border-2 border-[#4C4CC1]/30 shadow-sm space-y-3">
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <span id="uiProgressLabel" class="text-[11px] sm:text-xs uppercase tracking-wider text-[#4C4CC1] font-bold">
+            Твой прогресс маршрута
+          </span>
+          <div class="flex items-baseline gap-2 mt-0.5">
+            <span id="progressCount" class="font-bebas text-3xl sm:text-4xl text-[#0707A0] leading-none">0 / 11</span>
+            <span id="uiStationsWord" class="text-xs sm:text-sm text-[#1D006D]/80">станций открыто</span>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1D006D] text-[#FAFAFA] text-[11px] sm:text-xs font-bold shadow-sm">
+            <svg class="w-3.5 h-3.5 text-[#FAFAFA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 12 20 22 4 22 4 12"></polyline>
+              <rect x="2" y="7" width="20" height="5"></rect>
+              <line x1="12" y1="22" x2="12" y2="7"></line>
+              <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+              <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+            </svg>
+            <span id="uiGoalBadgeText">Цель: все 11 / 11</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full h-3.5 bg-[#1D006D]/10 rounded-full overflow-hidden p-0.5 border border-[#4C4CC1]/30">
+        <div id="progressBarFill" class="h-full bg-gradient-to-r from-[#0707A0] to-[#4C4CC1] rounded-full transition-all duration-500 ease-out" style="width: 0%;"></div>
+      </div>
+
+      <!-- Prize Unlock Alert (Strictly when all 11/11 stations are visited) -->
+      <div id="prizeBanner" class="hidden rounded-xl bg-gradient-to-r from-[#1D006D] via-[#0707A0] to-[#4C4CC1] text-[#FAFAFA] p-4 shadow-lg border border-[#FAFAFA]/20">
+        <div class="flex items-start sm:items-center gap-3.5">
+          <div class="w-11 h-11 rounded-xl bg-[#FAFAFA]/15 border border-[#FAFAFA]/30 flex items-center justify-center shrink-0">
+            <svg class="w-6 h-6 text-[#FAFAFA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h2 id="prizeBannerTitle" class="font-bebas text-xl sm:text-2xl tracking-wide leading-tight text-[#FAFAFA]">
+              ВСЕ 11 СТАНЦИЙ СОБРАНЫ!
+            </h2>
+            <p id="prizeBannerDesc" class="text-xs sm:text-sm text-[#FAFAFA]/95 mt-0.5 leading-snug">
+              Поздравляем! Покажи этот экран на главной станции КМД и забери свой приз!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- How It Works Hint -->
+      <div class="flex items-start gap-2.5 text-xs text-[#1D006D]/85 bg-[#FAFAFA] px-3 py-2.5 rounded-xl border border-[#4C4CC1]/25 leading-relaxed">
+        <svg class="w-4 h-4 text-[#0707A0] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        <p id="uiInstructionText">
+          Подходи к стендам стран и сканируй их QR-коды камерой телефона — отметки появятся на карте автоматически. Собери все 11 станций для получения приза!
+        </p>
+      </div>
+    </section>
+
+    <!-- Interactive Vector World Map Section -->
+    <section class="bg-white rounded-2xl p-2.5 sm:p-4 border-2 border-[#0707A0]/20 shadow-md">
+      <div class="flex items-center justify-between px-1 mb-2">
+        <h2 id="uiMapHeading" class="font-bebas text-lg sm:text-xl text-[#1D006D] tracking-wide">
+          ИНТЕРАКТИВНАЯ КАРТА МИРА
+        </h2>
+        <div class="flex items-center gap-3 text-[11px]">
+          <span class="flex items-center gap-1 text-[#1D006D]/70">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#FAFAFA] border-2 border-[#4C4CC1] inline-block"></span>
+            <span id="uiLegendUnvisited">Не открыто</span>
+          </span>
+          <span class="flex items-center gap-1 text-[#0707A0] font-bold">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#0707A0] inline-block"></span>
+            <span id="uiLegendVisited">Пройдено</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Responsive Vector World Map Container -->
+      <div class="relative w-full aspect-[16/10] bg-[#1D006D] rounded-xl overflow-hidden border border-[#4C4CC1]/40 shadow-inner">
+        <svg id="worldMapSvg" viewBox="0 0 1000 620" class="w-full h-full select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="mapGrid" width="50" height="50" patternUnits="userSpaceOnUse">
+              <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#4C4CC1" stroke-width="0.6" opacity="0.22"/>
+            </pattern>
+          </defs>
+
+          <!-- Ocean & Grid -->
+          <rect width="1000" height="620" fill="#1D006D"/>
+          <rect width="1000" height="620" fill="url(#mapGrid)"/>
+
+          <!-- Equator & Tropics -->
+          <line x1="0" y1="330" x2="1000" y2="330" stroke="#4C4CC1" stroke-width="1" stroke-dasharray="6,6" opacity="0.35"/>
+
+          <!-- Stylized Vector Continents -->
+          <g fill="#4C4CC1" opacity="0.42" stroke="#FAFAFA" stroke-width="0.8" stroke-opacity="0.25">
+            <!-- North & Central America -->
+            <path d="M 75,95 L 185,80 L 245,125 L 220,195 L 185,235 L 205,285 L 235,315 L 215,328 L 175,295 L 145,245 L 115,190 L 65,145 Z"/>
+            <!-- South America -->
+            <path d="M 235,332 L 295,355 L 335,415 L 315,495 L 275,565 L 250,555 L 245,475 L 225,405 Z"/>
+            <!-- Europe -->
+            <path d="M 445,105 L 525,85 L 560,120 L 545,175 L 505,195 L 455,190 L 440,150 Z"/>
+            <!-- Africa -->
+            <path d="M 445,215 L 525,210 L 575,255 L 585,325 L 555,415 L 515,475 L 485,465 L 475,385 L 435,325 L 425,260 Z"/>
+            <!-- Russia & Northern Eurasia -->
+            <path d="M 555,80 L 735,65 L 885,90 L 925,135 L 865,175 L 775,180 L 685,185 L 595,175 L 555,140 Z"/>
+            <!-- Middle East & Asia -->
+            <path d="M 545,188 L 635,185 L 745,190 L 825,210 L 845,265 L 795,315 L 755,345 L 715,325 L 675,335 L 645,290 L 595,265 L 555,235 Z"/>
+            <!-- Japan & SE Asia Islands -->
+            <path d="M 865,215 L 882,205 L 888,235 L 868,255 Z"/>
+            <path d="M 765,365 L 815,375 L 835,405 L 780,400 Z"/>
+            <!-- Australia -->
+            <path d="M 795,435 L 885,430 L 905,490 L 855,525 L 795,495 Z"/>
+          </g>
+
+          <!-- Dashed Route Lines Connecting Stations -->
+          <path d="M 245,355 Q 370,280 490,245 T 555,215 T 665,135 T 765,245 T 870,225" fill="none" stroke="#FAFAFA" stroke-width="1.3" stroke-dasharray="4,5" opacity="0.35"/>
+
+          <!-- Dynamic Pins Layer -->
+          <g id="mapPinsLayer"></g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- All 11 Stations Checklist Grid -->
+    <section class="space-y-2.5">
+      <div class="flex items-center justify-between px-1">
+        <h2 id="uiStationsHeading" class="font-bebas text-lg sm:text-xl text-[#1D006D] tracking-wide">
+          СПИСОК ВСЕХ 11 СТАНЦИЙ
+        </h2>
+        <span id="uiTapHint" class="text-[11px] text-[#4C4CC1]">
+          Нажми на станцию для деталей
+        </span>
+      </div>
+
+      <div id="stationsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer & Organizer Controls -->
+  <footer class="bg-[#1D006D] text-[#FAFAFA]/80 border-t border-[#4C4CC1]/40 mt-6">
+    <div class="max-w-3xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+      <div class="text-center sm:text-left">
+        <span class="font-pioner text-[#FAFAFA] tracking-wider font-bold">КМД</span> • <span id="uiFooterText">РГПУ им. А. И. Герцена • Мраморный зал</span>
+      </div>
+      <div class="flex items-center gap-2.5">
+        <button onclick="confirmResetProgress()" class="px-3.5 py-2 rounded-lg bg-transparent hover:bg-white/10 text-[#FAFAFA]/75 hover:text-[#FAFAFA] border border-[#FAFAFA]/25 transition">
+          <span id="uiResetBtn">Сброс прогресса</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Station Detail Bottom Sheet / Modal -->
+  <div id="stationModal" class="fixed inset-0 z-40 hidden bg-[#1D006D]/70 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4" onclick="closeStationModal(event)">
+    <div class="bg-[#FAFAFA] text-[#1D006D] w-full max-w-md rounded-t-3xl sm:rounded-2xl p-5 sm:p-6 shadow-2xl border-t-4 sm:border-2 border-[#0707A0] space-y-4" onclick="event.stopPropagation()">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div id="modalBadgeIcon" class="w-12 h-12 rounded-2xl bg-[#0707A0]/10 border border-[#4C4CC1]/40 flex items-center justify-center shrink-0 overflow-hidden p-1.5">
+            <!-- Flag or SVG emblem rendered dynamically -->
+          </div>
+          <div>
+            <span id="modalStatusBadge" class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#4C4CC1]/15 text-[#0707A0] mb-1">
+              Не пройдено
+            </span>
+            <h3 id="modalTitle" class="font-bebas text-2xl text-[#1D006D] leading-tight">
+              Название станции
+            </h3>
+          </div>
+        </div>
+        <button onclick="closeStationModal()" class="w-9 h-9 rounded-full bg-[#1D006D]/10 hover:bg-[#1D006D]/20 flex items-center justify-center text-[#1D006D] font-bold text-sm shrink-0" aria-label="Close">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <p id="modalDesc" class="text-sm text-[#1D006D]/85 leading-relaxed bg-white p-3.5 rounded-xl border border-[#4C4CC1]/25">
+        Подойди к стенду этой страны в Мраморном зале и отсканируй QR-код, чтобы поставить отметку на своей карте!
+      </p>
+
+      <div class="flex items-center gap-2 pt-1">
+        <button id="modalManualToggleBtn" onclick="toggleCurrentModalStation()" class="flex-1 py-3 px-4 rounded-xl bg-[#0707A0] hover:bg-[#4C4CC1] text-[#FAFAFA] font-bold text-sm transition shadow">
+          Отметить станцию
+        </button>
+        <button id="modalCloseBtnText" onclick="closeStationModal()" class="py-3 px-4 rounded-xl bg-[#1D006D]/10 hover:bg-[#1D006D]/20 text-[#1D006D] font-bold text-sm transition">
+          Закрыть
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. VECTOR BADGES & CDN FLAGS (NO EMOJIS)
+    // ==========================================
+    function getStationBadgeHTML(station, sizeClass = 'text-xl') {
+      if (station.badgeType === 'flag') {
+        return `<span class="fi fi-${station.flagCode} ${sizeClass}"></span>`;
+      }
+      if (station.badgeType === 'dual-flag') {
+        return `
+          <div class="flex flex-col items-center justify-center gap-0.5">
+            <span class="fi fi-${station.flagCodes[0]} text-xs"></span>
+            <span class="fi fi-${station.flagCodes[1]} text-xs"></span>
+          </div>
+        `;
+      }
+      if (station.badgeType === 'africa') {
+        return `
+          <svg class="w-6 h-6 text-[#0707A0]" viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="2" width="28" height="28" rx="6" fill="#0707A0" fill-opacity="0.1" stroke="#4C4CC1" stroke-width="1.5"/>
+            <path d="M12 7h6l4 4v5l-3 4-1 5h-3l-2-5-3-3V11l2-4z" fill="#0707A0"/>
+            <circle cx="16" cy="13" r="1.5" fill="#FAFAFA"/>
+          </svg>
+        `;
+      }
+      if (station.badgeType === 'latam') {
+        return `
+          <svg class="w-6 h-6 text-[#0707A0]" viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="2" width="28" height="28" rx="6" fill="#0707A0" fill-opacity="0.1" stroke="#4C4CC1" stroke-width="1.5"/>
+            <path d="M10 7h4l3 4 4 3v5l-4 6h-3l-1-6-3-4V7z" fill="#0707A0"/>
+            <circle cx="21" cy="10" r="2" fill="#4C4CC1"/>
+          </svg>
+        `;
+      }
+      if (station.badgeType === 'kmd') {
+        return `
+          <div class="w-full h-full flex items-center justify-center bg-[#FAFAFA] rounded-lg p-0.5">
+            <img src="./kmd-logo.png" alt="КМД" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+            <span class="hidden font-pioner text-[11px] font-bold tracking-wider text-[#0707A0]">КМД</span>
+          </div>
+        `;
+      }
+      return '';
+    }
+
+    // ==========================================
+    // 2. STATIONS DATA (ALL 11 STATIONS + OBFUSCATED TOKENS)
+    // ==========================================
+    const STATIONS = [
+      {
+        id: 'turkey',
+        token: 'tr8x4m',
+        badgeType: 'flag',
+        flagCode: 'tr',
+        x: 545,
+        y: 205,
+        name: { ru: 'Турция', en: 'Turkey', zh: '土耳其' },
+        desc: {
+          ru: 'Открой колорит Турции: восточное гостеприимство, традиции и культура. Отсканируй QR-код на стенде Турции!',
+          en: 'Discover the spirit of Turkey: hospitality, traditions, and culture. Scan the QR code at the Turkey booth!',
+          zh: '探索土耳其的独特魅力：热情好客、传统与文化。扫描土耳其展台的二维码打卡！'
+        }
+      },
+      {
+        id: 'africa_we',
+        token: 'aw3v9k',
+        badgeType: 'africa',
+        x: 525,
+        y: 345,
+        name: {
+          ru: 'Страны Африки (Западной и Восточной)',
+          en: 'West and East Africa',
+          zh: '西非与东非国家'
+        },
+        desc: {
+          ru: 'Яркие ритмы, традиционные узоры и культура Западной и Восточной Африки. Отсканируй QR-код на стенде!',
+          en: 'Vibrant rhythms, traditional patterns, and cultures of West and East Africa. Scan the QR code at the booth!',
+          zh: '感受西非与东非充满活力的节奏、传统纹样与文化。扫描展台二维码打卡！'
+        }
+      },
+      {
+        id: 'africa_north',
+        token: 'an6p2q',
+        badgeType: 'dual-flag',
+        flagCodes: ['dz', 'tn'],
+        x: 485,
+        y: 242,
+        name: {
+          ru: 'Страны Северной Африки (Алжир, Тунис)',
+          en: 'North Africa (Algeria, Tunisia)',
+          zh: '北非国家（阿尔及利亚、突尼斯）'
+        },
+        desc: {
+          ru: 'Атмосфера Магриба: традиции Алжира и Туниса, чайная культура и орнаменты. Отсканируй QR-код стенда!',
+          en: 'Atmosphere of the Maghreb: traditions of Algeria and Tunisia, tea culture, and ornaments. Scan the booth QR code!',
+          zh: '领略马格里布风情：阿尔及利亚与突尼斯的传统、茶文化与艺术纹样。扫描展台二维码打卡！'
+        }
+      },
+      {
+        id: 'latam',
+        token: 'la5z7w',
+        badgeType: 'latam',
+        x: 265,
+        y: 385,
+        name: {
+          ru: 'Страны Латинской и Центральной Америки',
+          en: 'Latin and Central America',
+          zh: '拉丁美洲与中美洲国家'
+        },
+        desc: {
+          ru: 'Страсть, танцы и краски Латинской и Центральной Америки. Отсканируй QR-код на стенде!',
+          en: 'Passion, dances, and vibrant colors of Latin and Central America. Scan the QR code at the booth!',
+          zh: '体验拉丁美洲与中美洲的热情、舞蹈与绚丽色彩。扫描展台二维码打卡！'
+        }
+      },
+      {
+        id: 'japan',
+        token: 'jp9c1r',
+        badgeType: 'flag',
+        flagCode: 'jp',
+        x: 874,
+        y: 225,
+        name: { ru: 'Япония', en: 'Japan', zh: '日本' },
+        desc: {
+          ru: 'Эстетика Страны восходящего солнца: традиции, игры и искусство Японии. Отсканируй QR-код стенда!',
+          en: 'Aesthetics of the Land of the Rising Sun: traditions, games, and arts of Japan. Scan the booth QR code!',
+          zh: '感受日出之国的美学：日本传统、游戏与艺术。扫描展台二维码打卡！'
+        }
+      },
+      {
+        id: 'laos',
+        token: 'ls4n8b',
+        badgeType: 'flag',
+        flagCode: 'la',
+        x: 752,
+        y: 282,
+        name: { ru: 'Лаос', en: 'Laos', zh: '老挝' },
+        desc: {
+          ru: 'Самобытная культура и тёплые традиции Лаоса. Отсканируй QR-код на стенде Лаоса!',
+          en: 'Authentic culture and warm traditions of Laos. Scan the QR code at the Laos booth!',
+          zh: '探索老挝独特的文化与温馨传统。扫描老挝展台二维码打卡！'
+        }
+      },
+      {
+        id: 'vietnam',
+        token: 'vn2h6t',
+        badgeType: 'flag',
+        flagCode: 'vn',
+        x: 782,
+        y: 306,
+        name: { ru: 'Вьетнам', en: 'Vietnam', zh: '越南' },
+        desc: {
+          ru: 'Традиции, игры и гостеприимство Вьетнама. Отсканируй QR-код на стенде Вьетнама!',
+          en: 'Traditions, games, and hospitality of Vietnam. Scan the QR code at the Vietnam booth!',
+          zh: '体验越南的传统、趣味游戏与热情好客。扫描越南展台二维码打卡！'
+        }
+      },
+      {
+        id: 'china',
+        token: 'cn7f3d',
+        badgeType: 'flag',
+        flagCode: 'cn',
+        x: 765,
+        y: 235,
+        name: { ru: 'Китай', en: 'China', zh: '中国' },
+        desc: {
+          ru: 'Каллиграфия, древние традиции и символы Поднебесной. Отсканируй QR-код на стенде Китая!',
+          en: 'Calligraphy, ancient traditions, and symbols of China. Scan the QR code at the China booth!',
+          zh: '体验中国书法、古老传统与文化符号。扫描中国展台二维码打卡！'
+        }
+      },
+      {
+        id: 'russia',
+        token: 'ru1g5y',
+        badgeType: 'flag',
+        flagCode: 'ru',
+        x: 685,
+        y: 135,
+        name: { ru: 'Россия', en: 'Russia', zh: '俄罗斯' },
+        desc: {
+          ru: 'Народные традиции, ремёсла и душа России. Отсканируй QR-код на стенде России!',
+          en: 'Folk traditions, crafts, and the spirit of Russia. Scan the QR code at the Russia booth!',
+          zh: '感受俄罗斯民间传统、手工艺与民族风情。扫描俄罗斯展台二维码打卡！'
+        }
+      },
+      {
+        id: 'korea',
+        token: 'kr5j8p',
+        badgeType: 'flag',
+        flagCode: 'kr',
+        x: 832,
+        y: 222,
+        name: { ru: 'Южная Корея', en: 'South Korea', zh: '韩国' },
+        desc: {
+          ru: 'Традиционные корейские игры и современная культура Южной Кореи. Отсканируй QR-код стенда!',
+          en: 'Traditional Korean games and modern culture of South Korea. Scan the booth QR code!',
+          zh: '体验韩国传统游戏与现代文化魅力。扫描展台二维码打卡！'
+        }
+      },
+      {
+        id: 'kmd',
+        token: 'km9w2e',
+        badgeType: 'kmd',
+        x: 505,
+        y: 135,
+        name: {
+          ru: 'Станция КМД (Санкт-Петербург)',
+          en: 'KMD Station (Saint Petersburg)',
+          zh: 'КМД 国际友谊俱乐部主站'
+        },
+        desc: {
+          ru: 'Главная станция Клуба межнациональной дружбы РГПУ им. А. И. Герцена! Здесь выдают призы за все 11 станций.',
+          en: 'Main station of the International Friendship Club at Herzen University! Claim your prize here once all 11 stations are unlocked.',
+          zh: '赫尔岑国立师范大学国际友谊俱乐部主站！集齐全部 11 个站点后可在此领取奖品。'
+        }
+      }
+    ];
+
+    // ==========================================
+    // 3. TRANSLATIONS (RU / EN / ZH — NO EMOJIS)
+    // ==========================================
+    const UI_STRINGS = {
+      ru: {
+        mainTitle: 'ФЕСТИВАЛЬ СТРАН МИРА В ГЕРЦЕНА',
+        subTitle: 'Клуб межнациональной дружбы • Карта путешественника',
+        progressLabel: 'Твой прогресс маршрута',
+        stationsWord: 'станций открыто',
+        goalBadgeText: 'Цель: все 11 / 11',
+        instructionText: 'Подходи к стендам стран и сканируй их QR-коды камерой телефона — отметки появятся на карте автоматически. Собери все 11 станций для получения приза!',
+        mapHeading: 'ИНТЕРАКТИВНАЯ КАРТА МИРА',
+        legendUnvisited: 'Не открыто',
+        legendVisited: 'Пройдено',
+        stationsHeading: 'СПИСОК ВСЕХ 11 СТАНЦИЙ',
+        tapHint: 'Нажми на станцию для деталей',
+        footerText: 'РГПУ им. А. И. Герцена • Мраморный зал',
+        resetBtn: 'Сброс прогресса',
+        resetConfirmBtn: 'Подтвердить сброс',
+        toastTitle: 'СТАНЦИЯ ОТМЕЧЕНА!',
+        toastAdded: 'добавлена на твою карту',
+        toastAlready: 'уже отмечена на твоей карте',
+        toastCooldownTitle: 'СЛИШКОМ БЫСТРО!',
+        toastCooldownDesc: 'Подойди к следующему стенду и попробуй снова через',
+        secWord: 'сек.',
+        prizeTitle: 'ВСЕ 11 СТАНЦИЙ СОБРАНЫ!',
+        prizeDesc: 'Поздравляем! Покажи этот экран на главной станции КМД и забери свой приз!',
+        statusVisited: 'Пройдено',
+        statusUnvisited: 'Не пройдено',
+        btnMark: 'Отметить станцию',
+        btnUnmark: 'Снять отметку',
+        btnClose: 'Закрыть'
+      },
+      en: {
+        mainTitle: 'WORLD CULTURES FESTIVAL AT HERZEN',
+        subTitle: 'International Friendship Club • Traveler Map',
+        progressLabel: 'Your Route Progress',
+        stationsWord: 'stations unlocked',
+        goalBadgeText: 'Goal: all 11 / 11',
+        instructionText: 'Visit country booths and scan their QR codes with your phone camera — stamps will appear on your map automatically. Collect all 11 stations to win a prize!',
+        mapHeading: 'INTERACTIVE WORLD MAP',
+        legendUnvisited: 'Locked',
+        legendVisited: 'Unlocked',
+        stationsHeading: 'ALL 11 FESTIVAL STATIONS',
+        tapHint: 'Tap a station for info',
+        footerText: 'Herzen University • Marble Hall',
+        resetBtn: 'Reset progress',
+        resetConfirmBtn: 'Confirm reset',
+        toastTitle: 'STATION UNLOCKED!',
+        toastAdded: 'added to your map',
+        toastAlready: 'is already on your map',
+        toastCooldownTitle: 'TOO FAST!',
+        toastCooldownDesc: 'Walk to the next booth and try again in',
+        secWord: 'sec.',
+        prizeTitle: 'ALL 11 STATIONS UNLOCKED!',
+        prizeDesc: 'Congratulations! Show this screen at the main KMD station to claim your prize!',
+        statusVisited: 'Unlocked',
+        statusUnvisited: 'Not visited yet',
+        btnMark: 'Mark as visited',
+        btnUnmark: 'Remove mark',
+        btnClose: 'Close'
+      },
+      zh: {
+        mainTitle: '赫尔岑国立师范大学世界各国文化节',
+        subTitle: '国际友谊俱乐部 • 环球探索地图',
+        progressLabel: '你的探索进度',
+        stationsWord: '个站点已点亮',
+        goalBadgeText: '目标：全部 11 / 11',
+        instructionText: '前往各国展台并用手机相机扫描对应二维码，地图将自动点亮打卡标记。集齐全部 11 个站点即可前往主站领取奖品！',
+        mapHeading: '互动世界地图',
+        legendUnvisited: '未打卡',
+        legendVisited: '已点亮',
+        stationsHeading: '全部 11 个文化展台',
+        tapHint: '点击查看展台详情',
+        footerText: '赫尔岑国立师范大学 • 大理石厅',
+        resetBtn: '重置进度',
+        resetConfirmBtn: '确认重置',
+        toastTitle: '打卡成功！',
+        toastAdded: '已添加到你的地图',
+        toastAlready: '已在你的地图中点亮',
+        toastCooldownTitle: '操作过快！',
+        toastCooldownDesc: '请前往下一个展台，等待后重试：',
+        secWord: '秒',
+        prizeTitle: '恭喜集齐全部 11 个站点！',
+        prizeDesc: '请前往 КМД 国际友谊俱乐部主站出示此页面领取奖品！',
+        statusVisited: '已打卡',
+        statusUnvisited: '未打卡',
+        btnMark: '手动打卡',
+        btnUnmark: '取消打卡',
+        btnClose: '关闭'
+      }
+    };
+
+    // ==========================================
+    // 4. STATE, STORAGE & ANTI-SPAM COOLDOWN
+    // ==========================================
+    const STORAGE_KEY = 'kmd_herzen_world_fest_v4';
+    const LANG_KEY = 'kmd_herzen_world_fest_lang';
+    const LAST_SCAN_KEY = 'kmd_herzen_last_scan_ts';
+    const SCAN_COOLDOWN_MS = 15000; // 15 seconds between different booth scans
+
+    let currentLang = localStorage.getItem(LANG_KEY) || 'ru';
+    let visitedStations = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+    let activeModalStationId = null;
+
+    function saveProgress() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...visitedStations]));
+    }
+
+    // ==========================================
+    // 5. URL PARAMETER CHECK-IN (?s=token)
+    // ==========================================
+    function checkUrlStationParam() {
+      const params = new URLSearchParams(window.location.search);
+      const tokenParam = params.get('s') || params.get('station');
+      if (!tokenParam) return;
+
+      const normalized = tokenParam.trim().toLowerCase();
+      const matchedStation = STATIONS.find(
+        s => s.token === normalized || s.id === normalized
+      );
+
+      // Clean URL parameter immediately so refresh won't re-trigger
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+
+      if (!matchedStation) return;
+
+      const wasAlreadyVisited = visitedStations.has(matchedStation.id);
+      if (wasAlreadyVisited) {
+        setTimeout(() => showToast(matchedStation, true, 0), 250);
+        return;
+      }
+
+      const now = Date.now();
+      const lastScanTs = parseInt(localStorage.getItem(LAST_SCAN_KEY) || '0', 10);
+      const elapsed = now - lastScanTs;
+
+      if (lastScanTs > 0 && elapsed < SCAN_COOLDOWN_MS) {
+        const remainingSec = Math.ceil((SCAN_COOLDOWN_MS - elapsed) / 1000);
+        setTimeout(() => showToast(matchedStation, false, remainingSec), 250);
+        return;
+      }
+
+      visitedStations.add(matchedStation.id);
+      localStorage.setItem(LAST_SCAN_KEY, String(now));
+      saveProgress();
+
+      setTimeout(() => {
+        showToast(matchedStation, false, 0);
+      }, 250);
+    }
+
+    function showToast(station, alreadyVisited, cooldownSec) {
+      const t = UI_STRINGS[currentLang];
+      const banner = document.getElementById('toastBanner');
+      const titleEl = document.getElementById('toastTitle');
+      const subEl = document.getElementById('toastSubtitle');
+
+      if (cooldownSec > 0) {
+        titleEl.textContent = t.toastCooldownTitle;
+        subEl.textContent = `${t.toastCooldownDesc} ${cooldownSec} ${t.secWord}`;
+      } else {
+        titleEl.textContent = t.toastTitle;
+        subEl.textContent = `${station.name[currentLang]} — ${alreadyVisited ? t.toastAlready : t.toastAdded}`;
+      }
+
+      banner.classList.remove('hidden');
+      banner.classList.add('toast-enter');
+
+      setTimeout(() => {
+        banner.classList.add('hidden');
+        banner.classList.remove('toast-enter');
+      }, 4200);
+    }
+
+    // ==========================================
+    // 6. RENDER UI (MAP, LIST, PROGRESS)
+    // ==========================================
+    function renderAll() {
+      const t = UI_STRINGS[currentLang];
+
+      // Update language toggle buttons
+      ['ru', 'en', 'zh'].forEach(lang => {
+        const btn = document.getElementById(`langBtn-${lang}`);
+        if (lang === currentLang) {
+          btn.className = 'flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-[#FAFAFA] text-[#1D006D] shadow flex items-center justify-center gap-1.5';
+        } else {
+          btn.className = 'flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-[#FAFAFA] hover:bg-[#4C4CC1]/50 flex items-center justify-center gap-1.5';
+        }
+      });
+
+      // Update static texts
+      document.getElementById('uiMainTitle').textContent = t.mainTitle;
+      document.getElementById('uiSubTitle').textContent = t.subTitle;
+      document.getElementById('uiProgressLabel').textContent = t.progressLabel;
+      document.getElementById('uiStationsWord').textContent = t.stationsWord;
+      document.getElementById('uiGoalBadgeText').textContent = t.goalBadgeText;
+      document.getElementById('uiInstructionText').textContent = t.instructionText;
+      document.getElementById('uiMapHeading').textContent = t.mapHeading;
+      document.getElementById('uiLegendUnvisited').textContent = t.legendUnvisited;
+      document.getElementById('uiLegendVisited').textContent = t.legendVisited;
+      document.getElementById('uiStationsHeading').textContent = t.stationsHeading;
+      document.getElementById('uiTapHint').textContent = t.tapHint;
+      document.getElementById('uiFooterText').textContent = t.footerText;
+      document.getElementById('uiResetBtn').textContent = t.resetBtn;
+      document.getElementById('modalCloseBtnText').textContent = t.btnClose;
+
+      // Update progress bar & prize banner (STRICTLY 11 / 11)
+      const count = visitedStations.size;
+      const total = STATIONS.length;
+      const pct = Math.round((count / total) * 100);
+
+      document.getElementById('progressCount').textContent = `${count} / ${total}`;
+      document.getElementById('progressBarFill').style.width = `${pct}%`;
+
+      const prizeBanner = document.getElementById('prizeBanner');
+      if (count === total) {
+        prizeBanner.classList.remove('hidden');
+        document.getElementById('prizeBannerTitle').textContent = t.prizeTitle;
+        document.getElementById('prizeBannerDesc').textContent = t.prizeDesc;
+      } else {
+        prizeBanner.classList.add('hidden');
+      }
+
+      renderMapPins();
+      renderStationsList();
+    }
+
+    function renderMapPins() {
+      const pinsLayer = document.getElementById('mapPinsLayer');
+      pinsLayer.innerHTML = '';
+
+      STATIONS.forEach(station => {
+        const isVisited = visitedStations.has(station.id);
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'cursor-pointer transition-transform hover:scale-110');
+        g.setAttribute('transform', `translate(${station.x}, ${station.y})`);
+        g.addEventListener('click', () => openStationModal(station.id));
+
+        if (isVisited) {
+          const halo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          halo.setAttribute('r', '22');
+          halo.setAttribute('fill', '#4C4CC1');
+          halo.setAttribute('opacity', '0.45');
+          g.appendChild(halo);
+
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('r', '15');
+          circle.setAttribute('fill', '#0707A0');
+          circle.setAttribute('stroke', '#FAFAFA');
+          circle.setAttribute('stroke-width', '3');
+          g.appendChild(circle);
+
+          // Crisp SVG checkmark path inside pin
+          const checkPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          checkPath.setAttribute('d', 'M -6 0 L -2 4 L 6 -4');
+          checkPath.setAttribute('fill', 'none');
+          checkPath.setAttribute('stroke', '#FAFAFA');
+          checkPath.setAttribute('stroke-width', '2.8');
+          checkPath.setAttribute('stroke-linecap', 'round');
+          checkPath.setAttribute('stroke-linejoin', 'round');
+          g.appendChild(checkPath);
+        } else {
+          const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          pulse.setAttribute('r', '16');
+          pulse.setAttribute('fill', '#4C4CC1');
+          pulse.setAttribute('class', 'pin-pulse');
+          g.appendChild(pulse);
+
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('r', '13');
+          circle.setAttribute('fill', '#FAFAFA');
+          circle.setAttribute('stroke', '#4C4CC1');
+          circle.setAttribute('stroke-width', '3');
+          g.appendChild(circle);
+
+          const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          dot.setAttribute('r', '4.5');
+          dot.setAttribute('fill', '#1D006D');
+          g.appendChild(dot);
+        }
+
+        // Compact Label Pill under Pin
+        const shortLabel = station.name[currentLang].split('(')[0].trim();
+        const labelWidth = Math.min(Math.max(shortLabel.length * 7.2 + 16, 62), 145);
+
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', -labelWidth / 2);
+        rect.setAttribute('y', '19');
+        rect.setAttribute('width', labelWidth);
+        rect.setAttribute('height', '20');
+        rect.setAttribute('rx', '10');
+        rect.setAttribute('fill', isVisited ? '#0707A0' : '#1D006D');
+        rect.setAttribute('stroke', isVisited ? '#FAFAFA' : '#4C4CC1');
+        rect.setAttribute('stroke-width', '1.2');
+        g.appendChild(rect);
+
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('y', '32.5');
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('fill', '#FAFAFA');
+        text.setAttribute('font-size', '10.5');
+        text.setAttribute('font-weight', isVisited ? 'bold' : 'normal');
+        text.textContent = shortLabel.length > 18 ? shortLabel.slice(0, 17) + '...' : shortLabel;
+        g.appendChild(text);
+
+        pinsLayer.appendChild(g);
+      });
+    }
+
+    function renderStationsList() {
+      const grid = document.getElementById('stationsGrid');
+      const t = UI_STRINGS[currentLang];
+      grid.innerHTML = '';
+
+      STATIONS.forEach((station, idx) => {
+        const isVisited = visitedStations.has(station.id);
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.onclick = () => openStationModal(station.id);
+
+        card.className = isVisited
+          ? 'w-full text-left p-3.5 rounded-2xl bg-[#0707A0] text-[#FAFAFA] border-2 border-[#0707A0] shadow-md flex items-center justify-between gap-3 transition active:scale-[0.99]'
+          : 'w-full text-left p-3.5 rounded-2xl bg-white text-[#1D006D] border-2 border-[#4C4CC1]/30 hover:border-[#0707A0] shadow-xs flex items-center justify-between gap-3 transition active:scale-[0.99]';
+
+        const badgeHTML = getStationBadgeHTML(station, 'text-2xl');
+
+        card.innerHTML = `
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-10 h-10 rounded-xl ${isVisited ? 'bg-[#FAFAFA]' : 'bg-[#FAFAFA] border border-[#4C4CC1]/30'} flex items-center justify-center shrink-0 overflow-hidden p-1">
+              ${badgeHTML}
+            </div>
+            <div class="min-w-0">
+              <div class="text-[10px] uppercase tracking-wider ${isVisited ? 'text-[#FAFAFA]/80' : 'text-[#4C4CC1]'} font-bold">
+                #${idx + 1} • ${isVisited ? t.statusVisited : t.statusUnvisited}
+              </div>
+              <div class="text-sm font-bold leading-snug truncate">
+                ${station.name[currentLang]}
+              </div>
+            </div>
+          </div>
+          <div class="w-7 h-7 rounded-full ${isVisited ? 'bg-[#FAFAFA] text-[#0707A0]' : 'border-2 border-[#4C4CC1]/50 text-transparent'} flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem(LANG_KEY, lang);
+      renderAll();
+    }
+
+    // ==========================================
+    // 7. STATION DETAIL MODAL
+    // ==========================================
+    function openStationModal(stationId) {
+      const station = STATIONS.find(s => s.id === stationId);
+      if (!station) return;
+
+      activeModalStationId = stationId;
+      const t = UI_STRINGS[currentLang];
+      const isVisited = visitedStations.has(stationId);
+
+      document.getElementById('modalBadgeIcon').innerHTML = getStationBadgeHTML(station, 'text-3xl');
+      document.getElementById('modalTitle').textContent = station.name[currentLang];
+      document.getElementById('modalDesc').textContent = station.desc[currentLang];
+
+      const badge = document.getElementById('modalStatusBadge');
+      badge.textContent = isVisited ? t.statusVisited : t.statusUnvisited;
+      badge.className = isVisited
+        ? 'inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#0707A0] text-[#FAFAFA] mb-1'
+        : 'inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#4C4CC1]/15 text-[#0707A0] mb-1';
+
+      const toggleBtn = document.getElementById('modalManualToggleBtn');
+      toggleBtn.textContent = isVisited ? t.btnUnmark : t.btnMark;
+      toggleBtn.className = isVisited
+        ? 'flex-1 py-3 px-4 rounded-xl bg-[#1D006D]/15 hover:bg-[#1D006D]/25 text-[#1D006D] font-bold text-sm transition'
+        : 'flex-1 py-3 px-4 rounded-xl bg-[#0707A0] hover:bg-[#4C4CC1] text-[#FAFAFA] font-bold text-sm transition shadow';
+
+      document.getElementById('stationModal').classList.remove('hidden');
+    }
+
+    function closeStationModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('stationModal').classList.add('hidden');
+      activeModalStationId = null;
+    }
+
+    function toggleCurrentModalStation() {
+      if (!activeModalStationId) return;
+      if (visitedStations.has(activeModalStationId)) {
+        visitedStations.delete(activeModalStationId);
+      } else {
+        visitedStations.add(activeModalStationId);
+      }
+      saveProgress();
+      renderAll();
+      openStationModal(activeModalStationId);
+    }
+
+    function confirmResetProgress() {
+      const t = UI_STRINGS[currentLang];
+      const footerBtn = document.getElementById('uiResetBtn');
+      if (footerBtn.dataset.confirming === 'true') {
+        visitedStations.clear();
+        localStorage.removeItem(LAST_SCAN_KEY);
+        saveProgress();
+        renderAll();
+        footerBtn.dataset.confirming = 'false';
+        footerBtn.textContent = t.resetBtn;
+      } else {
+        footerBtn.dataset.confirming = 'true';
+        footerBtn.textContent = t.resetConfirmBtn;
+        setTimeout(() => {
+          footerBtn.dataset.confirming = 'false';
+          footerBtn.textContent = UI_STRINGS[currentLang].resetBtn;
+        }, 3500);
+      }
+    }
+
+    // ==========================================
+    // 8. INITIALIZATION
+    // ==========================================
+    window.addEventListener('DOMContentLoaded', () => {
+      checkUrlStationParam();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
