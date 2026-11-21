@@ -380,11 +380,8 @@
         Подойди к стенду этой страны в Мраморном зале и отсканируй QR-код, чтобы поставить отметку на своей карте!
       </p>
 
-      <div class="flex items-center gap-2 pt-1">
-        <button id="modalManualToggleBtn" onclick="toggleCurrentModalStation()" class="flex-1 py-3 px-4 rounded-xl bg-[#0707A0] hover:bg-[#4C4CC1] text-[#FAFAFA] font-bold text-sm transition shadow">
-          Отметить станцию
-        </button>
-        <button id="modalCloseBtnText" onclick="closeStationModal()" class="py-3 px-4 rounded-xl bg-[#1D006D]/10 hover:bg-[#1D006D]/20 text-[#1D006D] font-bold text-sm transition">
+      <div class="pt-1">
+        <button id="modalCloseBtnText" onclick="closeStationModal()" class="w-full py-3 px-4 rounded-xl bg-[#0707A0] hover:bg-[#4C4CC1] text-[#FAFAFA] font-bold text-sm transition shadow">
           Закрыть
         </button>
       </div>
@@ -765,8 +762,6 @@
         certDownloadBtn: 'Скачать PNG',
         statusVisited: 'Пройдено',
         statusUnvisited: 'Не пройдено',
-        btnMark: 'Отметить станцию',
-        btnUnmark: 'Снять отметку',
         btnClose: 'Закрыть'
       },
       en: {
@@ -806,8 +801,6 @@
         certDownloadBtn: 'Download PNG',
         statusVisited: 'Unlocked',
         statusUnvisited: 'Not visited yet',
-        btnMark: 'Mark as visited',
-        btnUnmark: 'Remove mark',
         btnClose: 'Close'
       },
       es: {
@@ -847,8 +840,6 @@
         certDownloadBtn: 'Descargar PNG',
         statusVisited: 'Completado',
         statusUnvisited: 'Sin visitar',
-        btnMark: 'Marcar estación',
-        btnUnmark: 'Quitar marca',
         btnClose: 'Cerrar'
       },
       zh: {
@@ -888,8 +879,6 @@
         certDownloadBtn: '下载 PNG 证书',
         statusVisited: '已打卡',
         statusUnvisited: '未打卡',
-        btnMark: '手动打卡',
-        btnUnmark: '取消打卡',
         btnClose: '关闭'
       }
     };
@@ -906,7 +895,6 @@
     let currentLang = localStorage.getItem(LANG_KEY) || 'ru';
     let visitedStations = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
     let certParticipantName = localStorage.getItem(CERT_NAME_KEY) || '';
-    let activeModalStationId = null;
 
     function saveProgress() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify([...visitedStations]));
@@ -1166,13 +1154,12 @@
     }
 
     // ==========================================
-    // 7. STATION DETAIL MODAL
+    // 7. STATION DETAIL MODAL (READ-ONLY INFO)
     // ==========================================
     function openStationModal(stationId) {
       const station = STATIONS.find(s => s.id === stationId);
       if (!station) return;
 
-      activeModalStationId = stationId;
       const t = UI_STRINGS[currentLang];
       const isVisited = visitedStations.has(stationId);
 
@@ -1186,31 +1173,12 @@
         ? 'inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#0707A0] text-[#FAFAFA] mb-1'
         : 'inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#4C4CC1]/15 text-[#0707A0] mb-1';
 
-      const toggleBtn = document.getElementById('modalManualToggleBtn');
-      toggleBtn.textContent = isVisited ? t.btnUnmark : t.btnMark;
-      toggleBtn.className = isVisited
-        ? 'flex-1 py-3 px-4 rounded-xl bg-[#1D006D]/15 hover:bg-[#1D006D]/25 text-[#1D006D] font-bold text-sm transition'
-        : 'flex-1 py-3 px-4 rounded-xl bg-[#0707A0] hover:bg-[#4C4CC1] text-[#FAFAFA] font-bold text-sm transition shadow';
-
       document.getElementById('stationModal').classList.remove('hidden');
     }
 
     function closeStationModal(event) {
       if (event && event.target !== event.currentTarget) return;
       document.getElementById('stationModal').classList.add('hidden');
-      activeModalStationId = null;
-    }
-
-    function toggleCurrentModalStation() {
-      if (!activeModalStationId) return;
-      if (visitedStations.has(activeModalStationId)) {
-        visitedStations.delete(activeModalStationId);
-      } else {
-        visitedStations.add(activeModalStationId);
-      }
-      saveProgress();
-      renderAll();
-      openStationModal(activeModalStationId);
     }
 
     // ==========================================
