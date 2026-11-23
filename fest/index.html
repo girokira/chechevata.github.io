@@ -186,7 +186,7 @@
             Твой прогресс маршрута
           </span>
           <div class="flex items-baseline gap-2 mt-0.5">
-            <span id="progressCount" class="font-bebas text-3xl sm:text-4xl text-[#0707A0] leading-none">0 / 11</span>
+            <span id="progressCount" class="font-bebas text-3xl sm:text-4xl text-[#0707A0] leading-none">0 / 12</span>
             <span id="uiStationsWord" class="text-xs sm:text-sm text-[#1D006D]/80">станций открыто</span>
           </div>
         </div>
@@ -199,7 +199,7 @@
               <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
               <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
             </svg>
-            <span id="uiGoalBadgeText">Цель: все 11 / 11</span>
+            <span id="uiGoalBadgeText">Цель: все 12 / 12</span>
           </span>
         </div>
       </div>
@@ -209,7 +209,7 @@
         <div id="progressBarFill" class="h-full bg-gradient-to-r from-[#0707A0] to-[#4C4CC1] rounded-full transition-all duration-500 ease-out" style="width: 0%;"></div>
       </div>
 
-      <!-- Prize Unlock Alert (Strictly when all 11/11 stations are visited) -->
+      <!-- Prize Unlock Alert (Strictly when all 12/12 stations are visited) -->
       <div id="prizeBanner" class="hidden rounded-xl bg-gradient-to-r from-[#1D006D] via-[#0707A0] to-[#4C4CC1] text-[#FAFAFA] p-4 shadow-lg border border-[#FAFAFA]/20 space-y-3">
         <div class="flex items-start sm:items-center gap-3.5">
           <div class="w-11 h-11 rounded-xl bg-[#FAFAFA]/15 border border-[#FAFAFA]/30 flex items-center justify-center shrink-0">
@@ -224,7 +224,7 @@
           </div>
           <div class="flex-1">
             <h2 id="prizeBannerTitle" class="font-bebas text-xl sm:text-2xl tracking-wide leading-tight text-[#FAFAFA]">
-              ВСЕ 11 СТАНЦИЙ СОБРАНЫ!
+              ВСЕ 12 СТАНЦИЙ СОБРАНЫ!
             </h2>
             <p id="prizeBannerDesc" class="text-xs sm:text-sm text-[#FAFAFA]/95 mt-0.5 leading-snug">
               Поздравляем! Покажи этот экран на главной станции КМД и забери свой приз!
@@ -250,7 +250,7 @@
           <rect x="3" y="14" width="7" height="7"></rect>
         </svg>
         <p id="uiInstructionText">
-          Подходи к стендам стран и сканируй их QR-коды камерой телефона — отметки появятся на карте автоматически. Собери все 11 станций для получения приза!
+          Подходи к стендам стран и сканируй их QR-коды камерой телефона — отметки появятся на карте автоматически. Собери все 12 станций для получения приза!
         </p>
       </div>
     </section>
@@ -311,7 +311,7 @@
           </g>
 
           <!-- Dashed Route Lines Connecting Stations -->
-          <path d="M 245,355 Q 370,280 490,245 T 555,215 T 665,135 T 765,245 T 870,225" fill="none" stroke="#FAFAFA" stroke-width="1.3" stroke-dasharray="4,5" opacity="0.35"/>
+          <path d="M 245,355 Q 370,280 490,245 T 555,215 T 645,190 T 685,135 T 765,245 T 870,225" fill="none" stroke="#FAFAFA" stroke-width="1.3" stroke-dasharray="4,5" opacity="0.35"/>
 
           <!-- Dynamic Pins Layer -->
           <g id="mapPinsLayer"></g>
@@ -319,11 +319,11 @@
       </div>
     </section>
 
-    <!-- All 11 Stations Checklist Grid -->
+    <!-- All 12 Stations Checklist Grid -->
     <section class="space-y-2.5">
       <div class="flex items-center justify-between px-1">
         <h2 id="uiStationsHeading" class="font-bebas text-lg sm:text-xl text-[#1D006D] tracking-wide">
-          СПИСОК ВСЕХ 11 СТАНЦИЙ
+          СПИСОК ВСЕХ 12 СТАНЦИЙ
         </h2>
         <span id="uiTapHint" class="text-[11px] text-[#4C4CC1]">
           Нажми на станцию для деталей
@@ -447,7 +447,7 @@
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
-            <span id="certStationsBadge">11 / 11 станций пройдено</span>
+            <span id="certStationsBadge">12 / 12 станций пройдено</span>
           </span>
         </div>
 
@@ -534,7 +534,7 @@
     }
 
     // ==========================================
-    // 2. STATIONS DATA (TOKENS MATCHING PRINTED PDF)
+    // 2. STATIONS DATA (ALL 12 STATIONS)
     // ==========================================
     const STATIONS = [
       {
@@ -701,6 +701,21 @@
         }
       },
       {
+        id: 'uzbekistan',
+        token: 'uz4k7p',
+        badgeType: 'flag',
+        flagCode: 'uz',
+        x: 642,
+        y: 192,
+        name: { ru: 'Узбекистан', en: 'Uzbekistan', es: 'Uzbekistán', zh: '乌兹别克斯坦' },
+        desc: {
+          ru: 'Восточное гостеприимство, древний Самарканд, орнаменты и традиции Узбекистана. Отсканируй QR-код на стенде!',
+          en: 'Eastern hospitality, ancient Samarkand, patterns, and traditions of Uzbekistan. Scan the QR code at the booth!',
+          es: 'Hospitalidad oriental, la antigua Samarcanda, ornamentos y tradiciones de Uzbekistán. ¡Escanea el código QR en el stand!',
+          zh: '感受乌兹别克斯坦的热情好客、古城撒马尔罕风情与传统纹样。扫描展台二维码打卡！'
+        }
+      },
+      {
         id: 'kmd',
         token: 'kmd0x2',
         badgeType: 'kmd',
@@ -713,10 +728,10 @@
           zh: 'КМД 国际友谊俱乐部主站'
         },
         desc: {
-          ru: 'Главная станция Клуба межнациональной дружбы РГПУ им. А. И. Герцена! Здесь выдают призы за все 11 станций.',
-          en: 'Main station of the International Friendship Club at Herzen University! Claim your prize here once all 11 stations are unlocked.',
-          es: '¡Estación principal del Club de Amistad Internacional de la Universidad Herzen! Reclama aquí tu premio al completar las 11 estaciones.',
-          zh: '赫尔岑国立师范大学国际友谊俱乐部主站！集齐全部 11 个站点后可在此领取奖品。'
+          ru: 'Главная станция Клуба межнациональной дружбы РГПУ им. А. И. Герцена! Здесь выдают призы за все 12 станций.',
+          en: 'Main station of the International Friendship Club at Herzen University! Claim your prize here once all 12 stations are unlocked.',
+          es: '¡Estación principal del Club de Amistad Internacional de la Universidad Herzen! Reclama aquí tu premio al completar las 12 estaciones.',
+          zh: '赫尔岑国立师范大学国际友谊俱乐部主站！集齐全部 12 个站点后可在此领取奖品。'
         }
       }
     ];
@@ -730,12 +745,12 @@
         subTitle: 'Клуб межнациональной дружбы • Карта путешественника',
         progressLabel: 'Твой прогресс маршрута',
         stationsWord: 'станций открыто',
-        goalBadgeText: 'Цель: все 11 / 11',
-        instructionText: 'Подходи к стендам стран и сканируй их QR-коды камерой телефона — отметки появятся на карте автоматически. Собери все 11 станций для получения приза!',
+        goalBadgeText: 'Цель: все 12 / 12',
+        instructionText: 'Подходи к стендам стран и сканируй их QR-коды камерой телефона — отметки появятся на карте автоматически. Собери все 12 станций для получения приза!',
         mapHeading: 'ИНТЕРАКТИВНАЯ КАРТА МИРА',
         legendUnvisited: 'Не открыто',
         legendVisited: 'Пройдено',
-        stationsHeading: 'СПИСОК ВСЕХ 11 СТАНЦИЙ',
+        stationsHeading: 'СПИСОК ВСЕХ 12 СТАНЦИЙ',
         tapHint: 'Нажми на станцию для деталей',
         footerText: 'РГПУ им. А. И. Герцена • Мраморный зал',
         resetBtn: 'Сброс прогресса',
@@ -746,7 +761,7 @@
         toastCooldownTitle: 'СЛИШКОМ БЫСТРО!',
         toastCooldownDesc: 'Подойди к следующему стенду и попробуй снова через',
         secWord: 'сек.',
-        prizeTitle: 'ВСЕ 11 СТАНЦИЙ СОБРАНЫ!',
+        prizeTitle: 'ВСЕ 12 СТАНЦИЙ СОБРАНЫ!',
         prizeDesc: 'Поздравляем! Покажи этот экран на главной станции КМД и забери свой приз!',
         openCertBtn: 'Получить сертификат',
         certModalHeading: 'СЕРТИФИКАТ ПУТЕШЕСТВЕННИКА',
@@ -755,7 +770,7 @@
         certCardSub: 'подтверждает прохождение всех станций Фестиваля стран мира',
         certAwardedLabel: 'Награждается',
         certDefaultName: 'ПУТЕШЕСТВЕННИК',
-        certStationsBadge: '11 / 11 станций пройдено',
+        certStationsBadge: '12 / 12 станций пройдено',
         certPlaceText: 'Санкт-Петербург • Мраморный зал',
         certInputLabel: 'Впиши своё имя для сертификата:',
         certInputPlaceholder: 'Например: Анна Смирнова',
@@ -769,12 +784,12 @@
         subTitle: 'International Friendship Club • Traveler Map',
         progressLabel: 'Your Route Progress',
         stationsWord: 'stations unlocked',
-        goalBadgeText: 'Goal: all 11 / 11',
-        instructionText: 'Visit country booths and scan their QR codes with your phone camera — stamps will appear on your map automatically. Collect all 11 stations to win a prize!',
+        goalBadgeText: 'Goal: all 12 / 12',
+        instructionText: 'Visit country booths and scan their QR codes with your phone camera — stamps will appear on your map automatically. Collect all 12 stations to win a prize!',
         mapHeading: 'INTERACTIVE WORLD MAP',
         legendUnvisited: 'Locked',
         legendVisited: 'Unlocked',
-        stationsHeading: 'ALL 11 FESTIVAL STATIONS',
+        stationsHeading: 'ALL 12 FESTIVAL STATIONS',
         tapHint: 'Tap a station for info',
         footerText: 'Herzen University • Marble Hall',
         resetBtn: 'Reset progress',
@@ -785,7 +800,7 @@
         toastCooldownTitle: 'TOO FAST!',
         toastCooldownDesc: 'Walk to the next booth and try again in',
         secWord: 'sec.',
-        prizeTitle: 'ALL 11 STATIONS UNLOCKED!',
+        prizeTitle: 'ALL 12 STATIONS UNLOCKED!',
         prizeDesc: 'Congratulations! Show this screen at the main KMD station to claim your prize!',
         openCertBtn: 'Get Certificate',
         certModalHeading: 'TRAVELER CERTIFICATE',
@@ -794,7 +809,7 @@
         certCardSub: 'confirms completion of all World Cultures Festival stations',
         certAwardedLabel: 'Awarded to',
         certDefaultName: 'WORLD TRAVELER',
-        certStationsBadge: '11 / 11 stations completed',
+        certStationsBadge: '12 / 12 stations completed',
         certPlaceText: 'Saint Petersburg • Marble Hall',
         certInputLabel: 'Enter your name for the certificate:',
         certInputPlaceholder: 'e.g. Alex Johnson',
@@ -808,12 +823,12 @@
         subTitle: 'Club de Amistad Internacional • Mapa del Viajero',
         progressLabel: 'Progreso de tu ruta',
         stationsWord: 'estaciones abiertas',
-        goalBadgeText: 'Meta: todas 11 / 11',
-        instructionText: 'Visita los stands de los países y escanea sus códigos QR con la cámara del teléfono para marcar tu mapa automáticamente. ¡Completa las 11 estaciones para ganar un premio!',
+        goalBadgeText: 'Meta: todas 12 / 12',
+        instructionText: 'Visita los stands de los países y escanea sus códigos QR con la cámara del teléfono para marcar tu mapa automáticamente. ¡Completa las 12 estaciones para ganar un premio!',
         mapHeading: 'MAPA MUNDIAL INTERACTIVO',
         legendUnvisited: 'Bloqueado',
         legendVisited: 'Completado',
-        stationsHeading: 'TODAS LAS 11 ESTACIONES',
+        stationsHeading: 'TODAS LAS 12 ESTACIONES',
         tapHint: 'Toca una estación para ver detalles',
         footerText: 'Universidad Herzen • Salón de Mármol',
         resetBtn: 'Reiniciar progreso',
@@ -824,7 +839,7 @@
         toastCooldownTitle: '¡DEMASIADO RÁPIDO!',
         toastCooldownDesc: 'Ve al siguiente stand e inténtalo de nuevo en',
         secWord: 'seg.',
-        prizeTitle: '¡LAS 11 ESTACIONES COMPLETADAS!',
+        prizeTitle: '¡LAS 12 ESTACIONES COMPLETADAS!',
         prizeDesc: '¡Felicidades! Muestra esta pantalla en la estación principal KMD y recoge tu premio.',
         openCertBtn: 'Obtener certificado',
         certModalHeading: 'CERTIFICADO DE VIAJERO',
@@ -833,7 +848,7 @@
         certCardSub: 'confirma la visita a todas las estaciones del Festival de Culturas del Mundo',
         certAwardedLabel: 'Otorgado a',
         certDefaultName: 'VIAJERO DEL MUNDO',
-        certStationsBadge: '11 / 11 estaciones completadas',
+        certStationsBadge: '12 / 12 estaciones completadas',
         certPlaceText: 'San Petersburgo • Salón de Mármol',
         certInputLabel: 'Escribe tu nombre para el certificado:',
         certInputPlaceholder: 'Ej.: Carlos Mendoza',
@@ -847,12 +862,12 @@
         subTitle: '国际友谊俱乐部 • 环球探索地图',
         progressLabel: '你的探索进度',
         stationsWord: '个站点已点亮',
-        goalBadgeText: '目标：全部 11 / 11',
-        instructionText: '前往各国展台并用手机相机扫描对应二维码，地图将自动点亮打卡标记。集齐全部 11 个站点即可前往主站领取奖品！',
+        goalBadgeText: '目标：全部 12 / 12',
+        instructionText: '前往各国展台并用手机相机扫描对应二维码，地图将自动点亮打卡标记。集齐全部 12 个站点即可前往主站领取奖品！',
         mapHeading: '互动世界地图',
         legendUnvisited: '未打卡',
         legendVisited: '已点亮',
-        stationsHeading: '全部 11 个文化展台',
+        stationsHeading: '全部 12 个文化展台',
         tapHint: '点击查看展台详情',
         footerText: '赫尔岑国立师范大学 • 大理石厅',
         resetBtn: '重置进度',
@@ -863,7 +878,7 @@
         toastCooldownTitle: '操作过快！',
         toastCooldownDesc: '请前往下一个展台，等待后重试：',
         secWord: '秒',
-        prizeTitle: '恭喜集齐全部 11 个站点！',
+        prizeTitle: '恭喜集齐全部 12 个站点！',
         prizeDesc: '请前往 КМД 国际友谊俱乐部主站出示此页面领取奖品！',
         openCertBtn: '领取电子证书',
         certModalHeading: '环球探索证书',
@@ -872,7 +887,7 @@
         certCardSub: '兹证明已成功打卡世界各国文化节全部展台',
         certAwardedLabel: '授予',
         certDefaultName: '环球探索者',
-        certStationsBadge: '已完成 11 / 11 个站点',
+        certStationsBadge: '已完成 12 / 12 个站点',
         certPlaceText: '圣彼得堡 • 大理石厅',
         certInputLabel: '输入你的姓名（显示在证书上）：',
         certInputPlaceholder: '例如：李明',
@@ -1004,7 +1019,7 @@
       // Update certificate UI texts
       updateCertificateUI();
 
-      // Update progress bar & prize banner (STRICTLY 11 / 11)
+      // Update progress bar & prize banner (STRICTLY 12 / 12)
       const count = visitedStations.size;
       const total = STATIONS.length;
       const pct = Math.round((count / total) * 100);
@@ -1312,7 +1327,7 @@
         ctx.lineTo(900, 875);
         ctx.stroke();
 
-        // 11/11 Pill Badge
+        // 12/12 Pill Badge
         ctx.fillStyle = 'rgba(250, 250, 250, 0.16)';
         ctx.strokeStyle = 'rgba(250, 250, 250, 0.45)';
         ctx.lineWidth = 2;
