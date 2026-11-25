@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Фестиваль стран мира — КМД РГПУ им. А. И. Герцена</title>
+  <title>Фестиваль стран мира в Герцена — КМД</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
   <style>
     :root {
-      --bg: #FAFAFA;
+      --bg: #F4F5FA;
       --primary: #1D006D;
       --secondary: #0707A0;
       --accent: #4C4CC1;
       --card-bg: #FFFFFF;
       --text-main: #12122A;
       --text-muted: #5A5B7A;
-      --border: #E2E3F3;
+      --border: #E0E2F2;
       --success: #0E8A4E;
       --warning: #C95B00;
     }
@@ -37,196 +37,119 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 16px 14px 36px;
+      padding-bottom: 40px;
     }
 
-    .container {
+    /* Full-width Top Header */
+    .site-header {
       width: 100%;
-      max-width: 480px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 70%, #1414B8 100%);
+      color: #FFFFFF;
+      padding: 16px 16px 18px;
+      box-shadow: 0 6px 20px rgba(29, 0, 109, 0.22);
     }
 
-    /* Top Bar */
-    .top-bar {
+    .header-inner {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .brand-badge {
+    .brand-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      min-width: 0;
     }
 
-    .brand-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: var(--primary);
+    .header-logo {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 4px;
-      flex-shrink: 0;
     }
 
-    .brand-logo img {
+    .header-logo img {
       width: 100%;
       height: 100%;
       object-fit: contain;
     }
 
-    .brand-text {
+    .header-titles {
       display: flex;
       flex-direction: column;
-    }
-
-    .brand-org {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .brand-uni {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .lang-switch {
-      display: flex;
-      background: #ECEDF8;
-      padding: 3px;
-      border-radius: 10px;
       gap: 2px;
+    }
+
+    .header-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: 0.03em;
+      color: #FFFFFF;
+    }
+
+    .header-sub {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    /* Language Pill */
+    .lang-pill {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 4px;
+      border-radius: 12px;
+      gap: 3px;
     }
 
     .lang-btn {
       border: none;
       background: transparent;
-      padding: 5px 8px;
-      border-radius: 7px;
+      color: rgba(255, 255, 255, 0.88);
+      padding: 6px 9px;
+      border-radius: 9px;
       font-size: 12px;
       font-weight: 700;
-      color: var(--text-muted);
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       transition: all 0.15s ease;
     }
 
     .lang-btn.active {
-      background: var(--primary);
-      color: #FFFFFF;
+      background: #FFFFFF;
+      color: var(--primary);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
     .lang-btn .fi {
-      font-size: 12px;
+      font-size: 13px;
       border-radius: 2px;
     }
 
-    /* Hero Card */
-    .hero {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 65%, var(--accent) 100%);
-      border-radius: 20px;
-      padding: 20px 18px;
-      color: #FFFFFF;
-      box-shadow: 0 10px 24px rgba(29, 0, 109, 0.18);
-    }
-
-    .hero-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .hero-head-text {
+    /* Main Container */
+    .container {
+      width: 100%;
+      max-width: 720px;
+      padding: 16px 14px 0;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 16px;
     }
 
-    .hero-tag {
-      display: inline-block;
-      align-self: flex-start;
-      background: rgba(255, 255, 255, 0.16);
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 32px;
-      line-height: 1.05;
-      letter-spacing: 0.02em;
-    }
-
-    .hero-logo-clean {
-      width: 56px;
-      height: 56px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-logo-clean img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .hero-subtitle {
-      font-size: 13px;
-      line-height: 1.4;
-      color: rgba(255, 255, 255, 0.88);
-      margin-bottom: 16px;
-    }
-
-    .progress-wrap {
-      background: rgba(255, 255, 255, 0.14);
-      border-radius: 14px;
-      padding: 12px 14px;
-    }
-
-    .progress-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .progress-bar-bg {
-      width: 100%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.22);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: #FFFFFF;
-      border-radius: 999px;
-      transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    /* Toast / Notification */
+    /* Toast */
     .toast {
       display: none;
       align-items: center;
@@ -266,92 +189,282 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* White Cards */
+    .panel-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 6px 18px rgba(29, 0, 109, 0.05);
+    }
+
+    /* Progress Card */
+    .progress-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .progress-kicker {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .progress-counter-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .progress-big {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      line-height: 1;
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
+
+    .progress-unit {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .goal-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary);
+      color: #FFFFFF;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: #E8EAF6;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+      border-radius: 999px;
+      transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .hint-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #F7F8FD;
+      border: 1px solid #E2E4F5;
+      border-radius: 14px;
+      padding: 11px 13px;
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: var(--text-muted);
+    }
+
+    .hint-icon {
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
     /* Prize Banner */
     .prize-card {
       display: none;
-      background: #FFFFFF;
-      border: 2px solid var(--primary);
-      border-radius: 18px;
-      padding: 18px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #FFFFFF;
+      border-radius: 20px;
+      padding: 20px;
       text-align: center;
-      box-shadow: 0 8px 20px rgba(29, 0, 109, 0.12);
+      box-shadow: 0 10px 24px rgba(29, 0, 109, 0.22);
     }
 
     .prize-card.unlocked {
       display: block;
     }
 
-    .prize-icon {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 10px;
-      background: var(--primary);
-      color: #FFFFFF;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     .prize-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 26px;
-      color: var(--primary);
-      letter-spacing: 0.02em;
+      font-size: 28px;
+      letter-spacing: 0.03em;
       margin-bottom: 4px;
     }
 
     .prize-desc {
       font-size: 13px;
-      color: var(--text-muted);
+      color: rgba(255, 255, 255, 0.88);
       line-height: 1.45;
       margin-bottom: 12px;
     }
 
     .prize-code {
       display: inline-block;
-      background: #F0F1FA;
+      background: #FFFFFF;
       color: var(--primary);
       font-weight: 800;
       font-size: 15px;
       letter-spacing: 0.08em;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 10px;
-      border: 1px dashed var(--accent);
     }
 
-    /* Grid */
-    .section-label {
+    /* Interactive World Map Card */
+    .map-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .map-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.03em;
+      color: var(--primary);
+    }
+
+    .map-legend {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      font-weight: 600;
       color: var(--text-muted);
-      padding-left: 2px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot-open {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      background: #FFFFFF;
+    }
+
+    .dot-done {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .map-viewport {
+      position: relative;
+      width: 100%;
+      background: radial-gradient(circle at 50% 35%, #230985 0%, #12004D 100%);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #2A168E;
+    }
+
+    .map-viewport svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .map-tooltip {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      background: rgba(15, 0, 62, 0.9);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .map-tooltip-status {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .map-tooltip-status.done {
+      background: #14B866;
+      color: #FFFFFF;
+    }
+
+    .pin-group {
+      cursor: pointer;
+    }
+
+    /* Stations Grid */
+    .stations-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2px;
+    }
+
+    .stations-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.03em;
+      color: var(--primary);
     }
 
     .stations-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      gap: 12px;
+    }
+
+    @media (max-width: 520px) {
+      .stations-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .station-card {
       background: var(--card-bg);
       border: 1.5px solid var(--border);
-      border-radius: 16px;
-      padding: 13px 12px;
+      border-radius: 18px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 10px;
-      position: relative;
       transition: all 0.2s ease;
     }
 
     .station-card.visited {
       border-color: var(--primary);
-      background: linear-gradient(180deg, #FFFFFF 0%, #F3F4FF 100%);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F2F3FF 100%);
+      box-shadow: 0 6px 16px rgba(29, 0, 109, 0.08);
     }
 
     .station-top {
@@ -361,165 +474,238 @@
       gap: 8px;
     }
 
-    .flag-box {
+    .station-visual {
       display: flex;
       align-items: center;
-      gap: 5px;
-      height: 28px;
+      gap: 8px;
     }
 
-    .flag-box .fi {
-      font-size: 22px;
-      border-radius: 4px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
-    }
-
-    .custom-emblem {
-      width: 28px;
-      height: 28px;
-      border-radius: 7px;
-      background: var(--primary);
-      color: #FFFFFF;
+    .flag-badge {
+      width: 34px;
+      height: 24px;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 3px;
+      flex-shrink: 0;
     }
 
-    .custom-emblem.light {
+    .flag-badge .fi {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+    }
+
+    .emblem-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
       background: #ECEEFF;
       color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      flex-shrink: 0;
     }
 
-    .custom-emblem img {
+    .emblem-badge.kmd-dark {
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .emblem-badge img {
       width: 100%;
       height: 100%;
       object-fit: contain;
     }
 
-    .status-badge {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 1.5px solid #D3D5EC;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: transparent;
-      flex-shrink: 0;
-      transition: all 0.2s ease;
-    }
-
-    .station-card.visited .status-badge {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #FFFFFF;
-    }
-
-    .station-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
     .station-num {
       font-size: 11px;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
       color: var(--accent);
     }
 
-    .station-name {
-      font-size: 14px;
+    .status-pill {
+      font-size: 11px;
       font-weight: 700;
-      color: var(--text-main);
-      line-height: 1.25;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #F1F2FA;
+      color: var(--text-muted);
+      white-space: nowrap;
     }
 
-    /* Footer */
+    .station-card.visited .status-pill {
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .station-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+
+    .station-desc {
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: var(--text-muted);
+    }
+
     .footer-note {
       text-align: center;
       font-size: 12px;
       color: var(--text-muted);
       line-height: 1.45;
-      margin-top: 6px;
-      padding: 0 8px;
+      margin-top: 4px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Top Bar -->
-    <div class="top-bar">
-      <div class="brand-badge">
-        <div class="brand-logo">
-          <img src="./kmd-logo.png" alt="КМД" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg width=\'20\' height=\'20\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'#FFFFFF\' stroke-width=\'2.2\'><circle cx=\'12\' cy=\'12\' r=\'9\'/><path d=\'M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\'/></svg>';" />
+  <!-- Full-width Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <div class="header-logo">
+          <img src="./kmd-logo.png" alt="КМД" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg width=\'30\' height=\'30\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'#FFFFFF\' stroke-width=\'2\'><circle cx=\'12\' cy=\'12\' r=\'9\'/><path d=\'M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\'/></svg>';" />
         </div>
-        <div class="brand-text">
-          <span class="brand-org" data-i18n="org">Клуб межнациональной дружбы</span>
-          <span class="brand-uni" data-i18n="uni">РГПУ им. А. И. Герцена</span>
+        <div class="header-titles">
+          <h1 class="header-title" data-i18n="headerTitle">ФЕСТИВАЛЬ СТРАН МИРА В ГЕРЦЕНА</h1>
+          <div class="header-sub" data-i18n="headerSub">Клуб межнациональной дружбы • Карта путешественника</div>
         </div>
       </div>
 
-      <div class="lang-switch">
+      <div class="lang-pill" role="group" aria-label="Language switcher">
         <button class="lang-btn active" data-lang="ru"><span class="fi fi-ru"></span>RU</button>
         <button class="lang-btn" data-lang="en"><span class="fi fi-gb"></span>EN</button>
         <button class="lang-btn" data-lang="zh"><span class="fi fi-cn"></span>中文</button>
+        <button class="lang-btn" data-lang="es"><span class="fi fi-es"></span>ES</button>
       </div>
     </div>
+  </header>
 
-    <!-- Hero -->
-    <div class="hero">
-      <div class="hero-top">
-        <div class="hero-head-text">
-          <div class="hero-tag" data-i18n="venue">Мраморный зал • 4 корпус • с 18:00</div>
-          <h1 class="hero-title" data-i18n="title">Фестиваль стран мира</h1>
-        </div>
-        <div class="hero-logo-clean">
-          <img src="./kmd-logo.png" alt="КМД" onerror="this.style.display='none';" />
-        </div>
-      </div>
-      <p class="hero-subtitle" data-i18n="subtitle">Сканируй QR-коды на стендах участников, собери все 10 отметок и забери приз на станции КМД.</p>
-
-      <div class="progress-wrap">
-        <div class="progress-header">
-          <span data-i18n="progressLabel">Собрано станций</span>
-          <span id="progressText">0 / 10</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressBar"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Notification Toast -->
+  <main class="container">
+    <!-- Toast -->
     <div class="toast" id="toastBox">
       <div id="toastIcon"></div>
       <div id="toastText"></div>
     </div>
 
-    <!-- Prize Card -->
-    <div class="prize-card" id="prizeCard">
-      <div class="prize-icon">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-          <path d="M4 22h16" />
-          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
-          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
-          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-        </svg>
+    <!-- Route Progress Card -->
+    <section class="panel-card">
+      <div class="progress-top">
+        <div>
+          <div class="progress-kicker" data-i18n="progressKicker">ТВОЙ ПРОГРЕСС МАРШРУТА</div>
+          <div class="progress-counter-row">
+            <span class="progress-big" id="progressRatio">0 / 10</span>
+            <span class="progress-unit" data-i18n="progressUnit">станций открыто</span>
+          </div>
+        </div>
+        <div class="goal-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 12 20 22 4 22 4 12" />
+            <rect x="2" y="7" width="20" height="5" />
+            <line x1="12" y1="22" x2="12" y2="7" />
+            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+          </svg>
+          <span data-i18n="goalBadge">Цель: все 10 / 10</span>
+        </div>
       </div>
-      <div class="prize-title" data-i18n="prizeTitle">Все 10 станций пройдены!</div>
-      <p class="prize-desc" data-i18n="prizeDesc">Покажи этот экран волонтёрам на станции КМД, чтобы получить памятный приз.</p>
-      <div class="prize-code" id="prizeCode">KMD-2026-WIN</div>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="hint-box">
+        <svg class="hint-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        <span data-i18n="hintText">Подходи к стендам стран и сканируй их QR-коды камерой телефона: отметки появятся на карте автоматически. Собери все 10 станций для получения приза!</span>
+      </div>
+    </section>
+
+    <!-- Prize Banner -->
+    <section class="prize-card" id="prizeCard">
+      <div class="prize-title" data-i18n="prizeTitle">ВСЕ 10 СТАНЦИЙ ПРОЙДЕНЫ!</div>
+      <p class="prize-desc" data-i18n="prizeDesc">Покажи этот экран волонтёрам на станции КМД, чтобы забрать памятный приз.</p>
+      <div class="prize-code">KMD-2026-WIN</div>
+    </section>
+
+    <!-- Interactive World Map -->
+    <section class="panel-card">
+      <div class="map-header">
+        <h2 class="map-title" data-i18n="mapTitle">ИНТЕРАКТИВНАЯ КАРТА МИРА</h2>
+        <div class="map-legend">
+          <span class="legend-item"><span class="dot-open"></span><span data-i18n="legendOpen">Не открыто</span></span>
+          <span class="legend-item"><span class="dot-done"></span><span data-i18n="legendDone">Пройдено</span></span>
+        </div>
+      </div>
+
+      <div class="map-viewport">
+        <svg id="worldMapSvg" viewBox="0 0 800 390" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="mapGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+            </pattern>
+          </defs>
+          <rect width="800" height="390" fill="url(#mapGrid)" />
+
+          <!-- Stylized Continents -->
+          <g fill="rgba(124, 130, 245, 0.24)" stroke="rgba(176, 181, 255, 0.35)" stroke-width="1.2" stroke-linejoin="round">
+            <!-- North & Central America -->
+            <path d="M70,55 L175,45 L225,75 L205,120 L165,148 L182,175 L162,188 L135,165 L108,132 L82,95 Z" />
+            <!-- Greenland -->
+            <path d="M245,32 L292,28 L285,58 L252,62 Z" />
+            <!-- South America -->
+            <path d="M188,195 L235,205 L268,248 L245,315 L212,358 L196,348 L195,280 L178,232 Z" />
+            <!-- Europe -->
+            <path d="M355,62 L428,52 L455,78 L442,115 L395,124 L362,112 L348,88 Z" />
+            <!-- Africa -->
+            <path d="M356,136 L425,134 L462,172 L455,232 L425,295 L398,298 L382,240 L348,195 L344,160 Z" />
+            <!-- Asia / Eurasia -->
+            <path d="M445,56 L625,48 L715,74 L725,118 L675,152 L642,188 L595,198 L565,172 L525,176 L485,145 L442,124 Z" />
+            <!-- Japan -->
+            <path d="M686,118 L698,112 L702,135 L688,142 Z" />
+            <!-- Southeast Asia / Indonesia -->
+            <path d="M598,206 L635,212 L642,226 L604,224 Z" />
+            <!-- Australia -->
+            <path d="M635,255 L702,252 L714,296 L672,315 L632,295 Z" />
+          </g>
+
+          <!-- Route Line Layer -->
+          <g id="mapRoutesLayer"></g>
+
+          <!-- Pins Layer -->
+          <g id="mapPinsLayer"></g>
+        </svg>
+
+        <div class="map-tooltip" id="mapTooltip">
+          <span id="mapTooltipName">Нажми на точку маршрута на карте</span>
+          <span class="map-tooltip-status" id="mapTooltipStatus">0 / 10</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stations List -->
+    <div class="stations-header">
+      <h2 class="stations-title" data-i18n="stationsTitle">СТАНЦИИ И ОПИСАНИЕ СТРАН</h2>
     </div>
 
-    <!-- Stations -->
-    <div class="section-label" data-i18n="mapLabel">Карта станций фестиваля</div>
-    <div class="stations-grid" id="stationsGrid"></div>
+    <section class="stations-grid" id="stationsGrid"></section>
 
     <p class="footer-note" data-i18n="footerNote">Отметки сохраняются автоматически в памяти браузера на этом устройстве.</p>
-  </div>
+  </main>
 
   <script>
     const STATIONS = [
@@ -527,112 +713,272 @@
         id: 1,
         token: 'tr8x4m',
         flags: ['tr'],
-        name: { ru: 'Турция', en: 'Turkey', zh: '土耳其' }
+        coords: { x: 446, y: 122 },
+        name: {
+          ru: 'Турция',
+          en: 'Turkey',
+          zh: '土耳其',
+          es: 'Turquía'
+        },
+        desc: {
+          ru: 'Мост между Европой и Азией: ароматный турецкий чай, восточные сладости, роспись эбру и гостеприимство Босфора.',
+          en: 'Bridge between Europe and Asia: aromatic Turkish tea, traditional sweets, Ebru marbling art, and Bosphorus hospitality.',
+          zh: '横跨欧亚的桥梁：醇香土耳其红茶、传统甜点、湿拓画艺术与博斯普鲁斯的热情好客。',
+          es: 'Puente entre Europa y Asia: té turco aromático, dulces tradicionales, arte ebru y hospitalidad del Bósforo.'
+        }
       },
       {
         id: 2,
         token: 'af2k9p',
         custom: 'africa',
-        name: { ru: 'Страны Африки (Западная и Восточная)', en: 'Africa (West & East)', zh: '非洲国家（西非与东非）' }
+        coords: { x: 412, y: 205 },
+        name: {
+          ru: 'Страны Африки',
+          en: 'African Countries',
+          zh: '非洲国家',
+          es: 'Países de África'
+        },
+        desc: {
+          ru: 'Ритмы барабанов джембе, яркие орнаменты Западной и Восточной Африки, самобытные танцы и тёплая энергетика.',
+          en: 'Djembe drum rhythms, vibrant patterns of West and East Africa, authentic dances, and warm energy.',
+          zh: '非洲鼓的律动、东西非绚丽图腾、原生态舞蹈与热烈活力。',
+          es: 'Ritmos de tambores djembé, estampados vibrantes de África Occidental y Oriental, danzas y energía cálida.'
+        }
       },
       {
         id: 3,
         token: 'la3w6z',
         custom: 'latam',
-        name: { ru: 'Латинская и Центральная Америка', en: 'Latin & Central America', zh: '拉丁美洲与中美洲' }
+        coords: { x: 215, y: 242 },
+        name: {
+          ru: 'Латинская и Центральная Америка',
+          en: 'Latin & Central America',
+          zh: '拉丁美洲与中美洲',
+          es: 'América Latina y Central'
+        },
+        desc: {
+          ru: 'Страсть сальсы и бачаты, яркие краски карнавала, легенды древних цивилизаций и жаркий темперамент континента.',
+          en: 'Passion of salsa and bachata, bright carnival colors, legends of ancient civilizations, and fiery spirit.',
+          zh: '萨尔萨与巴恰塔的热情、狂欢节的绚烂色彩、古老文明传说与拉美风情。',
+          es: 'Pasión de salsa y bachata, colores de carnaval, leyendas de civilizaciones antiguas y espíritu vibrante.'
+        }
       },
       {
         id: 4,
         token: 'jp9c1r',
         flags: ['jp'],
-        name: { ru: 'Япония', en: 'Japan', zh: '日本' }
+        coords: { x: 693, y: 126 },
+        name: {
+          ru: 'Япония',
+          en: 'Japan',
+          zh: '日本',
+          es: 'Japón'
+        },
+        desc: {
+          ru: 'Искусство оригами и каллиграфии, эстетика цветущей сакуры, самурайские традиции и современная поп-культура.',
+          en: 'Art of origami and calligraphy, cherry blossom aesthetics, samurai heritage, and modern pop culture.',
+          zh: '折纸与书法艺术、樱花美学、武士道传统与现代流行文化。',
+          es: 'Arte del origami y la caligrafía, estética del cerezo en flor, tradición samurái y cultura pop moderna.'
+        }
       },
       {
         id: 5,
         token: 'lo4n8t',
         flags: ['la'],
-        name: { ru: 'Лаос', en: 'Laos', zh: '老挝' }
+        coords: { x: 596, y: 162 },
+        name: {
+          ru: 'Лаос',
+          en: 'Laos',
+          zh: '老挝',
+          es: 'Laos'
+        },
+        desc: {
+          ru: 'Страна миллиона слонов и золотых храмов Меконга: спокойная гармония, шёлковое ткачество и древние обряды.',
+          en: 'Land of a million elephants and golden Mekong temples: peaceful harmony, silk weaving, and ancient rituals.',
+          zh: '万象之国与湄公河畔的金色寺庙：宁静和谐、手工丝织与古老礼俗。',
+          es: 'Tierra de un millón de elefantes y templos dorados del Mekong: armonía, tejidos de seda y rituales.'
+        }
       },
       {
         id: 6,
         token: 'vn7b2y',
         flags: ['vn'],
-        name: { ru: 'Вьетнам', en: 'Vietnam', zh: '越南' }
+        coords: { x: 616, y: 172 },
+        name: {
+          ru: 'Вьетнам',
+          en: 'Vietnam',
+          zh: '越南',
+          es: 'Vietnam'
+        },
+        desc: {
+          ru: 'Традиционные шляпы нонла, драконы бухты Халонг, утончённый фольклор и секреты вьетнамской кухни.',
+          en: 'Traditional non la conical hats, Ha Long Bay dragons, refined folklore, and secrets of Vietnamese cuisine.',
+          zh: '传统斗笠、下龙湾传说、精致民俗与越南美食秘诀。',
+          es: 'Sombreros tradicionales non la, dragones de la bahía de Ha Long, folclore y gastronomía vietnamita.'
+        }
       },
       {
         id: 7,
         token: 'cn6d5h',
         flags: ['cn'],
-        name: { ru: 'Китай', en: 'China', zh: '中国' }
+        coords: { x: 618, y: 125 },
+        name: {
+          ru: 'Китай',
+          en: 'China',
+          zh: '中国',
+          es: 'China'
+        },
+        desc: {
+          ru: 'Чайная церемония, тонкая вязь иероглифов, шёлковые веера, узелки удачи и пятитысячелетняя мудрость Поднебесной.',
+          en: 'Tea ceremony, delicate calligraphy, silk fans, good-luck knots, and five millennia of Chinese wisdom.',
+          zh: '茶道雅韵、笔墨书法、丝绸团扇、吉祥中国结与五千年华夏智慧。',
+          es: 'Ceremonia del té, caligrafía tradicional, abanicos de seda, nudos de la suerte y sabiduría milenaria.'
+        }
       },
       {
         id: 8,
         token: 'ru1f9s',
         flags: ['ru'],
-        name: { ru: 'Россия', en: 'Russia', zh: '俄罗斯' }
+        coords: { x: 478, y: 78 },
+        name: {
+          ru: 'Россия',
+          en: 'Russia',
+          zh: '俄罗斯',
+          es: 'Rusia'
+        },
+        desc: {
+          ru: 'Широта русской души, народные узоры гжели и хохломы, хороводы, баранки с самоваром и богатый фольклор.',
+          en: 'Generosity of the Russian soul, Gzhel and Khokhloma folk patterns, round dances, samovar tea, and folklore.',
+          zh: '辽阔的俄罗斯风情、格热利与霍赫洛马传统彩绘、圆圈舞、茶炊茶点与民间故事。',
+          es: 'Amplitud del alma rusa, diseños tradicionales de Gzhel y Khokhloma, danzas, té de samovar y folclore.'
+        }
       },
       {
         id: 9,
         token: 'kr8m3v',
         flags: ['kr'],
-        name: { ru: 'Южная Корея', en: 'South Korea', zh: '韩国' }
+        coords: { x: 664, y: 126 },
+        name: {
+          ru: 'Южная Корея',
+          en: 'South Korea',
+          zh: '韩国',
+          es: 'Corea del Sur'
+        },
+        desc: {
+          ru: 'Традиционный ханбок, народные игры ттакчи и тухо, хангыль и энергия современного Сеула.',
+          en: 'Traditional hanbok attire, folk games ddakji and tuho, Hangul script, and the vibrant energy of Seoul.',
+          zh: '传统韩服、画片与投壶民俗游戏、韩文字母魅力与首尔现代活力。',
+          es: 'Traje tradicional hanbok, juegos populares ddakji y tuho, alfabeto hangul y energía de Seúl.'
+        }
       },
       {
         id: 10,
         token: 'kmd0x2',
         custom: 'kmd',
-        name: { ru: 'Станция КМД', en: 'DIC Station', zh: '国际友谊俱乐部展台' }
+        coords: { x: 422, y: 74 },
+        name: {
+          ru: 'Станция КМД',
+          en: 'DIC Station',
+          zh: '国际友谊俱乐部展台',
+          es: 'Estación del Club (CIF)'
+        },
+        desc: {
+          ru: 'Главная точка Клуба межнациональной дружбы Герценовского университета: финальная отметка маршрута и выдача призов.',
+          en: 'Main hub of Herzen University Club of International Friendship: final route stamp and prize desk.',
+          zh: '赫尔岑大学国际友谊俱乐部主展台：路线终点打卡点及奖品领取处。',
+          es: 'Punto principal del Club de Amistad Internacional de Herzen: sello final de la ruta y entrega de premios.'
+        }
       }
     ];
 
     const I18N = {
       ru: {
-        org: 'Клуб межнациональной дружбы',
-        uni: 'РГПУ им. А. И. Герцена',
-        venue: 'Мраморный зал • 4 корпус • с 18:00',
-        title: 'Фестиваль стран мира',
-        subtitle: 'Сканируй QR-коды на стендах участников, собери все 10 отметок и забери приз на станции КМД.',
-        progressLabel: 'Собрано станций',
-        prizeTitle: 'Все 10 станций пройдены!',
-        prizeDesc: 'Покажи этот экран волонтёрам на станции КМД, чтобы получить памятный приз.',
-        mapLabel: 'Карта станций фестиваля',
+        headerTitle: 'ФЕСТИВАЛЬ СТРАН МИРА В ГЕРЦЕНА',
+        headerSub: 'Клуб межнациональной дружбы • Карта путешественника',
+        progressKicker: 'ТВОЙ ПРОГРЕСС МАРШРУТА',
+        progressUnit: 'станций открыто',
+        goalBadge: 'Цель: все 10 / 10',
+        hintText: 'Подходи к стендам стран и сканируй их QR-коды камерой телефона: отметки появятся на карте автоматически. Собери все 10 станций для получения приза!',
+        prizeTitle: 'ВСЕ 10 СТАНЦИЙ ПРОЙДЕНЫ!',
+        prizeDesc: 'Покажи этот экран волонтёрам на станции КМД, чтобы забрать памятный приз.',
+        mapTitle: 'ИНТЕРАКТИВНАЯ КАРТА МИРА',
+        legendOpen: 'Не открыто',
+        legendDone: 'Пройдено',
+        stationsTitle: 'СТАНЦИИ И ОПИСАНИЕ СТРАН',
         footerNote: 'Отметки сохраняются автоматически в памяти браузера на этом устройстве.',
         stationPrefix: 'Станция #',
+        statusOpen: 'Не открыто',
+        statusDone: 'Пройдено',
+        mapPrompt: 'Нажми на точку маршрута на карте',
         toastAdded: (name) => `Отметка получена: ${name}`,
         toastAlready: (name) => `Станция «${name}» уже отмечена`,
         toastCooldown: (sec) => `Слишком быстро. Подойдите к следующему стенду и попробуйте через ${sec} сек.`
       },
       en: {
-        org: 'Club of International Friendship',
-        uni: 'Herzen University',
-        venue: 'Marble Hall • Building 4 • from 18:00',
-        title: 'Festival of World Countries',
-        subtitle: 'Scan QR codes at participant booths, collect all 10 stamps, and claim your prize at the DIC booth.',
-        progressLabel: 'Stations collected',
-        prizeTitle: 'All 10 stations completed!',
-        prizeDesc: 'Show this screen to volunteers at the DIC booth to claim your prize.',
-        mapLabel: 'Festival Stations Map',
+        headerTitle: 'WORLD CULTURES FESTIVAL AT HERZEN',
+        headerSub: 'Club of International Friendship • Traveler Map',
+        progressKicker: 'YOUR ROUTE PROGRESS',
+        progressUnit: 'stations unlocked',
+        goalBadge: 'Goal: all 10 / 10',
+        hintText: 'Visit country booths and scan their QR codes with your phone camera: stamps appear on the map automatically. Collect all 10 stations to claim your prize!',
+        prizeTitle: 'ALL 10 STATIONS COMPLETED!',
+        prizeDesc: 'Show this screen to volunteers at the DIC station to claim your prize.',
+        mapTitle: 'INTERACTIVE WORLD MAP',
+        legendOpen: 'Locked',
+        legendDone: 'Completed',
+        stationsTitle: 'STATIONS & COUNTRY GUIDES',
         footerNote: 'Your progress is saved automatically in this browser.',
         stationPrefix: 'Station #',
+        statusOpen: 'Locked',
+        statusDone: 'Completed',
+        mapPrompt: 'Tap any route pin on the map',
         toastAdded: (name) => `Stamp collected: ${name}`,
         toastAlready: (name) => `Station "${name}" is already stamped`,
-        toastCooldown: (sec) => `Too fast. Please visit the next booth and try again in ${sec}s.`
+        toastCooldown: (sec) => `Too fast. Visit the next booth and try again in ${sec}s.`
       },
       zh: {
-        org: '国际友谊俱乐部',
-        uni: '赫尔岑国立师范大学',
-        venue: '大理石厅 • 4号楼 • 18:00起',
-        title: '世界各国文化节',
-        subtitle: '扫描各展台二维码，集齐全部10枚印章，即可前往国际友谊俱乐部展台领取奖品。',
-        progressLabel: '已收集展台',
+        headerTitle: '赫尔岑世界各国文化节',
+        headerSub: '国际友谊俱乐部 • 旅行者地图',
+        progressKicker: '你的探索进度',
+        progressUnit: '个展台已点亮',
+        goalBadge: '目标：全部 10 / 10',
+        hintText: '前往各国家展台并用手机相机扫描二维码，印章将自动点亮在地图上。集齐全部10个展台即可领取奖品！',
         prizeTitle: '已集齐全部10个展台！',
-        prizeDesc: '请向国际友谊俱乐部展台工作人员出示此页面以领取奖品。',
-        mapLabel: '文化节展台地图',
+        prizeDesc: '请向国际友谊俱乐部展台工作人员出示此页面领取纪念奖品。',
+        mapTitle: '互动世界地图',
+        legendOpen: '未点亮',
+        legendDone: '已打卡',
+        stationsTitle: '展台与国家简介',
         footerNote: '打卡进度将自动保存在当前设备浏览器中。',
         stationPrefix: '展台 #',
+        statusOpen: '未点亮',
+        statusDone: '已打卡',
+        mapPrompt: '点击地图上的路线标记查看详情',
         toastAdded: (name) => `已成功打卡：${name}`,
         toastAlready: (name) => `“${name}”展台已打卡`,
         toastCooldown: (sec) => `操作过快，请前往下一个展台并在 ${sec} 秒后重试。`
+      },
+      es: {
+        headerTitle: 'FESTIVAL DE PAÍSES DEL MUNDO EN HERZEN',
+        headerSub: 'Club de Amistad Internacional • Mapa del Viajero',
+        progressKicker: 'TU PROGRESO DE RUTA',
+        progressUnit: 'estaciones abiertas',
+        goalBadge: 'Meta: las 10 / 10',
+        hintText: 'Acércate a los puestos de cada país y escanea sus códigos QR con tu cámara: las marcas aparecerán en el mapa automáticamente. ¡Reúne las 10 estaciones para ganar un premio!',
+        prizeTitle: '¡LAS 10 ESTACIONES COMPLETADAS!',
+        prizeDesc: 'Muestra esta pantalla a los voluntarios en la estación del Club para recibir tu premio.',
+        mapTitle: 'MAPA INTERACTIVO DEL MUNDO',
+        legendOpen: 'Sin abrir',
+        legendDone: 'Completado',
+        stationsTitle: 'ESTACIONES Y DESCRIPCIÓN DE PAÍSES',
+        footerNote: 'Tus marcas se guardan automáticamente en la memoria de este navegador.',
+        stationPrefix: 'Estación #',
+        statusOpen: 'Sin abrir',
+        statusDone: 'Completado',
+        mapPrompt: 'Toca un punto de la ruta en el mapa',
+        toastAdded: (name) => `Marca obtenida: ${name}`,
+        toastAlready: (name) => `La estación «${name}» ya está marcada`,
+        toastCooldown: (sec) => `Demasiado rápido. Ve al siguiente puesto e inténtalo en ${sec} s.`
       }
     };
 
@@ -642,7 +988,10 @@
     const COOLDOWN_MS = 15000;
 
     let currentLang = localStorage.getItem(LANG_KEY) || 'ru';
+    if (!I18N[currentLang]) currentLang = 'ru';
+
     let visitedIds = [];
+    let selectedMapStationId = null;
 
     try {
       const rawVisited = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -673,17 +1022,80 @@
       }
     }
 
+    function renderMap() {
+      const t = I18N[currentLang];
+      const routesLayer = document.getElementById('mapRoutesLayer');
+      const pinsLayer = document.getElementById('mapPinsLayer');
+
+      let routeSvg = '';
+      for (let i = 0; i < STATIONS.length - 1; i++) {
+        const a = STATIONS[i];
+        const b = STATIONS[i + 1];
+        const bothVisited = visitedIds.includes(a.id) && visitedIds.includes(b.id);
+        const midX = (a.coords.x + b.coords.x) / 2;
+        const midY = Math.min(a.coords.y, b.coords.y) - 18;
+        const stroke = bothVisited ? '#FFD54F' : 'rgba(255, 255, 255, 0.34)';
+        const dash = bothVisited ? 'none' : '5,5';
+        routeSvg += `<path d="M ${a.coords.x} ${a.coords.y} Q ${midX} ${midY} ${b.coords.x} ${b.coords.y}" fill="none" stroke="${stroke}" stroke-width="2" stroke-dasharray="${dash}" />`;
+      }
+      routesLayer.innerHTML = routeSvg;
+
+      pinsLayer.innerHTML = STATIONS.map(st => {
+        const isDone = visitedIds.includes(st.id);
+        const isSelected = selectedMapStationId === st.id;
+        const outerR = isSelected ? 14 : 11;
+        const fill = isDone ? '#FFD54F' : '#190568';
+        const stroke = isDone ? '#FFFFFF' : '#9AA0FF';
+        const textFill = isDone ? '#12004D' : '#FFFFFF';
+
+        return `
+          <g class="pin-group" data-pin-id="${st.id}" transform="translate(${st.coords.x}, ${st.coords.y})">
+            ${isDone ? `<circle r="17" fill="rgba(255, 213, 79, 0.24)" />` : ''}
+            <circle r="${outerR}" fill="${fill}" stroke="${stroke}" stroke-width="2.2" />
+            <text y="3.8" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="${textFill}">${st.id}</text>
+          </g>
+        `;
+      }).join('');
+
+      pinsLayer.querySelectorAll('.pin-group').forEach(pin => {
+        pin.addEventListener('click', () => {
+          const id = Number(pin.getAttribute('data-pin-id'));
+          selectedMapStationId = id;
+          renderMap();
+          const cardEl = document.getElementById(`station-card-${id}`);
+          if (cardEl) {
+            cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+      });
+
+      const tooltipName = document.getElementById('mapTooltipName');
+      const tooltipStatus = document.getElementById('mapTooltipStatus');
+      const activeSt = STATIONS.find(s => s.id === selectedMapStationId) || STATIONS.find(s => visitedIds.includes(s.id));
+
+      if (activeSt) {
+        const isDone = visitedIds.includes(activeSt.id);
+        tooltipName.textContent = `#${activeSt.id} • ${activeSt.name[currentLang]}`;
+        tooltipStatus.textContent = isDone ? t.statusDone : t.statusOpen;
+        tooltipStatus.classList.toggle('done', isDone);
+      } else {
+        tooltipName.textContent = t.mapPrompt;
+        tooltipStatus.textContent = `${visitedIds.length} / ${STATIONS.length}`;
+        tooltipStatus.classList.remove('done');
+      }
+    }
+
     function renderStationVisual(station) {
       if (station.flags) {
-        return `<div class="flag-box">${station.flags.map(code => `<span class="fi fi-${code}"></span>`).join('')}</div>`;
+        return `<div class="flag-badge">${station.flags.map(code => `<span class="fi fi-${code}"></span>`).join('')}</div>`;
       }
       if (station.custom === 'kmd') {
-        return `<div class="flag-box"><div class="custom-emblem"><img src="./kmd-logo.png" alt="КМД" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2.2\'><circle cx=\'12\' cy=\'12\' r=\'9\'/><path d=\'M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\'/></svg>';" /></div></div>`;
+        return `<div class="emblem-badge kmd-dark"><img src="./kmd-logo.png" alt="КМД" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg width=\'18\' height=\'18\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2.2\'><circle cx=\'12\' cy=\'12\' r=\'9\'/><path d=\'M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\'/></svg>';" /></div>`;
       }
       if (station.custom === 'africa') {
-        return `<div class="flag-box"><div class="custom-emblem light"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 8h5l2 3-2 4-2 3-2-2v-3l-2-2z"/></svg></div></div>`;
+        return `<div class="emblem-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 8h5l2 3-2 4-2 3-2-2v-3l-2-2z"/></svg></div>`;
       }
-      return `<div class="flag-box"><div class="custom-emblem light"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 7l3 2 2 4 3 2-2 3-3-3-2-4z"/></svg></div></div>`;
+      return `<div class="emblem-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 7l3 2 2 4 3 2-2 3-3-3-2-4z"/></svg></div>`;
     }
 
     function render() {
@@ -702,30 +1114,31 @@
 
       const count = visitedIds.length;
       const total = STATIONS.length;
-      document.getElementById('progressText').textContent = `${count} / ${total}`;
-      document.getElementById('progressBar').style.width = `${Math.round((count / total) * 100)}%`;
+      document.getElementById('progressRatio').textContent = `${count} / ${total}`;
+      document.getElementById('progressFill').style.width = `${Math.round((count / total) * 100)}%`;
 
       const prizeCard = document.getElementById('prizeCard');
       prizeCard.classList.toggle('unlocked', count >= total);
+
+      renderMap();
 
       const grid = document.getElementById('stationsGrid');
       grid.innerHTML = STATIONS.map(st => {
         const isVisited = visitedIds.includes(st.id);
         return `
-          <div class="station-card ${isVisited ? 'visited' : ''}">
-            <div class="station-top">
-              ${renderStationVisual(st)}
-              <div class="status-badge">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
+          <article class="station-card ${isVisited ? 'visited' : ''}" id="station-card-${st.id}">
+            <div>
+              <div class="station-top">
+                <div class="station-visual">
+                  ${renderStationVisual(st)}
+                  <span class="station-num">${t.stationPrefix}${st.id}</span>
+                </div>
+                <span class="status-pill">${isVisited ? t.statusDone : t.statusOpen}</span>
               </div>
+              <h3 class="station-name" style="margin-top: 10px;">${st.name[currentLang]}</h3>
+              <p class="station-desc">${st.desc[currentLang]}</p>
             </div>
-            <div class="station-info">
-              <div class="station-num">${t.stationPrefix}${st.id}</div>
-              <div class="station-name">${st.name[currentLang]}</div>
-            </div>
-          </div>
+          </article>
         `;
       }).join('');
     }
@@ -745,9 +1158,11 @@
 
       const t = I18N[currentLang];
       const stationName = station.name[currentLang];
+      selectedMapStationId = station.id;
 
       if (visitedIds.includes(station.id)) {
         showToast('info', t.toastAlready(stationName));
+        render();
         return;
       }
 
@@ -757,6 +1172,7 @@
       if (visitedIds.length > 0 && now - lastScan < COOLDOWN_MS) {
         const leftSec = Math.ceil((COOLDOWN_MS - (now - lastScan)) / 1000);
         showToast('warning', t.toastCooldown(leftSec));
+        render();
         return;
       }
 
