@@ -1,1413 +1,784 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Карта Фестиваля стран мира — КМД РГПУ</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- jsDelivr CDN works reliably without VPN in Russia -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=PT+Sans:wght@400;700&family=Noto+Sans+SC:wght@500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Фестиваль стран мира — КМД РГПУ им. А. И. Герцена</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
   <style>
-    @font-face {
-      font-family: 'Bebas Neue Cyrillic';
-      src: local('Bebas Neue Cyrillic'), local('Bebas Neue'), url('https://fonts.gstatic.com/s/bebasneue/v14/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
+    :root {
+      --bg: #FAFAFA;
+      --primary: #1D006D;
+      --secondary: #0707A0;
+      --accent: #4C4CC1;
+      --card-bg: #FFFFFF;
+      --text-main: #12122A;
+      --text-muted: #5A5B7A;
+      --border: #E2E3F3;
+      --success: #0E8A4E;
+      --warning: #C95B00;
     }
 
-    @font-face {
-      font-family: 'PT Root UI VF';
-      src: local('PT Root UI VF'), local('PT Root UI');
-      font-weight: 400;
-      font-style: normal;
-    }
-
-    @font-face {
-      font-family: 'Pioner Sans';
-      src: local('Pioner Sans Regular'), local('Pioner Sans');
-      font-weight: 400;
-      font-style: normal;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background-color: #FAFAFA;
-      color: #1D006D;
-      font-family: 'PT Root UI VF', 'PT Sans', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-      overflow-x: hidden;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 14px 36px;
     }
 
-    .font-bebas {
-      font-family: 'Bebas Neue Cyrillic', 'Bebas Neue', sans-serif;
+    .container {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      flex-shrink: 0;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-org {
+      font-size: 11px;
+      font-weight: 700;
       letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
     }
 
-    .font-pioner {
-      font-family: 'Pioner Sans', 'PT Root UI VF', 'PT Sans', sans-serif;
+    .brand-uni {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
     }
 
-    /* Crisp flag sizing & rounded border */
-    .fi {
-      border-radius: 3px;
-      box-shadow: 0 0 0 1px rgba(29, 0, 109, 0.14);
+    .lang-switch {
+      display: flex;
+      background: #ECEDF8;
+      padding: 3px;
+      border-radius: 10px;
+      gap: 2px;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 8px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .lang-btn .fi {
+      font-size: 12px;
+      border-radius: 2px;
+    }
+
+    /* Hero Card */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 65%, var(--accent) 100%);
+      border-radius: 20px;
+      padding: 20px 18px;
+      color: #FFFFFF;
+      box-shadow: 0 10px 24px rgba(29, 0, 109, 0.18);
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .hero-head-text {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hero-tag {
       display: inline-block;
-      line-height: 1em;
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.16);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
     }
 
-    /* Pulse animation for unvisited pins */
-    @keyframes pulseRing {
-      0% {
-        transform: scale(0.85);
-        opacity: 0.85;
-      }
-      70% {
-        transform: scale(1.85);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1.85);
-        opacity: 0;
-      }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
     }
 
-    .pin-pulse {
-      transform-box: fill-box;
-      transform-origin: center;
-      animation: pulseRing 2.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+    .hero-logo-clean {
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* Toast slide down animation */
-    @keyframes toastDrop {
-      0% {
-        transform: translate(-50%, -120%);
-        opacity: 0;
-      }
-      100% {
-        transform: translate(-50%, 0);
-        opacity: 1;
-      }
+    .hero-logo-clean img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
-    .toast-enter {
-      animation: toastDrop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    .hero-subtitle {
+      font-size: 13px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.88);
+      margin-bottom: 16px;
+    }
+
+    .progress-wrap {
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #FFFFFF;
+      border-radius: 999px;
+      transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Toast / Notification */
+    .toast {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.35;
+      animation: slideDown 0.25s ease;
+    }
+
+    .toast.show {
+      display: flex;
+    }
+
+    .toast.success {
+      background: #E6F6EE;
+      color: var(--success);
+      border: 1px solid #B7E4CD;
+    }
+
+    .toast.warning {
+      background: #FFF3E6;
+      color: var(--warning);
+      border: 1px solid #F7D4B2;
+    }
+
+    .toast.info {
+      background: #ECEEFF;
+      color: var(--primary);
+      border: 1px solid #C9CEFA;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Prize Banner */
+    .prize-card {
+      display: none;
+      background: #FFFFFF;
+      border: 2px solid var(--primary);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(29, 0, 109, 0.12);
+    }
+
+    .prize-card.unlocked {
+      display: block;
+    }
+
+    .prize-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 10px;
+      background: var(--primary);
+      color: #FFFFFF;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .prize-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      color: var(--primary);
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+
+    .prize-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+
+    .prize-code {
+      display: inline-block;
+      background: #F0F1FA;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px dashed var(--accent);
+    }
+
+    /* Grid */
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding-left: 2px;
+    }
+
+    .stations-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .station-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 13px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .station-card.visited {
+      border-color: var(--primary);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F3F4FF 100%);
+    }
+
+    .station-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .flag-box {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 28px;
+    }
+
+    .flag-box .fi {
+      font-size: 22px;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+    }
+
+    .custom-emblem {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--primary);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px;
+    }
+
+    .custom-emblem.light {
+      background: #ECEEFF;
+      color: var(--primary);
+    }
+
+    .custom-emblem img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .status-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid #D3D5EC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: transparent;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .station-card.visited .status-badge {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .station-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .station-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .station-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    /* Footer */
+    .footer-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-top: 6px;
+      padding: 0 8px;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between bg-[#FAFAFA] text-[#1D006D] selection:bg-[#4C4CC1] selection:text-white">
+<body>
+  <div class="container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="brand-badge">
+        <div class="brand-logo">
+          <img src="./kmd-logo.png" alt="КМД" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg width=\'20\' height=\'20\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'#FFFFFF\' stroke-width=\'2.2\'><circle cx=\'12\' cy=\'12\' r=\'9\'/><path d=\'M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\'/></svg>';" />
+        </div>
+        <div class="brand-text">
+          <span class="brand-org" data-i18n="org">Клуб межнациональной дружбы</span>
+          <span class="brand-uni" data-i18n="uni">РГПУ им. А. И. Герцена</span>
+        </div>
+      </div>
 
-  <!-- Celebratory Toast Notification -->
-  <div id="toastBanner" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden max-w-[92vw] w-max">
-    <div class="bg-[#1D006D] text-[#FAFAFA] px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl shadow-2xl border-2 border-[#4C4CC1] flex items-center gap-3">
-      <div class="w-8 h-8 rounded-full bg-[#0707A0] border border-[#FAFAFA]/40 flex items-center justify-center shrink-0">
-        <svg class="w-4 h-4 text-[#FAFAFA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"></polyline>
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="ru"><span class="fi fi-ru"></span>RU</button>
+        <button class="lang-btn" data-lang="en"><span class="fi fi-gb"></span>EN</button>
+        <button class="lang-btn" data-lang="zh"><span class="fi fi-cn"></span>中文</button>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-top">
+        <div class="hero-head-text">
+          <div class="hero-tag" data-i18n="venue">Мраморный зал • 4 корпус • с 18:00</div>
+          <h1 class="hero-title" data-i18n="title">Фестиваль стран мира</h1>
+        </div>
+        <div class="hero-logo-clean">
+          <img src="./kmd-logo.png" alt="КМД" onerror="this.style.display='none';" />
+        </div>
+      </div>
+      <p class="hero-subtitle" data-i18n="subtitle">Сканируй QR-коды на стендах участников, собери все 10 отметок и забери приз на станции КМД.</p>
+
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span data-i18n="progressLabel">Собрано станций</span>
+          <span id="progressText">0 / 10</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toastBox">
+      <div id="toastIcon"></div>
+      <div id="toastText"></div>
+    </div>
+
+    <!-- Prize Card -->
+    <div class="prize-card" id="prizeCard">
+      <div class="prize-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+          <path d="M4 22h16" />
+          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
         </svg>
       </div>
-      <div>
-        <p id="toastTitle" class="font-bebas text-base sm:text-lg leading-none tracking-wide text-[#FAFAFA]">СТАНЦИЯ ОТМЕЧЕНА!</p>
-        <p id="toastSubtitle" class="text-xs text-[#FAFAFA]/85 mt-0.5">Станция добавлена на карту</p>
-      </div>
+      <div class="prize-title" data-i18n="prizeTitle">Все 10 станций пройдены!</div>
+      <p class="prize-desc" data-i18n="prizeDesc">Покажи этот экран волонтёрам на станции КМД, чтобы получить памятный приз.</p>
+      <div class="prize-code" id="prizeCode">KMD-2026-WIN</div>
     </div>
-  </div>
 
-  <!-- Top Brand Header (Mobile-first responsive layout) -->
-  <header class="bg-[#1D006D] text-[#FAFAFA] sticky top-0 z-30 shadow-lg border-b-2 border-[#4C4CC1]/50">
-    <div class="max-w-3xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-      
-      <!-- Top Row on Mobile: KMD Logo Slot + Main Title -->
-      <div class="flex items-center gap-3 min-w-0">
-        <!-- Frameless White KMD PNG Logo on Blue Header Background -->
-        <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0">
-          <img
-            id="kmdHeaderLogo"
-            src="./kmd-logo.png"
-            alt="КМД"
-            class="w-full h-full object-contain"
-            onerror="this.style.display='none'; document.getElementById('kmdLogoFallback').classList.remove('hidden');"
-          />
-          <div id="kmdLogoFallback" class="hidden w-full h-full flex items-center justify-center">
-            <span class="font-pioner text-base sm:text-lg tracking-wider text-[#FAFAFA] font-bold">КМД</span>
-          </div>
-        </div>
+    <!-- Stations -->
+    <div class="section-label" data-i18n="mapLabel">Карта станций фестиваля</div>
+    <div class="stations-grid" id="stationsGrid"></div>
 
-        <div class="min-w-0 flex-1">
-          <h1 id="uiMainTitle" class="font-bebas text-xl sm:text-2xl leading-none tracking-wide text-[#FAFAFA] truncate">
-            ФЕСТИВАЛЬ СТРАН МИРА В ГЕРЦЕНА
-          </h1>
-          <p id="uiSubTitle" class="text-[11px] sm:text-xs text-[#FAFAFA]/80 truncate mt-1">
-            Клуб межнациональной дружбы • Карта путешественника
-          </p>
-        </div>
-      </div>
-
-      <!-- Prominent Multilingual Switcher Bar -->
-      <div class="flex items-center justify-between sm:justify-end gap-2 pt-1.5 sm:pt-0 border-t border-[#4C4CC1]/30 sm:border-t-0">
-        <span id="uiLangLabel" class="text-[11px] text-[#FAFAFA]/80 flex items-center gap-1.5 sm:hidden shrink-0">
-          <svg class="w-3.5 h-3.5 text-[#FAFAFA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="2" y1="12" x2="22" y2="12"></line>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-          </svg>
-        </span>
-        <div class="flex items-center bg-[#0707A0] p-1 rounded-xl border border-[#4C4CC1] shadow-inner w-full sm:w-auto justify-around sm:justify-start gap-0.5" role="group" aria-label="Language switcher">
-          <button onclick="setLanguage('ru')" id="langBtn-ru" class="flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-[#FAFAFA] text-[#1D006D] shadow flex items-center justify-center gap-1.5">
-            <span class="fi fi-ru"></span>
-            <span>RU</span>
-          </button>
-          <button onclick="setLanguage('en')" id="langBtn-en" class="flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-[#FAFAFA] hover:bg-[#4C4CC1]/50 flex items-center justify-center gap-1.5">
-            <span class="fi fi-gb"></span>
-            <span>EN</span>
-          </button>
-          <button onclick="setLanguage('es')" id="langBtn-es" class="flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-[#FAFAFA] hover:bg-[#4C4CC1]/50 flex items-center justify-center gap-1.5">
-            <span class="fi fi-es"></span>
-            <span>ES</span>
-          </button>
-          <button onclick="setLanguage('zh')" id="langBtn-zh" class="flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-[#FAFAFA] hover:bg-[#4C4CC1]/50 flex items-center justify-center gap-1.5">
-            <span class="fi fi-cn"></span>
-            <span>中文</span>
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </header>
-
-  <!-- Main Content Container -->
-  <main class="flex-1 max-w-3xl w-full mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-5">
-
-    <!-- Progress & Prize Banner Card -->
-    <section class="bg-white rounded-2xl p-4 sm:p-5 border-2 border-[#4C4CC1]/30 shadow-sm space-y-3">
-      <div class="flex items-center justify-between gap-2">
-        <div>
-          <span id="uiProgressLabel" class="text-[11px] sm:text-xs uppercase tracking-wider text-[#4C4CC1] font-bold">
-            Твой прогресс маршрута
-          </span>
-          <div class="flex items-baseline gap-2 mt-0.5">
-            <span id="progressCount" class="font-bebas text-3xl sm:text-4xl text-[#0707A0] leading-none">0 / 12</span>
-            <span id="uiStationsWord" class="text-xs sm:text-sm text-[#1D006D]/80">станций открыто</span>
-          </div>
-        </div>
-        <div class="text-right">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1D006D] text-[#FAFAFA] text-[11px] sm:text-xs font-bold shadow-sm">
-            <svg class="w-3.5 h-3.5 text-[#FAFAFA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 12 20 22 4 22 4 12"></polyline>
-              <rect x="2" y="7" width="20" height="5"></rect>
-              <line x1="12" y1="22" x2="12" y2="7"></line>
-              <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-              <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-            </svg>
-            <span id="uiGoalBadgeText">Цель: все 12 / 12</span>
-          </span>
-        </div>
-      </div>
-
-      <!-- Progress Bar -->
-      <div class="w-full h-3.5 bg-[#1D006D]/10 rounded-full overflow-hidden p-0.5 border border-[#4C4CC1]/30">
-        <div id="progressBarFill" class="h-full bg-gradient-to-r from-[#0707A0] to-[#4C4CC1] rounded-full transition-all duration-500 ease-out" style="width: 0%;"></div>
-      </div>
-
-      <!-- Prize Unlock Alert (Strictly when all 12/12 stations are visited) -->
-      <div id="prizeBanner" class="hidden rounded-xl bg-gradient-to-r from-[#1D006D] via-[#0707A0] to-[#4C4CC1] text-[#FAFAFA] p-4 shadow-lg border border-[#FAFAFA]/20 space-y-3">
-        <div class="flex items-start sm:items-center gap-3.5">
-          <div class="w-11 h-11 rounded-xl bg-[#FAFAFA]/15 border border-[#FAFAFA]/30 flex items-center justify-center shrink-0">
-            <svg class="w-6 h-6 text-[#FAFAFA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-              <path d="M4 22h16"></path>
-              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
-              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
-              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
-            </svg>
-          </div>
-          <div class="flex-1">
-            <h2 id="prizeBannerTitle" class="font-bebas text-xl sm:text-2xl tracking-wide leading-tight text-[#FAFAFA]">
-              ВСЕ 12 СТАНЦИЙ СОБРАНЫ!
-            </h2>
-            <p id="prizeBannerDesc" class="text-xs sm:text-sm text-[#FAFAFA]/95 mt-0.5 leading-snug">
-              Поздравляем! Покажи этот экран на главной станции КМД и забери свой приз!
-            </p>
-          </div>
-        </div>
-
-        <button onclick="openCertificateModal()" class="w-full py-2.5 px-4 rounded-xl bg-[#FAFAFA] hover:bg-white text-[#1D006D] font-bold text-sm shadow-md transition active:scale-[0.99] flex items-center justify-center gap-2">
-          <svg class="w-4 h-4 text-[#0707A0]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="8" r="6"></circle>
-            <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
-          </svg>
-          <span id="uiOpenCertBtn">Получить сертификат</span>
-        </button>
-      </div>
-
-      <!-- How It Works Hint -->
-      <div class="flex items-start gap-2.5 text-xs text-[#1D006D]/85 bg-[#FAFAFA] px-3 py-2.5 rounded-xl border border-[#4C4CC1]/25 leading-relaxed">
-        <svg class="w-4 h-4 text-[#0707A0] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="7" height="7"></rect>
-          <rect x="14" y="3" width="7" height="7"></rect>
-          <rect x="14" y="14" width="7" height="7"></rect>
-          <rect x="3" y="14" width="7" height="7"></rect>
-        </svg>
-        <p id="uiInstructionText">
-          Подходи к стендам стран и сканируй их QR-коды камерой телефона — отметки появятся на карте автоматически. Собери все 12 станций для получения приза!
-        </p>
-      </div>
-    </section>
-
-    <!-- Interactive Vector World Map Section -->
-    <section class="bg-white rounded-2xl p-2.5 sm:p-4 border-2 border-[#0707A0]/20 shadow-md">
-      <div class="flex items-center justify-between px-1 mb-2">
-        <h2 id="uiMapHeading" class="font-bebas text-lg sm:text-xl text-[#1D006D] tracking-wide">
-          ИНТЕРАКТИВНАЯ КАРТА МИРА
-        </h2>
-        <div class="flex items-center gap-3 text-[11px]">
-          <span class="flex items-center gap-1 text-[#1D006D]/70">
-            <span class="w-2.5 h-2.5 rounded-full bg-[#FAFAFA] border-2 border-[#4C4CC1] inline-block"></span>
-            <span id="uiLegendUnvisited">Не открыто</span>
-          </span>
-          <span class="flex items-center gap-1 text-[#0707A0] font-bold">
-            <span class="w-2.5 h-2.5 rounded-full bg-[#0707A0] inline-block"></span>
-            <span id="uiLegendVisited">Пройдено</span>
-          </span>
-        </div>
-      </div>
-
-      <!-- Responsive Vector World Map Container -->
-      <div class="relative w-full aspect-[16/10] bg-[#1D006D] rounded-xl overflow-hidden border border-[#4C4CC1]/40 shadow-inner">
-        <svg id="worldMapSvg" viewBox="0 0 1000 620" class="w-full h-full select-none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="mapGrid" width="50" height="50" patternUnits="userSpaceOnUse">
-              <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#4C4CC1" stroke-width="0.6" opacity="0.22"/>
-            </pattern>
-          </defs>
-
-          <!-- Ocean & Grid -->
-          <rect width="1000" height="620" fill="#1D006D"/>
-          <rect width="1000" height="620" fill="url(#mapGrid)"/>
-
-          <!-- Equator & Tropics -->
-          <line x1="0" y1="330" x2="1000" y2="330" stroke="#4C4CC1" stroke-width="1" stroke-dasharray="6,6" opacity="0.35"/>
-
-          <!-- Stylized Vector Continents -->
-          <g fill="#4C4CC1" opacity="0.42" stroke="#FAFAFA" stroke-width="0.8" stroke-opacity="0.25">
-            <!-- North & Central America -->
-            <path d="M 75,95 L 185,80 L 245,125 L 220,195 L 185,235 L 205,285 L 235,315 L 215,328 L 175,295 L 145,245 L 115,190 L 65,145 Z"/>
-            <!-- South America -->
-            <path d="M 235,332 L 295,355 L 335,415 L 315,495 L 275,565 L 250,555 L 245,475 L 225,405 Z"/>
-            <!-- Europe -->
-            <path d="M 445,105 L 525,85 L 560,120 L 545,175 L 505,195 L 455,190 L 440,150 Z"/>
-            <!-- Africa -->
-            <path d="M 445,215 L 525,210 L 575,255 L 585,325 L 555,415 L 515,475 L 485,465 L 475,385 L 435,325 L 425,260 Z"/>
-            <!-- Russia & Northern Eurasia -->
-            <path d="M 555,80 L 735,65 L 885,90 L 925,135 L 865,175 L 775,180 L 685,185 L 595,175 L 555,140 Z"/>
-            <!-- Middle East & Asia -->
-            <path d="M 545,188 L 635,185 L 745,190 L 825,210 L 845,265 L 795,315 L 755,345 L 715,325 L 675,335 L 645,290 L 595,265 L 555,235 Z"/>
-            <!-- Japan & SE Asia Islands -->
-            <path d="M 865,215 L 882,205 L 888,235 L 868,255 Z"/>
-            <path d="M 765,365 L 815,375 L 835,405 L 780,400 Z"/>
-            <!-- Australia -->
-            <path d="M 795,435 L 885,430 L 905,490 L 855,525 L 795,495 Z"/>
-          </g>
-
-          <!-- Dashed Route Lines Connecting Stations -->
-          <path d="M 245,355 Q 370,280 490,245 T 555,215 T 645,190 T 685,135 T 765,245 T 870,225" fill="none" stroke="#FAFAFA" stroke-width="1.3" stroke-dasharray="4,5" opacity="0.35"/>
-
-          <!-- Dynamic Pins Layer -->
-          <g id="mapPinsLayer"></g>
-        </svg>
-      </div>
-    </section>
-
-    <!-- All 12 Stations Checklist Grid -->
-    <section class="space-y-2.5">
-      <div class="flex items-center justify-between px-1">
-        <h2 id="uiStationsHeading" class="font-bebas text-lg sm:text-xl text-[#1D006D] tracking-wide">
-          СПИСОК ВСЕХ 12 СТАНЦИЙ
-        </h2>
-        <span id="uiTapHint" class="text-[11px] text-[#4C4CC1]">
-          Нажми на станцию для деталей
-        </span>
-      </div>
-
-      <div id="stationsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-        <!-- Rendered via JS -->
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer & Organizer Controls -->
-  <footer class="bg-[#1D006D] text-[#FAFAFA]/80 border-t border-[#4C4CC1]/40 mt-6">
-    <div class="max-w-3xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-      <div class="text-center sm:text-left">
-        <span class="font-pioner text-[#FAFAFA] tracking-wider font-bold">КМД</span> • <span id="uiFooterText">РГПУ им. А. И. Герцена • Мраморный зал</span>
-      </div>
-      <div class="flex items-center gap-2.5">
-        <button onclick="confirmResetProgress()" class="px-3.5 py-2 rounded-lg bg-transparent hover:bg-white/10 text-[#FAFAFA]/75 hover:text-[#FAFAFA] border border-[#FAFAFA]/25 transition">
-          <span id="uiResetBtn">Сброс прогресса</span>
-        </button>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Station Detail Bottom Sheet / Modal -->
-  <div id="stationModal" class="fixed inset-0 z-40 hidden bg-[#1D006D]/70 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4" onclick="closeStationModal(event)">
-    <div class="bg-[#FAFAFA] text-[#1D006D] w-full max-w-md rounded-t-3xl sm:rounded-2xl p-5 sm:p-6 shadow-2xl border-t-4 sm:border-2 border-[#0707A0] space-y-4" onclick="event.stopPropagation()">
-      <div class="flex items-start justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <div id="modalBadgeIcon" class="w-12 h-12 rounded-2xl bg-[#0707A0]/10 border border-[#4C4CC1]/40 flex items-center justify-center shrink-0 overflow-hidden p-1.5">
-            <!-- Flag or SVG emblem rendered dynamically -->
-          </div>
-          <div>
-            <span id="modalStatusBadge" class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#4C4CC1]/15 text-[#0707A0] mb-1">
-              Не пройдено
-            </span>
-            <h3 id="modalTitle" class="font-bebas text-2xl text-[#1D006D] leading-tight">
-              Название станции
-            </h3>
-          </div>
-        </div>
-        <button onclick="closeStationModal()" class="w-9 h-9 rounded-full bg-[#1D006D]/10 hover:bg-[#1D006D]/20 flex items-center justify-center text-[#1D006D] font-bold text-sm shrink-0" aria-label="Close">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-
-      <p id="modalDesc" class="text-sm text-[#1D006D]/85 leading-relaxed bg-white p-3.5 rounded-xl border border-[#4C4CC1]/25">
-        Подойди к стенду этой страны в Мраморном зале и отсканируй QR-код, чтобы поставить отметку на своей карте!
-      </p>
-
-      <div class="pt-1">
-        <button id="modalCloseBtnText" onclick="closeStationModal()" class="w-full py-3 px-4 rounded-xl bg-[#0707A0] hover:bg-[#4C4CC1] text-[#FAFAFA] font-bold text-sm transition shadow">
-          Закрыть
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Completion Certificate Modal -->
-  <div id="certificateModal" class="fixed inset-0 z-50 hidden bg-[#1D006D]/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto" onclick="closeCertificateModal(event)">
-    <div class="bg-[#FAFAFA] text-[#1D006D] w-full max-w-md rounded-3xl p-4 sm:p-5 shadow-2xl border-2 border-[#4C4CC1] space-y-4 my-auto" onclick="event.stopPropagation()">
-      <div class="flex items-center justify-between">
-        <h3 id="certModalHeading" class="font-bebas text-2xl text-[#1D006D] tracking-wide">
-          СЕРТИФИКАТ ПУТЕШЕСТВЕННИКА
-        </h3>
-        <button onclick="closeCertificateModal()" class="w-8 h-8 rounded-full bg-[#1D006D]/10 hover:bg-[#1D006D]/20 flex items-center justify-center text-[#1D006D]" aria-label="Close">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Visual Certificate Card -->
-      <div class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#1D006D] via-[#0707A0] to-[#4C4CC1] text-[#FAFAFA] p-5 sm:p-6 shadow-xl border-2 border-[#FAFAFA]/20 text-center space-y-4">
-        <div class="absolute inset-2.5 rounded-xl border border-[#FAFAFA]/25 pointer-events-none"></div>
-
-        <!-- White KMD Logo on Blue Background -->
-        <div class="flex justify-center pt-1">
-          <div class="w-16 h-16 flex items-center justify-center">
-            <img
-              id="certKmdLogo"
-              src="./kmd-logo.png"
-              alt="КМД"
-              class="w-full h-full object-contain"
-              onerror="this.style.display='none'; document.getElementById('certLogoFallback').classList.remove('hidden');"
-            />
-            <span id="certLogoFallback" class="hidden font-pioner text-xl font-bold tracking-wider text-[#FAFAFA]">КМД</span>
-          </div>
-        </div>
-
-        <div class="space-y-1">
-          <p id="certOrgSubtitle" class="text-[10px] uppercase tracking-[0.2em] text-[#FAFAFA]/80 font-bold">
-            КЛУБ МЕЖНАЦИОНАЛЬНОЙ ДРУЖБЫ • РГПУ ИМ. А. И. ГЕРЦЕНА
-          </p>
-          <h4 id="certCardTitle" class="font-bebas text-3xl sm:text-4xl tracking-wider text-[#FAFAFA] leading-none">
-            СЕРТИФИКАТ
-          </h4>
-          <p id="certCardSub" class="text-xs text-[#FAFAFA]/85">
-            подтверждает прохождение всех станций Фестиваля стран мира
-          </p>
-        </div>
-
-        <div class="py-2 border-y border-[#FAFAFA]/25">
-          <p id="certAwardedLabel" class="text-[10px] uppercase tracking-widest text-[#FAFAFA]/70">
-            Награждается
-          </p>
-          <p id="certPreviewName" class="font-bebas text-2xl sm:text-3xl tracking-wide text-[#FAFAFA] mt-0.5 break-words">
-            ПУТЕШЕСТВЕННИК
-          </p>
-        </div>
-
-        <div class="flex items-center justify-center gap-2">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAFAFA]/15 border border-[#FAFAFA]/30 text-xs font-bold text-[#FAFAFA]">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-            <span id="certStationsBadge">12 / 12 станций пройдено</span>
-          </span>
-        </div>
-
-        <p id="certDateText" class="text-[11px] text-[#FAFAFA]/75 pt-1">
-          Санкт-Петербург • Мраморный зал
-        </p>
-      </div>
-
-      <!-- Participant Name Input -->
-      <div class="space-y-1.5">
-        <label id="certInputLabel" for="certNameInput" class="block text-xs font-bold text-[#1D006D]">
-          Впиши своё имя для сертификата:
-        </label>
-        <input
-          id="certNameInput"
-          type="text"
-          maxlength="36"
-          oninput="updateCertificateName(this.value)"
-          placeholder="Например: Анна Смирнова"
-          class="w-full px-3.5 py-2.5 rounded-xl border-2 border-[#4C4CC1]/30 focus:border-[#0707A0] focus:outline-none text-sm bg-white text-[#1D006D]"
-        />
-      </div>
-
-      <!-- Download & Close Buttons -->
-      <div class="flex items-center gap-2">
-        <button onclick="downloadCertificatePNG()" class="flex-1 py-3 px-4 rounded-xl bg-[#0707A0] hover:bg-[#4C4CC1] text-[#FAFAFA] font-bold text-sm transition shadow flex items-center justify-center gap-2">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          <span id="certDownloadBtnText">Скачать PNG</span>
-        </button>
-        <button id="certCloseBtnText" onclick="closeCertificateModal()" class="py-3 px-4 rounded-xl bg-[#1D006D]/10 hover:bg-[#1D006D]/20 text-[#1D006D] font-bold text-sm transition">
-          Закрыть
-        </button>
-      </div>
-    </div>
+    <p class="footer-note" data-i18n="footerNote">Отметки сохраняются автоматически в памяти браузера на этом устройстве.</p>
   </div>
 
   <script>
-    // ==========================================
-    // 1. VECTOR BADGES & CDN FLAGS (NO EMOJIS)
-    // ==========================================
-    function getStationBadgeHTML(station, sizeClass = 'text-xl') {
-      if (station.badgeType === 'flag') {
-        return `<span class="fi fi-${station.flagCode} ${sizeClass}"></span>`;
-      }
-      if (station.badgeType === 'dual-flag') {
-        return `
-          <div class="flex flex-col items-center justify-center gap-0.5">
-            <span class="fi fi-${station.flagCodes[0]} text-xs"></span>
-            <span class="fi fi-${station.flagCodes[1]} text-xs"></span>
-          </div>
-        `;
-      }
-      if (station.badgeType === 'africa') {
-        return `
-          <svg class="w-6 h-6 text-[#0707A0]" viewBox="0 0 32 32" fill="none">
-            <rect x="2" y="2" width="28" height="28" rx="6" fill="#0707A0" fill-opacity="0.1" stroke="#4C4CC1" stroke-width="1.5"/>
-            <path d="M12 7h6l4 4v5l-3 4-1 5h-3l-2-5-3-3V11l2-4z" fill="#0707A0"/>
-            <circle cx="16" cy="13" r="1.5" fill="#FAFAFA"/>
-          </svg>
-        `;
-      }
-      if (station.badgeType === 'latam') {
-        return `
-          <svg class="w-6 h-6 text-[#0707A0]" viewBox="0 0 32 32" fill="none">
-            <rect x="2" y="2" width="28" height="28" rx="6" fill="#0707A0" fill-opacity="0.1" stroke="#4C4CC1" stroke-width="1.5"/>
-            <path d="M10 7h4l3 4 4 3v5l-4 6h-3l-1-6-3-4V7z" fill="#0707A0"/>
-            <circle cx="21" cy="10" r="2" fill="#4C4CC1"/>
-          </svg>
-        `;
-      }
-      if (station.badgeType === 'kmd') {
-        return `
-          <div class="w-full h-full flex items-center justify-center bg-[#1D006D] rounded-lg p-1">
-            <img src="./kmd-logo.png" alt="КМД" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
-            <span class="hidden font-pioner text-[11px] font-bold tracking-wider text-[#FAFAFA]">КМД</span>
-          </div>
-        `;
-      }
-      return '';
-    }
-
-    // ==========================================
-    // 2. STATIONS DATA (ALL 12 STATIONS)
-    // ==========================================
     const STATIONS = [
       {
-        id: 'turkey',
+        id: 1,
         token: 'tr8x4m',
-        badgeType: 'flag',
-        flagCode: 'tr',
-        x: 545,
-        y: 205,
-        name: { ru: 'Турция', en: 'Turkey', es: 'Turquía', zh: '土耳其' },
-        desc: {
-          ru: 'Открой колорит Турции: восточное гостеприимство, традиции и культура. Отсканируй QR-код на стенде Турции!',
-          en: 'Discover the spirit of Turkey: hospitality, traditions, and culture. Scan the QR code at the Turkey booth!',
-          es: 'Descubre el espíritu de Turquía: hospitalidad, tradiciones y cultura. ¡Escanea el código QR en el stand de Turquía!',
-          zh: '探索土耳其的独特魅力：热情好客、传统与文化。扫描土耳其展台的二维码打卡！'
-        }
+        flags: ['tr'],
+        name: { ru: 'Турция', en: 'Turkey', zh: '土耳其' }
       },
       {
-        id: 'africa_we',
+        id: 2,
         token: 'af2k9p',
-        badgeType: 'africa',
-        x: 525,
-        y: 345,
-        name: {
-          ru: 'Страны Африки (Западной и Восточной)',
-          en: 'West and East Africa',
-          es: 'África Occidental y Oriental',
-          zh: '西非与东非国家'
-        },
-        desc: {
-          ru: 'Яркие ритмы, традиционные узоры и культура Западной и Восточной Африки. Отсканируй QR-код на стенде!',
-          en: 'Vibrant rhythms, traditional patterns, and cultures of West and East Africa. Scan the QR code at the booth!',
-          es: 'Ritmos vibrantes, patrones tradicionales y culturas de África Occidental y Oriental. ¡Escanea el código QR en el stand!',
-          zh: '感受西非与东非充满活力的节奏、传统纹样与文化。扫描展台二维码打卡！'
-        }
+        custom: 'africa',
+        name: { ru: 'Страны Африки (Западная и Восточная)', en: 'Africa (West & East)', zh: '非洲国家（西非与东非）' }
       },
       {
-        id: 'africa_north',
-        token: 'na5v7q',
-        badgeType: 'dual-flag',
-        flagCodes: ['dz', 'tn'],
-        x: 485,
-        y: 242,
-        name: {
-          ru: 'Страны Северной Африки (Алжир, Тунис)',
-          en: 'North Africa (Algeria, Tunisia)',
-          es: 'África del Norte (Argelia, Túnez)',
-          zh: '北非国家（阿尔及利亚、突尼斯）'
-        },
-        desc: {
-          ru: 'Атмосфера Магриба: традиции Алжира и Туниса, чайная культура и орнаменты. Отсканируй QR-код стенда!',
-          en: 'Atmosphere of the Maghreb: traditions of Algeria and Tunisia, tea culture, and ornaments. Scan the booth QR code!',
-          es: 'Atmósfera del Magreb: tradiciones de Argelia y Túnez, cultura del té y ornamentos. ¡Escanea el código QR del stand!',
-          zh: '领略马格里布风情：阿尔及利亚与突尼斯的传统、茶文化与艺术纹样。扫描展台二维码打卡！'
-        }
-      },
-      {
-        id: 'latam',
+        id: 3,
         token: 'la3w6z',
-        badgeType: 'latam',
-        x: 265,
-        y: 385,
-        name: {
-          ru: 'Страны Латинской и Центральной Америки',
-          en: 'Latin and Central America',
-          es: 'América Latina y Central',
-          zh: '拉丁美洲与中美洲国家'
-        },
-        desc: {
-          ru: 'Страсть, танцы и краски Латинской и Центральной Америки. Отсканируй QR-код на стенде!',
-          en: 'Passion, dances, and vibrant colors of Latin and Central America. Scan the QR code at the booth!',
-          es: 'Pasión, bailes y colores vibrantes de América Latina y Central. ¡Escanea el código QR en el stand!',
-          zh: '体验拉丁美洲与中美洲的热情、舞蹈与绚丽色彩。扫描展台二维码打卡！'
-        }
+        custom: 'latam',
+        name: { ru: 'Латинская и Центральная Америка', en: 'Latin & Central America', zh: '拉丁美洲与中美洲' }
       },
       {
-        id: 'japan',
+        id: 4,
         token: 'jp9c1r',
-        badgeType: 'flag',
-        flagCode: 'jp',
-        x: 874,
-        y: 225,
-        name: { ru: 'Япония', en: 'Japan', es: 'Japón', zh: '日本' },
-        desc: {
-          ru: 'Эстетика Страны восходящего солнца: традиции, игры и искусство Японии. Отсканируй QR-код стенда!',
-          en: 'Aesthetics of the Land of the Rising Sun: traditions, games, and arts of Japan. Scan the booth QR code!',
-          es: 'Estética del País del Sol Naciente: tradiciones, juegos y arte de Japón. ¡Escanea el código QR del stand!',
-          zh: '感受日出之国的美学：日本传统、游戏与艺术。扫描展台二维码打卡！'
-        }
+        flags: ['jp'],
+        name: { ru: 'Япония', en: 'Japan', zh: '日本' }
       },
       {
-        id: 'laos',
+        id: 5,
         token: 'lo4n8t',
-        badgeType: 'flag',
-        flagCode: 'la',
-        x: 752,
-        y: 282,
-        name: { ru: 'Лаос', en: 'Laos', es: 'Laos', zh: '老挝' },
-        desc: {
-          ru: 'Самобытная культура и тёплые традиции Лаоса. Отсканируй QR-код на стенде Лаоса!',
-          en: 'Authentic culture and warm traditions of Laos. Scan the QR code at the Laos booth!',
-          es: 'Cultura auténtica y cálidas tradiciones de Laos. ¡Escanea el código QR en el stand de Laos!',
-          zh: '探索老挝独特的文化与温馨传统。扫描老挝展台二维码打卡！'
-        }
+        flags: ['la'],
+        name: { ru: 'Лаос', en: 'Laos', zh: '老挝' }
       },
       {
-        id: 'vietnam',
+        id: 6,
         token: 'vn7b2y',
-        badgeType: 'flag',
-        flagCode: 'vn',
-        x: 782,
-        y: 306,
-        name: { ru: 'Вьетнам', en: 'Vietnam', es: 'Vietnam', zh: '越南' },
-        desc: {
-          ru: 'Традиции, игры и гостеприимство Вьетнама. Отсканируй QR-код на стенде Вьетнама!',
-          en: 'Traditions, games, and hospitality of Vietnam. Scan the QR code at the Vietnam booth!',
-          es: 'Tradiciones, juegos y hospitalidad de Vietnam. ¡Escanea el código QR en el stand de Vietnam!',
-          zh: '体验越南的传统、趣味游戏与热情好客。扫描越南展台二维码打卡！'
-        }
+        flags: ['vn'],
+        name: { ru: 'Вьетнам', en: 'Vietnam', zh: '越南' }
       },
       {
-        id: 'china',
+        id: 7,
         token: 'cn6d5h',
-        badgeType: 'flag',
-        flagCode: 'cn',
-        x: 765,
-        y: 235,
-        name: { ru: 'Китай', en: 'China', es: 'China', zh: '中国' },
-        desc: {
-          ru: 'Каллиграфия, древние традиции и символы Поднебесной. Отсканируй QR-код на стенде Китая!',
-          en: 'Calligraphy, ancient traditions, and symbols of China. Scan the QR code at the China booth!',
-          es: 'Caligrafía, tradiciones milenarias y símbolos de China. ¡Escanea el código QR en el stand de China!',
-          zh: '体验中国书法、古老传统与文化符号。扫描中国展台二维码打卡！'
-        }
+        flags: ['cn'],
+        name: { ru: 'Китай', en: 'China', zh: '中国' }
       },
       {
-        id: 'russia',
+        id: 8,
         token: 'ru1f9s',
-        badgeType: 'flag',
-        flagCode: 'ru',
-        x: 685,
-        y: 135,
-        name: { ru: 'Россия', en: 'Russia', es: 'Rusia', zh: '俄罗斯' },
-        desc: {
-          ru: 'Народные традиции, ремёсла и душа России. Отсканируй QR-код на стенде России!',
-          en: 'Folk traditions, crafts, and the spirit of Russia. Scan the QR code at the Russia booth!',
-          es: 'Tradiciones populares, artesanía y el espíritu de Rusia. ¡Escanea el código QR en el stand de Rusia!',
-          zh: '感受俄罗斯民间传统、手工艺与民族风情。扫描俄罗斯展台二维码打卡！'
-        }
+        flags: ['ru'],
+        name: { ru: 'Россия', en: 'Russia', zh: '俄罗斯' }
       },
       {
-        id: 'korea',
+        id: 9,
         token: 'kr8m3v',
-        badgeType: 'flag',
-        flagCode: 'kr',
-        x: 832,
-        y: 222,
-        name: { ru: 'Южная Корея', en: 'South Korea', es: 'Corea del Sur', zh: '韩国' },
-        desc: {
-          ru: 'Традиционные корейские игры и современная культура Южной Кореи. Отсканируй QR-код стенда!',
-          en: 'Traditional Korean games and modern culture of South Korea. Scan the booth QR code!',
-          es: 'Juegos tradicionales coreanos y cultura moderna de Corea del Sur. ¡Escanea el código QR del stand!',
-          zh: '体验韩国传统游戏与现代文化魅力。扫描展台二维码打卡！'
-        }
+        flags: ['kr'],
+        name: { ru: 'Южная Корея', en: 'South Korea', zh: '韩国' }
       },
       {
-        id: 'uzbekistan',
-        token: 'uz4k7p',
-        badgeType: 'flag',
-        flagCode: 'uz',
-        x: 642,
-        y: 192,
-        name: { ru: 'Узбекистан', en: 'Uzbekistan', es: 'Uzbekistán', zh: '乌兹别克斯坦' },
-        desc: {
-          ru: 'Восточное гостеприимство, древний Самарканд, орнаменты и традиции Узбекистана. Отсканируй QR-код на стенде!',
-          en: 'Eastern hospitality, ancient Samarkand, patterns, and traditions of Uzbekistan. Scan the QR code at the booth!',
-          es: 'Hospitalidad oriental, la antigua Samarcanda, ornamentos y tradiciones de Uzbekistán. ¡Escanea el código QR en el stand!',
-          zh: '感受乌兹别克斯坦的热情好客、古城撒马尔罕风情与传统纹样。扫描展台二维码打卡！'
-        }
-      },
-      {
-        id: 'kmd',
+        id: 10,
         token: 'kmd0x2',
-        badgeType: 'kmd',
-        x: 505,
-        y: 135,
-        name: {
-          ru: 'Станция КМД (Санкт-Петербург)',
-          en: 'KMD Station (Saint Petersburg)',
-          es: 'Estación KMD (San Petersburgo)',
-          zh: 'КМД 国际友谊俱乐部主站'
-        },
-        desc: {
-          ru: 'Главная станция Клуба межнациональной дружбы РГПУ им. А. И. Герцена! Здесь выдают призы за все 12 станций.',
-          en: 'Main station of the International Friendship Club at Herzen University! Claim your prize here once all 12 stations are unlocked.',
-          es: '¡Estación principal del Club de Amistad Internacional de la Universidad Herzen! Reclama aquí tu premio al completar las 12 estaciones.',
-          zh: '赫尔岑国立师范大学国际友谊俱乐部主站！集齐全部 12 个站点后可在此领取奖品。'
-        }
+        custom: 'kmd',
+        name: { ru: 'Станция КМД', en: 'DIC Station', zh: '国际友谊俱乐部展台' }
       }
     ];
 
-    // ==========================================
-    // 3. TRANSLATIONS (RU / EN / ES / ZH — NO EMOJIS)
-    // ==========================================
-    const UI_STRINGS = {
+    const I18N = {
       ru: {
-        mainTitle: 'ФЕСТИВАЛЬ СТРАН МИРА В ГЕРЦЕНА',
-        subTitle: 'Клуб межнациональной дружбы • Карта путешественника',
-        progressLabel: 'Твой прогресс маршрута',
-        stationsWord: 'станций открыто',
-        goalBadgeText: 'Цель: все 12 / 12',
-        instructionText: 'Подходи к стендам стран и сканируй их QR-коды камерой телефона — отметки появятся на карте автоматически. Собери все 12 станций для получения приза!',
-        mapHeading: 'ИНТЕРАКТИВНАЯ КАРТА МИРА',
-        legendUnvisited: 'Не открыто',
-        legendVisited: 'Пройдено',
-        stationsHeading: 'СПИСОК ВСЕХ 12 СТАНЦИЙ',
-        tapHint: 'Нажми на станцию для деталей',
-        footerText: 'РГПУ им. А. И. Герцена • Мраморный зал',
-        resetBtn: 'Сброс прогресса',
-        resetConfirmBtn: 'Подтвердить сброс',
-        toastTitle: 'СТАНЦИЯ ОТМЕЧЕНА!',
-        toastAdded: 'добавлена на твою карту',
-        toastAlready: 'уже отмечена на твоей карте',
-        toastCooldownTitle: 'СЛИШКОМ БЫСТРО!',
-        toastCooldownDesc: 'Подойди к следующему стенду и попробуй снова через',
-        secWord: 'сек.',
-        prizeTitle: 'ВСЕ 12 СТАНЦИЙ СОБРАНЫ!',
-        prizeDesc: 'Поздравляем! Покажи этот экран на главной станции КМД и забери свой приз!',
-        openCertBtn: 'Получить сертификат',
-        certModalHeading: 'СЕРТИФИКАТ ПУТЕШЕСТВЕННИКА',
-        certOrgSubtitle: 'КЛУБ МЕЖНАЦИОНАЛЬНОЙ ДРУЖБЫ • РГПУ ИМ. А. И. ГЕРЦЕНА',
-        certCardTitle: 'СЕРТИФИКАТ',
-        certCardSub: 'подтверждает прохождение всех станций Фестиваля стран мира',
-        certAwardedLabel: 'Награждается',
-        certDefaultName: 'ПУТЕШЕСТВЕННИК',
-        certStationsBadge: '12 / 12 станций пройдено',
-        certPlaceText: 'Санкт-Петербург • Мраморный зал',
-        certInputLabel: 'Впиши своё имя для сертификата:',
-        certInputPlaceholder: 'Например: Анна Смирнова',
-        certDownloadBtn: 'Скачать PNG',
-        statusVisited: 'Пройдено',
-        statusUnvisited: 'Не пройдено',
-        btnClose: 'Закрыть'
+        org: 'Клуб межнациональной дружбы',
+        uni: 'РГПУ им. А. И. Герцена',
+        venue: 'Мраморный зал • 4 корпус • с 18:00',
+        title: 'Фестиваль стран мира',
+        subtitle: 'Сканируй QR-коды на стендах участников, собери все 10 отметок и забери приз на станции КМД.',
+        progressLabel: 'Собрано станций',
+        prizeTitle: 'Все 10 станций пройдены!',
+        prizeDesc: 'Покажи этот экран волонтёрам на станции КМД, чтобы получить памятный приз.',
+        mapLabel: 'Карта станций фестиваля',
+        footerNote: 'Отметки сохраняются автоматически в памяти браузера на этом устройстве.',
+        stationPrefix: 'Станция #',
+        toastAdded: (name) => `Отметка получена: ${name}`,
+        toastAlready: (name) => `Станция «${name}» уже отмечена`,
+        toastCooldown: (sec) => `Слишком быстро. Подойдите к следующему стенду и попробуйте через ${sec} сек.`
       },
       en: {
-        mainTitle: 'WORLD CULTURES FESTIVAL AT HERZEN',
-        subTitle: 'International Friendship Club • Traveler Map',
-        progressLabel: 'Your Route Progress',
-        stationsWord: 'stations unlocked',
-        goalBadgeText: 'Goal: all 12 / 12',
-        instructionText: 'Visit country booths and scan their QR codes with your phone camera — stamps will appear on your map automatically. Collect all 12 stations to win a prize!',
-        mapHeading: 'INTERACTIVE WORLD MAP',
-        legendUnvisited: 'Locked',
-        legendVisited: 'Unlocked',
-        stationsHeading: 'ALL 12 FESTIVAL STATIONS',
-        tapHint: 'Tap a station for info',
-        footerText: 'Herzen University • Marble Hall',
-        resetBtn: 'Reset progress',
-        resetConfirmBtn: 'Confirm reset',
-        toastTitle: 'STATION UNLOCKED!',
-        toastAdded: 'added to your map',
-        toastAlready: 'is already on your map',
-        toastCooldownTitle: 'TOO FAST!',
-        toastCooldownDesc: 'Walk to the next booth and try again in',
-        secWord: 'sec.',
-        prizeTitle: 'ALL 12 STATIONS UNLOCKED!',
-        prizeDesc: 'Congratulations! Show this screen at the main KMD station to claim your prize!',
-        openCertBtn: 'Get Certificate',
-        certModalHeading: 'TRAVELER CERTIFICATE',
-        certOrgSubtitle: 'INTERNATIONAL FRIENDSHIP CLUB • HERZEN UNIVERSITY',
-        certCardTitle: 'CERTIFICATE',
-        certCardSub: 'confirms completion of all World Cultures Festival stations',
-        certAwardedLabel: 'Awarded to',
-        certDefaultName: 'WORLD TRAVELER',
-        certStationsBadge: '12 / 12 stations completed',
-        certPlaceText: 'Saint Petersburg • Marble Hall',
-        certInputLabel: 'Enter your name for the certificate:',
-        certInputPlaceholder: 'e.g. Alex Johnson',
-        certDownloadBtn: 'Download PNG',
-        statusVisited: 'Unlocked',
-        statusUnvisited: 'Not visited yet',
-        btnClose: 'Close'
-      },
-      es: {
-        mainTitle: 'FESTIVAL DE CULTURAS DEL MUNDO EN HERZEN',
-        subTitle: 'Club de Amistad Internacional • Mapa del Viajero',
-        progressLabel: 'Progreso de tu ruta',
-        stationsWord: 'estaciones abiertas',
-        goalBadgeText: 'Meta: todas 12 / 12',
-        instructionText: 'Visita los stands de los países y escanea sus códigos QR con la cámara del teléfono para marcar tu mapa automáticamente. ¡Completa las 12 estaciones para ganar un premio!',
-        mapHeading: 'MAPA MUNDIAL INTERACTIVO',
-        legendUnvisited: 'Bloqueado',
-        legendVisited: 'Completado',
-        stationsHeading: 'TODAS LAS 12 ESTACIONES',
-        tapHint: 'Toca una estación para ver detalles',
-        footerText: 'Universidad Herzen • Salón de Mármol',
-        resetBtn: 'Reiniciar progreso',
-        resetConfirmBtn: 'Confirmar reinicio',
-        toastTitle: '¡ESTACIÓN DESBLOQUEADA!',
-        toastAdded: 'añadida a tu mapa',
-        toastAlready: 'ya está en tu mapa',
-        toastCooldownTitle: '¡DEMASIADO RÁPIDO!',
-        toastCooldownDesc: 'Ve al siguiente stand e inténtalo de nuevo en',
-        secWord: 'seg.',
-        prizeTitle: '¡LAS 12 ESTACIONES COMPLETADAS!',
-        prizeDesc: '¡Felicidades! Muestra esta pantalla en la estación principal KMD y recoge tu premio.',
-        openCertBtn: 'Obtener certificado',
-        certModalHeading: 'CERTIFICADO DE VIAJERO',
-        certOrgSubtitle: 'CLUB DE AMISTAD INTERNACIONAL • UNIVERSIDAD HERZEN',
-        certCardTitle: 'CERTIFICADO',
-        certCardSub: 'confirma la visita a todas las estaciones del Festival de Culturas del Mundo',
-        certAwardedLabel: 'Otorgado a',
-        certDefaultName: 'VIAJERO DEL MUNDO',
-        certStationsBadge: '12 / 12 estaciones completadas',
-        certPlaceText: 'San Petersburgo • Salón de Mármol',
-        certInputLabel: 'Escribe tu nombre para el certificado:',
-        certInputPlaceholder: 'Ej.: Carlos Mendoza',
-        certDownloadBtn: 'Descargar PNG',
-        statusVisited: 'Completado',
-        statusUnvisited: 'Sin visitar',
-        btnClose: 'Cerrar'
+        org: 'Club of International Friendship',
+        uni: 'Herzen University',
+        venue: 'Marble Hall • Building 4 • from 18:00',
+        title: 'Festival of World Countries',
+        subtitle: 'Scan QR codes at participant booths, collect all 10 stamps, and claim your prize at the DIC booth.',
+        progressLabel: 'Stations collected',
+        prizeTitle: 'All 10 stations completed!',
+        prizeDesc: 'Show this screen to volunteers at the DIC booth to claim your prize.',
+        mapLabel: 'Festival Stations Map',
+        footerNote: 'Your progress is saved automatically in this browser.',
+        stationPrefix: 'Station #',
+        toastAdded: (name) => `Stamp collected: ${name}`,
+        toastAlready: (name) => `Station "${name}" is already stamped`,
+        toastCooldown: (sec) => `Too fast. Please visit the next booth and try again in ${sec}s.`
       },
       zh: {
-        mainTitle: '赫尔岑国立师范大学世界各国文化节',
-        subTitle: '国际友谊俱乐部 • 环球探索地图',
-        progressLabel: '你的探索进度',
-        stationsWord: '个站点已点亮',
-        goalBadgeText: '目标：全部 12 / 12',
-        instructionText: '前往各国展台并用手机相机扫描对应二维码，地图将自动点亮打卡标记。集齐全部 12 个站点即可前往主站领取奖品！',
-        mapHeading: '互动世界地图',
-        legendUnvisited: '未打卡',
-        legendVisited: '已点亮',
-        stationsHeading: '全部 12 个文化展台',
-        tapHint: '点击查看展台详情',
-        footerText: '赫尔岑国立师范大学 • 大理石厅',
-        resetBtn: '重置进度',
-        resetConfirmBtn: '确认重置',
-        toastTitle: '打卡成功！',
-        toastAdded: '已添加到你的地图',
-        toastAlready: '已在你的地图中点亮',
-        toastCooldownTitle: '操作过快！',
-        toastCooldownDesc: '请前往下一个展台，等待后重试：',
-        secWord: '秒',
-        prizeTitle: '恭喜集齐全部 12 个站点！',
-        prizeDesc: '请前往 КМД 国际友谊俱乐部主站出示此页面领取奖品！',
-        openCertBtn: '领取电子证书',
-        certModalHeading: '环球探索证书',
-        certOrgSubtitle: '国际友谊俱乐部 • 赫尔岑国立师范大学',
-        certCardTitle: '荣誉证书',
-        certCardSub: '兹证明已成功打卡世界各国文化节全部展台',
-        certAwardedLabel: '授予',
-        certDefaultName: '环球探索者',
-        certStationsBadge: '已完成 12 / 12 个站点',
-        certPlaceText: '圣彼得堡 • 大理石厅',
-        certInputLabel: '输入你的姓名（显示在证书上）：',
-        certInputPlaceholder: '例如：李明',
-        certDownloadBtn: '下载 PNG 证书',
-        statusVisited: '已打卡',
-        statusUnvisited: '未打卡',
-        btnClose: '关闭'
+        org: '国际友谊俱乐部',
+        uni: '赫尔岑国立师范大学',
+        venue: '大理石厅 • 4号楼 • 18:00起',
+        title: '世界各国文化节',
+        subtitle: '扫描各展台二维码，集齐全部10枚印章，即可前往国际友谊俱乐部展台领取奖品。',
+        progressLabel: '已收集展台',
+        prizeTitle: '已集齐全部10个展台！',
+        prizeDesc: '请向国际友谊俱乐部展台工作人员出示此页面以领取奖品。',
+        mapLabel: '文化节展台地图',
+        footerNote: '打卡进度将自动保存在当前设备浏览器中。',
+        stationPrefix: '展台 #',
+        toastAdded: (name) => `已成功打卡：${name}`,
+        toastAlready: (name) => `“${name}”展台已打卡`,
+        toastCooldown: (sec) => `操作过快，请前往下一个展台并在 ${sec} 秒后重试。`
       }
     };
 
-    // ==========================================
-    // 4. STATE, STORAGE & ANTI-SPAM COOLDOWN
-    // ==========================================
-    const STORAGE_KEY = 'kmd_herzen_world_fest_v4';
-    const LANG_KEY = 'kmd_herzen_world_fest_lang';
-    const LAST_SCAN_KEY = 'kmd_herzen_last_scan_ts';
-    const CERT_NAME_KEY = 'kmd_herzen_cert_name';
-    const SCAN_COOLDOWN_MS = 15000; // 15 seconds between different booth scans
+    const STORAGE_KEY = 'kmd_fest_2026_visited';
+    const LAST_SCAN_KEY = 'kmd_fest_2026_last_scan';
+    const LANG_KEY = 'kmd_fest_2026_lang';
+    const COOLDOWN_MS = 15000;
 
     let currentLang = localStorage.getItem(LANG_KEY) || 'ru';
-    let visitedStations = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
-    let certParticipantName = localStorage.getItem(CERT_NAME_KEY) || '';
+    let visitedIds = [];
 
-    function saveProgress() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([...visitedStations]));
+    try {
+      const rawVisited = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      const validIds = new Set(STATIONS.map(s => s.id));
+      visitedIds = Array.isArray(rawVisited) ? rawVisited.filter(id => validIds.has(id)) : [];
+    } catch (e) {
+      visitedIds = [];
     }
 
-    // ==========================================
-    // 5. URL CHECK-IN (#token OR ?s=token)
-    // ==========================================
-    function checkUrlStationParam() {
-      const hashToken = window.location.hash ? window.location.hash.replace(/^#\/?/, '').trim() : '';
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(visitedIds));
+    }
+
+    function showToast(type, message) {
+      const box = document.getElementById('toastBox');
+      const icon = document.getElementById('toastIcon');
+      const text = document.getElementById('toastText');
+
+      box.className = `toast show ${type}`;
+      text.textContent = message;
+
+      if (type === 'success') {
+        icon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+      } else if (type === 'warning') {
+        icon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+      } else {
+        icon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`;
+      }
+    }
+
+    function renderStationVisual(station) {
+      if (station.flags) {
+        return `<div class="flag-box">${station.flags.map(code => `<span class="fi fi-${code}"></span>`).join('')}</div>`;
+      }
+      if (station.custom === 'kmd') {
+        return `<div class="flag-box"><div class="custom-emblem"><img src="./kmd-logo.png" alt="КМД" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2.2\'><circle cx=\'12\' cy=\'12\' r=\'9\'/><path d=\'M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\'/></svg>';" /></div></div>`;
+      }
+      if (station.custom === 'africa') {
+        return `<div class="flag-box"><div class="custom-emblem light"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 8h5l2 3-2 4-2 3-2-2v-3l-2-2z"/></svg></div></div>`;
+      }
+      return `<div class="flag-box"><div class="custom-emblem light"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 7l3 2 2 4 3 2-2 3-3-3-2-4z"/></svg></div></div>`;
+    }
+
+    function render() {
+      const t = I18N[currentLang];
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (typeof t[key] === 'string') {
+          el.textContent = t[key];
+        }
+      });
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang);
+      });
+
+      const count = visitedIds.length;
+      const total = STATIONS.length;
+      document.getElementById('progressText').textContent = `${count} / ${total}`;
+      document.getElementById('progressBar').style.width = `${Math.round((count / total) * 100)}%`;
+
+      const prizeCard = document.getElementById('prizeCard');
+      prizeCard.classList.toggle('unlocked', count >= total);
+
+      const grid = document.getElementById('stationsGrid');
+      grid.innerHTML = STATIONS.map(st => {
+        const isVisited = visitedIds.includes(st.id);
+        return `
+          <div class="station-card ${isVisited ? 'visited' : ''}">
+            <div class="station-top">
+              ${renderStationVisual(st)}
+              <div class="status-badge">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+            </div>
+            <div class="station-info">
+              <div class="station-num">${t.stationPrefix}${st.id}</div>
+              <div class="station-name">${st.name[currentLang]}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function processHashScan() {
+      const rawHash = window.location.hash.replace('#', '').trim();
       const params = new URLSearchParams(window.location.search);
-      const tokenParam = hashToken || params.get('s') || params.get('station');
-      if (!tokenParam) return;
+      const queryToken = params.get('s');
+      const token = rawHash || queryToken;
 
-      const normalized = tokenParam.trim().toLowerCase();
-      const matchedStation = STATIONS.find(
-        s => s.token === normalized || s.id === normalized
-      );
+      if (!token) return;
 
-      // Clean URL hash/query immediately so refresh won't re-trigger
-      const cleanUrl = window.location.origin + window.location.pathname;
-      window.history.replaceState({}, document.title, cleanUrl);
+      window.history.replaceState({}, document.title, window.location.pathname);
 
-      if (!matchedStation) return;
+      const station = STATIONS.find(s => s.token === token);
+      if (!station) return;
 
-      const wasAlreadyVisited = visitedStations.has(matchedStation.id);
-      if (wasAlreadyVisited) {
-        setTimeout(() => showToast(matchedStation, true, 0), 250);
+      const t = I18N[currentLang];
+      const stationName = station.name[currentLang];
+
+      if (visitedIds.includes(station.id)) {
+        showToast('info', t.toastAlready(stationName));
         return;
       }
 
       const now = Date.now();
-      const lastScanTs = parseInt(localStorage.getItem(LAST_SCAN_KEY) || '0', 10);
-      const elapsed = now - lastScanTs;
+      const lastScan = Number(localStorage.getItem(LAST_SCAN_KEY) || 0);
 
-      if (lastScanTs > 0 && elapsed < SCAN_COOLDOWN_MS) {
-        const remainingSec = Math.ceil((SCAN_COOLDOWN_MS - elapsed) / 1000);
-        setTimeout(() => showToast(matchedStation, false, remainingSec), 250);
+      if (visitedIds.length > 0 && now - lastScan < COOLDOWN_MS) {
+        const leftSec = Math.ceil((COOLDOWN_MS - (now - lastScan)) / 1000);
+        showToast('warning', t.toastCooldown(leftSec));
         return;
       }
 
-      visitedStations.add(matchedStation.id);
+      visitedIds.push(station.id);
       localStorage.setItem(LAST_SCAN_KEY, String(now));
-      saveProgress();
-
-      setTimeout(() => {
-        showToast(matchedStation, false, 0);
-      }, 250);
+      saveState();
+      showToast('success', t.toastAdded(stationName));
+      render();
     }
 
-    function showToast(station, alreadyVisited, cooldownSec) {
-      const t = UI_STRINGS[currentLang];
-      const banner = document.getElementById('toastBanner');
-      const titleEl = document.getElementById('toastTitle');
-      const subEl = document.getElementById('toastSubtitle');
-
-      if (cooldownSec > 0) {
-        titleEl.textContent = t.toastCooldownTitle;
-        subEl.textContent = `${t.toastCooldownDesc} ${cooldownSec} ${t.secWord}`;
-      } else {
-        titleEl.textContent = t.toastTitle;
-        subEl.textContent = `${station.name[currentLang]} — ${alreadyVisited ? t.toastAlready : t.toastAdded}`;
-      }
-
-      banner.classList.remove('hidden');
-      banner.classList.add('toast-enter');
-
-      setTimeout(() => {
-        banner.classList.add('hidden');
-        banner.classList.remove('toast-enter');
-      }, 4200);
-    }
-
-    // ==========================================
-    // 6. RENDER UI (MAP, LIST, PROGRESS, CERT)
-    // ==========================================
-    function renderAll() {
-      const t = UI_STRINGS[currentLang];
-
-      // Update language toggle buttons
-      ['ru', 'en', 'es', 'zh'].forEach(lang => {
-        const btn = document.getElementById(`langBtn-${lang}`);
-        if (lang === currentLang) {
-          btn.className = 'flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-[#FAFAFA] text-[#1D006D] shadow flex items-center justify-center gap-1.5';
-        } else {
-          btn.className = 'flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-[#FAFAFA] hover:bg-[#4C4CC1]/50 flex items-center justify-center gap-1.5';
-        }
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentLang = btn.getAttribute('data-lang');
+        localStorage.setItem(LANG_KEY, currentLang);
+        render();
       });
-
-      // Update static texts
-      document.getElementById('uiMainTitle').textContent = t.mainTitle;
-      document.getElementById('uiSubTitle').textContent = t.subTitle;
-      document.getElementById('uiProgressLabel').textContent = t.progressLabel;
-      document.getElementById('uiStationsWord').textContent = t.stationsWord;
-      document.getElementById('uiGoalBadgeText').textContent = t.goalBadgeText;
-      document.getElementById('uiInstructionText').textContent = t.instructionText;
-      document.getElementById('uiMapHeading').textContent = t.mapHeading;
-      document.getElementById('uiLegendUnvisited').textContent = t.legendUnvisited;
-      document.getElementById('uiLegendVisited').textContent = t.legendVisited;
-      document.getElementById('uiStationsHeading').textContent = t.stationsHeading;
-      document.getElementById('uiTapHint').textContent = t.tapHint;
-      document.getElementById('uiFooterText').textContent = t.footerText;
-      document.getElementById('uiResetBtn').textContent = t.resetBtn;
-      document.getElementById('modalCloseBtnText').textContent = t.btnClose;
-      document.getElementById('uiOpenCertBtn').textContent = t.openCertBtn;
-
-      // Update certificate UI texts
-      updateCertificateUI();
-
-      // Update progress bar & prize banner (STRICTLY 12 / 12)
-      const count = visitedStations.size;
-      const total = STATIONS.length;
-      const pct = Math.round((count / total) * 100);
-
-      document.getElementById('progressCount').textContent = `${count} / ${total}`;
-      document.getElementById('progressBarFill').style.width = `${pct}%`;
-
-      const prizeBanner = document.getElementById('prizeBanner');
-      if (count === total) {
-        prizeBanner.classList.remove('hidden');
-        document.getElementById('prizeBannerTitle').textContent = t.prizeTitle;
-        document.getElementById('prizeBannerDesc').textContent = t.prizeDesc;
-      } else {
-        prizeBanner.classList.add('hidden');
-      }
-
-      renderMapPins();
-      renderStationsList();
-    }
-
-    function renderMapPins() {
-      const pinsLayer = document.getElementById('mapPinsLayer');
-      pinsLayer.innerHTML = '';
-
-      STATIONS.forEach(station => {
-        const isVisited = visitedStations.has(station.id);
-        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        g.setAttribute('class', 'cursor-pointer transition-transform hover:scale-110');
-        g.setAttribute('transform', `translate(${station.x}, ${station.y})`);
-        g.addEventListener('click', () => openStationModal(station.id));
-
-        if (isVisited) {
-          const halo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          halo.setAttribute('r', '22');
-          halo.setAttribute('fill', '#4C4CC1');
-          halo.setAttribute('opacity', '0.45');
-          g.appendChild(halo);
-
-          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          circle.setAttribute('r', '15');
-          circle.setAttribute('fill', '#0707A0');
-          circle.setAttribute('stroke', '#FAFAFA');
-          circle.setAttribute('stroke-width', '3');
-          g.appendChild(circle);
-
-          const checkPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-          checkPath.setAttribute('d', 'M -6 0 L -2 4 L 6 -4');
-          checkPath.setAttribute('fill', 'none');
-          checkPath.setAttribute('stroke', '#FAFAFA');
-          checkPath.setAttribute('stroke-width', '2.8');
-          checkPath.setAttribute('stroke-linecap', 'round');
-          checkPath.setAttribute('stroke-linejoin', 'round');
-          g.appendChild(checkPath);
-        } else {
-          const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          pulse.setAttribute('r', '16');
-          pulse.setAttribute('fill', '#4C4CC1');
-          pulse.setAttribute('class', 'pin-pulse');
-          g.appendChild(pulse);
-
-          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          circle.setAttribute('r', '13');
-          circle.setAttribute('fill', '#FAFAFA');
-          circle.setAttribute('stroke', '#4C4CC1');
-          circle.setAttribute('stroke-width', '3');
-          g.appendChild(circle);
-
-          const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          dot.setAttribute('r', '4.5');
-          dot.setAttribute('fill', '#1D006D');
-          g.appendChild(dot);
-        }
-
-        const shortLabel = station.name[currentLang].split('(')[0].trim();
-        const labelWidth = Math.min(Math.max(shortLabel.length * 7.2 + 16, 62), 145);
-
-        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        rect.setAttribute('x', -labelWidth / 2);
-        rect.setAttribute('y', '19');
-        rect.setAttribute('width', labelWidth);
-        rect.setAttribute('height', '20');
-        rect.setAttribute('rx', '10');
-        rect.setAttribute('fill', isVisited ? '#0707A0' : '#1D006D');
-        rect.setAttribute('stroke', isVisited ? '#FAFAFA' : '#4C4CC1');
-        rect.setAttribute('stroke-width', '1.2');
-        g.appendChild(rect);
-
-        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        text.setAttribute('y', '32.5');
-        text.setAttribute('text-anchor', 'middle');
-        text.setAttribute('fill', '#FAFAFA');
-        text.setAttribute('font-size', '10.5');
-        text.setAttribute('font-weight', isVisited ? 'bold' : 'normal');
-        text.textContent = shortLabel.length > 18 ? shortLabel.slice(0, 17) + '...' : shortLabel;
-        g.appendChild(text);
-
-        pinsLayer.appendChild(g);
-      });
-    }
-
-    function renderStationsList() {
-      const grid = document.getElementById('stationsGrid');
-      const t = UI_STRINGS[currentLang];
-      grid.innerHTML = '';
-
-      STATIONS.forEach((station, idx) => {
-        const isVisited = visitedStations.has(station.id);
-        const card = document.createElement('button');
-        card.type = 'button';
-        card.onclick = () => openStationModal(station.id);
-
-        card.className = isVisited
-          ? 'w-full text-left p-3.5 rounded-2xl bg-[#0707A0] text-[#FAFAFA] border-2 border-[#0707A0] shadow-md flex items-center justify-between gap-3 transition active:scale-[0.99]'
-          : 'w-full text-left p-3.5 rounded-2xl bg-white text-[#1D006D] border-2 border-[#4C4CC1]/30 hover:border-[#0707A0] shadow-xs flex items-center justify-between gap-3 transition active:scale-[0.99]';
-
-        const badgeHTML = getStationBadgeHTML(station, 'text-2xl');
-
-        card.innerHTML = `
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-10 h-10 rounded-xl ${isVisited ? 'bg-[#FAFAFA]' : 'bg-[#FAFAFA] border border-[#4C4CC1]/30'} flex items-center justify-center shrink-0 overflow-hidden p-1">
-              ${badgeHTML}
-            </div>
-            <div class="min-w-0">
-              <div class="text-[10px] uppercase tracking-wider ${isVisited ? 'text-[#FAFAFA]/80' : 'text-[#4C4CC1]'} font-bold">
-                #${idx + 1} • ${isVisited ? t.statusVisited : t.statusUnvisited}
-              </div>
-              <div class="text-sm font-bold leading-snug truncate">
-                ${station.name[currentLang]}
-              </div>
-            </div>
-          </div>
-          <div class="w-7 h-7 rounded-full ${isVisited ? 'bg-[#FAFAFA] text-[#0707A0]' : 'border-2 border-[#4C4CC1]/50 text-transparent'} flex items-center justify-center shrink-0">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </div>
-        `;
-
-        grid.appendChild(card);
-      });
-    }
-
-    function setLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem(LANG_KEY, lang);
-      renderAll();
-    }
-
-    // ==========================================
-    // 7. STATION DETAIL MODAL (READ-ONLY INFO)
-    // ==========================================
-    function openStationModal(stationId) {
-      const station = STATIONS.find(s => s.id === stationId);
-      if (!station) return;
-
-      const t = UI_STRINGS[currentLang];
-      const isVisited = visitedStations.has(stationId);
-
-      document.getElementById('modalBadgeIcon').innerHTML = getStationBadgeHTML(station, 'text-3xl');
-      document.getElementById('modalTitle').textContent = station.name[currentLang];
-      document.getElementById('modalDesc').textContent = station.desc[currentLang];
-
-      const badge = document.getElementById('modalStatusBadge');
-      badge.textContent = isVisited ? t.statusVisited : t.statusUnvisited;
-      badge.className = isVisited
-        ? 'inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#0707A0] text-[#FAFAFA] mb-1'
-        : 'inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#4C4CC1]/15 text-[#0707A0] mb-1';
-
-      document.getElementById('stationModal').classList.remove('hidden');
-    }
-
-    function closeStationModal(event) {
-      if (event && event.target !== event.currentTarget) return;
-      document.getElementById('stationModal').classList.add('hidden');
-    }
-
-    // ==========================================
-    // 8. CERTIFICATE MODAL & PNG EXPORT
-    // ==========================================
-    function getFormattedCertDate() {
-      const locale =
-        currentLang === 'en' ? 'en-US' :
-        currentLang === 'es' ? 'es-ES' :
-        currentLang === 'zh' ? 'zh-CN' : 'ru-RU';
-      return new Date().toLocaleDateString(locale, {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-      });
-    }
-
-    function updateCertificateUI() {
-      const t = UI_STRINGS[currentLang];
-      document.getElementById('certModalHeading').textContent = t.certModalHeading;
-      document.getElementById('certOrgSubtitle').textContent = t.certOrgSubtitle;
-      document.getElementById('certCardTitle').textContent = t.certCardTitle;
-      document.getElementById('certCardSub').textContent = t.certCardSub;
-      document.getElementById('certAwardedLabel').textContent = t.certAwardedLabel;
-      document.getElementById('certStationsBadge').textContent = t.certStationsBadge;
-      document.getElementById('certDateText').textContent = `${t.certPlaceText} • ${getFormattedCertDate()}`;
-      document.getElementById('certInputLabel').textContent = t.certInputLabel;
-      document.getElementById('certNameInput').placeholder = t.certInputPlaceholder;
-      document.getElementById('certDownloadBtnText').textContent = t.certDownloadBtn;
-      document.getElementById('certCloseBtnText').textContent = t.btnClose;
-
-      const displayName = certParticipantName.trim() || t.certDefaultName;
-      document.getElementById('certPreviewName').textContent = displayName;
-    }
-
-    function openCertificateModal() {
-      if (visitedStations.size < STATIONS.length) return;
-      document.getElementById('certNameInput').value = certParticipantName;
-      updateCertificateUI();
-      document.getElementById('certificateModal').classList.remove('hidden');
-    }
-
-    function closeCertificateModal(event) {
-      if (event && event.target !== event.currentTarget) return;
-      document.getElementById('certificateModal').classList.add('hidden');
-    }
-
-    function updateCertificateName(val) {
-      certParticipantName = val;
-      localStorage.setItem(CERT_NAME_KEY, val);
-      const t = UI_STRINGS[currentLang];
-      document.getElementById('certPreviewName').textContent = val.trim() || t.certDefaultName;
-    }
-
-    function downloadCertificatePNG() {
-      const t = UI_STRINGS[currentLang];
-      const canvas = document.createElement('canvas');
-      canvas.width = 1080;
-      canvas.height = 1350;
-      const ctx = canvas.getContext('2d');
-
-      // Background gradient
-      const bgGrad = ctx.createLinearGradient(0, 0, 1080, 1350);
-      bgGrad.addColorStop(0, '#1D006D');
-      bgGrad.addColorStop(0.55, '#0707A0');
-      bgGrad.addColorStop(1, '#4C4CC1');
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, 1080, 1350);
-
-      // Subtle decorative grid
-      ctx.strokeStyle = 'rgba(250, 250, 250, 0.06)';
-      ctx.lineWidth = 1;
-      for (let x = 0; x <= 1080; x += 90) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, 1350);
-        ctx.stroke();
-      }
-      for (let y = 0; y <= 1350; y += 90) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(1080, y);
-        ctx.stroke();
-      }
-
-      // Outer decorative frame
-      ctx.strokeStyle = 'rgba(250, 250, 250, 0.35)';
-      ctx.lineWidth = 4;
-      ctx.strokeRect(56, 56, 968, 1238);
-
-      ctx.strokeStyle = 'rgba(250, 250, 250, 0.18)';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(74, 74, 932, 1202);
-
-      // Helper to finish text drawing and trigger PNG download
-      const finishAndDownload = () => {
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(250, 250, 250, 0.82)';
-        ctx.font = 'bold 22px "PT Sans", sans-serif';
-        ctx.fillText(t.certOrgSubtitle, 540, 390);
-
-        ctx.fillStyle = '#FAFAFA';
-        ctx.font = 'bold 104px "Bebas Neue", "PT Sans", sans-serif';
-        ctx.fillText(t.certCardTitle, 540, 515);
-
-        ctx.fillStyle = 'rgba(250, 250, 250, 0.9)';
-        ctx.font = '28px "PT Sans", sans-serif';
-        ctx.fillText(t.certCardSub, 540, 575, 860);
-
-        // Divider line top
-        ctx.strokeStyle = 'rgba(250, 250, 250, 0.3)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(180, 650);
-        ctx.lineTo(900, 650);
-        ctx.stroke();
-
-        ctx.fillStyle = 'rgba(250, 250, 250, 0.72)';
-        ctx.font = 'bold 24px "PT Sans", sans-serif';
-        ctx.fillText(t.certAwardedLabel.toUpperCase(), 540, 715);
-
-        const displayName = (certParticipantName.trim() || t.certDefaultName).toUpperCase();
-        ctx.fillStyle = '#FAFAFA';
-        ctx.font = 'bold 74px "Bebas Neue", "PT Sans", sans-serif';
-        ctx.fillText(displayName, 540, 815, 840);
-
-        // Divider line bottom
-        ctx.strokeStyle = 'rgba(250, 250, 250, 0.3)';
-        ctx.beginPath();
-        ctx.moveTo(180, 875);
-        ctx.lineTo(900, 875);
-        ctx.stroke();
-
-        // 12/12 Pill Badge
-        ctx.fillStyle = 'rgba(250, 250, 250, 0.16)';
-        ctx.strokeStyle = 'rgba(250, 250, 250, 0.45)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.roundRect(290, 955, 500, 74, 37);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = '#FAFAFA';
-        ctx.font = 'bold 30px "PT Sans", sans-serif';
-        ctx.fillText(t.certStationsBadge, 540, 1003);
-
-        // Footer place & date
-        ctx.fillStyle = 'rgba(250, 250, 250, 0.78)';
-        ctx.font = '26px "PT Sans", sans-serif';
-        ctx.fillText(`${t.certPlaceText} • ${getFormattedCertDate()}`, 540, 1185);
-
-        try {
-          const link = document.createElement('a');
-          link.download = 'kmd-festival-certificate.png';
-          link.href = canvas.toDataURL('image/png');
-          link.click();
-        } catch (err) {
-          alert('Не удалось сохранить PNG автоматически. Сделай скриншот экрана сертификата.');
-        }
-      };
-
-      // Draw KMD Logo at the top
-      const logoImg = new Image();
-      logoImg.crossOrigin = 'anonymous';
-      logoImg.onload = () => {
-        const maxLogoSize = 180;
-        const scale = Math.min(maxLogoSize / logoImg.width, maxLogoSize / logoImg.height);
-        const w = logoImg.width * scale;
-        const h = logoImg.height * scale;
-        ctx.drawImage(logoImg, (1080 - w) / 2, 130 + (maxLogoSize - h) / 2, w, h);
-        finishAndDownload();
-      };
-      logoImg.onerror = () => {
-        ctx.textAlign = 'center';
-        ctx.fillStyle = '#FAFAFA';
-        ctx.font = 'bold 64px "PT Sans", sans-serif';
-        ctx.fillText('КМД', 540, 245);
-        finishAndDownload();
-      };
-      logoImg.src = './kmd-logo.png';
-    }
-
-    function confirmResetProgress() {
-      const t = UI_STRINGS[currentLang];
-      const footerBtn = document.getElementById('uiResetBtn');
-      if (footerBtn.dataset.confirming === 'true') {
-        visitedStations.clear();
-        localStorage.removeItem(LAST_SCAN_KEY);
-        saveProgress();
-        renderAll();
-        footerBtn.dataset.confirming = 'false';
-        footerBtn.textContent = t.resetBtn;
-      } else {
-        footerBtn.dataset.confirming = 'true';
-        footerBtn.textContent = t.resetConfirmBtn;
-        setTimeout(() => {
-          footerBtn.dataset.confirming = 'false';
-          footerBtn.textContent = UI_STRINGS[currentLang].resetBtn;
-        }, 3500);
-      }
-    }
-
-    // ==========================================
-    // 9. INITIALIZATION
-    // ==========================================
-    window.addEventListener('DOMContentLoaded', () => {
-      checkUrlStationParam();
-      renderAll();
     });
 
-    window.addEventListener('hashchange', () => {
-      checkUrlStationParam();
-      renderAll();
-    });
+    window.addEventListener('hashchange', processHashScan);
+
+    render();
+    processHashScan();
   </script>
 </body>
 </html>
